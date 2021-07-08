@@ -1,43 +1,27 @@
 import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.sass'
+import JsBarcode from 'jsbarcode'
 
 function App() {
   const [count, setCount] = useState(0)
 
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  const cont = React.useRef(0);
+  React.useEffect(() => {
+    const canvas = document.createElement('canvas')
+    JsBarcode(canvas, '1234567890', {
+      format: 'codabar'
+    })
+    if (ref && ref.current) {
+      ref.current.appendChild(canvas)
+      cont.current = cont.current + 1
+      console.log(cont)
+    }
+  }, [ref])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <div ref={ref}></div>
     </div>
   )
 }
