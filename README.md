@@ -1,9 +1,8 @@
-# vite-template
+# Ajime
 
-https://vitejs.dev/
+https://calil.github.io/ajime/
 
-Vite+React+TypeScript+Pug+Sassの開発環境
-
+バーコードの生成ツール
 
 ## 開発
 
