@@ -33,11 +33,11 @@ class App extends Component<Props, State> {
     if (this.startNumber && this.endNumber) {
       const startNumber = parseInt(this.startNumber.value)
       const endNumber = parseInt(this.endNumber.value)
-      console.log(startNumber, endNumber)
+      // console.log(startNumber, endNumber)
       if (startNumber >= endNumber) return console.log('数字の指定が間違っています')
       let currentNumber = startNumber
       while(currentNumber <= endNumber) {
-        console.log(currentNumber)
+        // console.log(currentNumber)
         this.renderBarcode(currentNumber)
         currentNumber += 1
       }
@@ -46,7 +46,9 @@ class App extends Component<Props, State> {
   renderBarcode(number: number) {
     const canvas = document.createElement('canvas')
     JsBarcode(canvas, String(number), {
-      format: 'codabar'
+      format: 'codabar',
+      width: 2,
+      height: 75
     })
     if (this.canvasDiv) {
       this.canvasDiv.appendChild(canvas)
@@ -61,7 +63,7 @@ class App extends Component<Props, State> {
             <input type="number" defaultValue="10000" ref={element => this.startNumber = element} />
             -
             <label htmlFor=""></label>
-            <input type="number" defaultValue="11000" ref={element => this.endNumber = element} />
+            <input type="number" defaultValue="10100" ref={element => this.endNumber = element} />
             <button onClick={this.renderBarCodes.bind(this)}>バーコード作成</button>
           </div>
           <button onClick={print}>印刷</button>
