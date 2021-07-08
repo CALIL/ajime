@@ -30,6 +30,7 @@ class App extends Component<Props, State> {
     this.renderBarCodes()
   }
   renderBarCodes() {
+    if (this.canvasDiv) this.canvasDiv.innerHTML = ''
     if (this.startNumber && this.endNumber) {
       const startNumber = parseInt(this.startNumber.value)
       const endNumber = parseInt(this.endNumber.value)
