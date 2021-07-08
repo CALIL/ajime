@@ -4,6 +4,11 @@ jobs:
   build-and-deploy:
     runs-on: [self-hosted, Linux]
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.3.0
+          always-auth: true
+          registry-url: https://registry.npmjs.org
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
