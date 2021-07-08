@@ -1,29 +1,44 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react'
 import JsBarcode from 'jsbarcode'
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  const ref = React.useRef<HTMLDivElement>(null);
+interface App {
+  canvasDiv: HTMLDivElement | null
+}
 
-  const cont = React.useRef(0);
-  React.useEffect(() => {
+
+interface Props {
+}
+
+interface State {
+}
+
+
+class App extends Component<Props, State> {
+  constructor(props:Props) {
+      super(props)
+      this.state = {
+      }
+      this.canvasDiv = null
+  }
+  componentDidMount() {
     const canvas = document.createElement('canvas')
     JsBarcode(canvas, '1234567890', {
       format: 'codabar'
     })
-    if (ref && ref.current) {
-      ref.current.appendChild(canvas)
-      cont.current = cont.current + 1
-      console.log(cont)
+    if (this.canvasDiv) {
+      this.canvasDiv.appendChild(canvas)
     }
-  }, [ref])
-
-  return (
-    <div className="App">
-      <div ref={ref}></div>
-    </div>
-  )
+  }
+  render() {
+    return (
+      <div className="App">
+        <div ref={element => this.canvasDiv = element}></div>
+      </div>
+    )  
+  }
 }
+
+
 
 export default App
