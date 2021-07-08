@@ -35,6 +35,11 @@ class App extends Component<Props, State> {
       const endNumber = parseInt(this.endNumber.value)
       // console.log(startNumber, endNumber)
       if (startNumber >= endNumber) return console.log('数字の指定が間違っています')
+      if (endNumber - startNumber >= 1000) {
+        if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')){
+          return
+        }
+      }
       let currentNumber = startNumber
       while(currentNumber <= endNumber) {
         // console.log(currentNumber)
