@@ -22,8 +22,11 @@ class App extends Component<Props, State> {
       this.canvasDiv = null
   }
   componentDidMount() {
+    this.renderBarcode('123456789')
+  }
+  renderBarcode(number: string) {
     const canvas = document.createElement('canvas')
-    JsBarcode(canvas, '1234567890', {
+    JsBarcode(canvas, number, {
       format: 'codabar'
     })
     if (this.canvasDiv) {
@@ -38,7 +41,5 @@ class App extends Component<Props, State> {
     )  
   }
 }
-
-
 
 export default App
