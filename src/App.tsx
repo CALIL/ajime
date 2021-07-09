@@ -137,7 +137,7 @@ const Step2 = (props: any) => {
 }
 const Step3 = (props: any) => {
   return (
-    <div className="step">
+    <div className="step step3">
       <h2>Step {props.currentStep}</h2>
       <p>印刷するバーコードラベルの設定</p>
       <div>
