@@ -16,7 +16,7 @@ const splitByNumber = (sourceArray: any[], splitNumber: number) => {
 interface App {
   canvasDiv: HTMLDivElement | null
   startNumber: HTMLInputElement | null
-  endNumber: HTMLInputElement | null
+  countNumber: HTMLInputElement | null
 }
 
 
@@ -34,7 +34,7 @@ class App extends Component<Props, State> {
       }
       this.canvasDiv = null
       this.startNumber = null
-      this.endNumber = null
+      this.countNumber = null
   }
   componentDidMount() {
     // this.renderBarcode('123456789')
@@ -42,23 +42,21 @@ class App extends Component<Props, State> {
   }
   renderBarCodes() {
     if (this.canvasDiv) this.canvasDiv.innerHTML = ''
-    if (this.startNumber && this.endNumber) {
+    if (this.startNumber && this.countNumber) {
       const startNumber = parseInt(this.startNumber.value)
-      const endNumber = parseInt(this.endNumber.value)
+      const countNumber = parseInt(this.countNumber.value)
       // console.log(startNumber, endNumber)
-      if (startNumber >= endNumber) return console.log('数字の指定が間違っています')
-      if (endNumber - startNumber >= 1000) {
+      if (countNumber >= 1000) {
         if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')){
           return
         }
       }
-      const numbers = []
+      const numbers:any[] = []
       let currentNumber = startNumber
-      while(currentNumber <= endNumber) {
-        // console.log(currentNumber)
-        currentNumber += 1
+      Array.from({length: countNumber}).forEach(() => {
         numbers.push(currentNumber)
-      }
+        currentNumber += 1
+      })
       const splitNumbers = splitByNumber(numbers, 28)
       splitNumbers.forEach((ns) => {
         this.renderBarcode(ns)
@@ -88,9 +86,9 @@ class App extends Component<Props, State> {
           <div>
             <label htmlFor=""></label>
             <input type="number" defaultValue="10000" ref={element => this.startNumber = element} />
-            -
+            から
             <label htmlFor=""></label>
-            <input type="number" defaultValue="10100" ref={element => this.endNumber = element} />
+            <input type="number" defaultValue="100" ref={element => this.countNumber = element} />個
             <button onClick={this.renderBarCodes.bind(this)}>バーコード作成</button>
           </div>
           <button onClick={print}>印刷</button>
