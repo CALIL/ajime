@@ -38,8 +38,6 @@ class App extends Component<Props, State> {
       this.countNumber = null
   }
   componentDidMount() {
-    // this.renderBarcode('123456789')
-    // this.renderBarCodes()
   }
   renderBarCodes() {
     if (this.canvasDiv) this.canvasDiv.innerHTML = ''
@@ -80,16 +78,23 @@ class App extends Component<Props, State> {
       this.canvasDiv.appendChild(div)
     }
 }
-  render() {
+
+print() {
+    this.renderBarCodes()
+    window.print()
+}
+
+render() {
     return (
       <div className="App">
-        <StepWizard>
-          <Step1 />
-          <Step2 />
-          <Step3 />
-          <Step4 this={this} />
-        </StepWizard>
-        <div ref={element => this.canvasDiv = element}></div>
+        <div className="steps">
+          <StepWizard nav={<Nav />} transitions>
+            <Step1 />
+            <Step2 />
+            <Step3 this={this} />
+          </StepWizard>
+        </div>
+        <div className="canvas" ref={element => this.canvasDiv = element}></div>
       </div>
     )  
   }
@@ -98,52 +103,52 @@ class App extends Component<Props, State> {
 export default App
 
 
+const Nav = (props: any) => {
+  return (<ol>
+    <li className={props.currentStep === 1 ? 'current' : ''}>Step 1</li>
+    <li className={props.currentStep === 2 ? 'current' : ''}>Step 2</li>
+    <li className={props.currentStep === 3 ? 'current' : ''}>Step 3</li>
+    <li className={props.currentStep === 4 ? 'current' : ''}>Ready to go!</li>
+  </ol>)
+}
+
 const Step1 = (props: any) => {
   return (
-    <div>
+    <div className="step">
       <h2>Step {props.currentStep}</h2>
-      <p>Total Steps: {props.totalSteps}</p>
-      <p>Is Active: {props.isActive}</p>
-      <p><button onClick={props.nextStep}>次へ</button></p>
+      <p>テンプレートの選択</p>
+      <nav>
+        <button onClick={props.nextStep}>次へ</button>
+      </nav>
     </div>
   )
 }
 const Step2 = (props: any) => {
   return (
-    <div>
+    <div className="step">
       <h2>Step {props.currentStep}</h2>
-      <p>Total Steps: {props.totalSteps}</p>
-      <p>Is Active: {props.isActive}</p>
-      <p><button onClick={props.previousStep}>戻る</button></p>
-      <p><button onClick={props.nextStep}>次へ</button></p>
+      <p>何かを選択</p>
+      <nav>
+        <button onClick={props.previousStep}>戻る</button>
+        <button onClick={props.nextStep}>次へ</button>
+      </nav>
     </div>
   )
 }
 const Step3 = (props: any) => {
   return (
-    <div>
-      <h2>Step {props.currentStep}</h2>
-      <p>Total Steps: {props.totalSteps}</p>
-      <p>Is Active: {props.isActive}</p>
-      <p><button onClick={props.previousStep}>戻る</button></p>
-      <p><button onClick={props.nextStep}>次へ</button></p>
-    </div>
-  )
-}
-const Step4 = (props: any) => {
-  return (
-    <div>
+    <div className="step">
       <h2>Step {props.currentStep}</h2>
 
       <div>
         <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
         から
         <input type="number" defaultValue="100" ref={element => props.this.countNumber = element} />個
-        <button onClick={props.this.renderBarCodes.bind(props.this)}>バーコード作成</button>
       </div>
-      <button onClick={print}>印刷</button>
-
-      <p><button onClick={props.previousStep}>戻る</button></p>
+      <nav>
+        <button onClick={props.previousStep}>戻る</button>
+        <button onClick={props.this.print.bind(props.this)}>作成</button>
+      </nav>
     </div>
   )
 }
