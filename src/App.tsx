@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import JsBarcode from 'jsbarcode'
 
+// 配列をn個毎の配列に分割して返す関数
+const splitByNumber = (sourceArray: any[], splitNumber: number) => {
+  const sourceArrayLength  = sourceArray.length
+  var splitArray = []
+  for(var i = 0; i < Math.ceil(sourceArrayLength / splitNumber); i++) {
+      const array = sourceArray.slice(i * splitNumber, i * splitNumber + splitNumber)
+      splitArray.push(array)
+  }
+  return splitArray
+}
+
 
 interface App {
   canvasDiv: HTMLDivElement | null
@@ -41,25 +52,35 @@ class App extends Component<Props, State> {
           return
         }
       }
+      const numbers = []
       let currentNumber = startNumber
       while(currentNumber <= endNumber) {
         // console.log(currentNumber)
-        this.renderBarcode(currentNumber)
         currentNumber += 1
+        numbers.push(currentNumber)
       }
+      const splitNumbers = splitByNumber(numbers, 36)
+      splitNumbers.forEach((ns) => {
+        this.renderBarcode(ns)
+      })
     }
   }
-  renderBarcode(number: number) {
-    const canvas = document.createElement('canvas')
-    JsBarcode(canvas, String(number), {
-      format: 'codabar',
-      width: 2,
-      height: 75
+  renderBarcode(numbers: number[]) {
+    const div = document.createElement('div')
+    div.className = 'sheet padding-10mm'
+    numbers.forEach((number) => {
+      const canvas = document.createElement('canvas')
+      JsBarcode(canvas, String(number), {
+        format: 'codabar',
+        width: 2,
+        height: 75
+      })
+      div.appendChild(canvas)
     })
     if (this.canvasDiv) {
-      this.canvasDiv.appendChild(canvas)
+      this.canvasDiv.appendChild(div)
     }
-  }
+}
   render() {
     return (
       <div className="App">
