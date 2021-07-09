@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import JsBarcode from 'jsbarcode'
+import StepWizard from 'react-step-wizard'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
@@ -38,14 +39,14 @@ class App extends Component<Props, State> {
   }
   componentDidMount() {
     // this.renderBarcode('123456789')
-    this.renderBarCodes()
+    // this.renderBarCodes()
   }
   renderBarCodes() {
     if (this.canvasDiv) this.canvasDiv.innerHTML = ''
     if (this.startNumber && this.countNumber) {
       const startNumber = parseInt(this.startNumber.value)
       const countNumber = parseInt(this.countNumber.value)
-      // console.log(startNumber, endNumber)
+      // console.log(startNumber, countNumber)
       if (countNumber >= 1000) {
         if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')){
           return
@@ -82,17 +83,12 @@ class App extends Component<Props, State> {
   render() {
     return (
       <div className="App">
-        <header>
-          <div>
-            <label htmlFor=""></label>
-            <input type="number" defaultValue="10000" ref={element => this.startNumber = element} />
-            から
-            <label htmlFor=""></label>
-            <input type="number" defaultValue="100" ref={element => this.countNumber = element} />個
-            <button onClick={this.renderBarCodes.bind(this)}>バーコード作成</button>
-          </div>
-          <button onClick={print}>印刷</button>
-        </header>
+        <StepWizard>
+          <Step1 />
+          <Step2 />
+          <Step3 />
+          <Step4 this={this} />
+        </StepWizard>
         <div ref={element => this.canvasDiv = element}></div>
       </div>
     )  
@@ -100,3 +96,54 @@ class App extends Component<Props, State> {
 }
 
 export default App
+
+
+const Step1 = (props: any) => {
+  return (
+    <div>
+      <h2>Step {props.currentStep}</h2>
+      <p>Total Steps: {props.totalSteps}</p>
+      <p>Is Active: {props.isActive}</p>
+      <p><button onClick={props.nextStep}>次へ</button></p>
+    </div>
+  )
+}
+const Step2 = (props: any) => {
+  return (
+    <div>
+      <h2>Step {props.currentStep}</h2>
+      <p>Total Steps: {props.totalSteps}</p>
+      <p>Is Active: {props.isActive}</p>
+      <p><button onClick={props.previousStep}>戻る</button></p>
+      <p><button onClick={props.nextStep}>次へ</button></p>
+    </div>
+  )
+}
+const Step3 = (props: any) => {
+  return (
+    <div>
+      <h2>Step {props.currentStep}</h2>
+      <p>Total Steps: {props.totalSteps}</p>
+      <p>Is Active: {props.isActive}</p>
+      <p><button onClick={props.previousStep}>戻る</button></p>
+      <p><button onClick={props.nextStep}>次へ</button></p>
+    </div>
+  )
+}
+const Step4 = (props: any) => {
+  return (
+    <div>
+      <h2>Step {props.currentStep}</h2>
+
+      <div>
+        <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
+        から
+        <input type="number" defaultValue="100" ref={element => props.this.countNumber = element} />個
+        <button onClick={props.this.renderBarCodes.bind(props.this)}>バーコード作成</button>
+      </div>
+      <button onClick={print}>印刷</button>
+
+      <p><button onClick={props.previousStep}>戻る</button></p>
+    </div>
+  )
+}
