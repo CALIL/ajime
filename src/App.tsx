@@ -59,7 +59,7 @@ class App extends Component<Props, State> {
         currentNumber += 1
         numbers.push(currentNumber)
       }
-      const splitNumbers = splitByNumber(numbers, 36)
+      const splitNumbers = splitByNumber(numbers, 28)
       splitNumbers.forEach((ns) => {
         this.renderBarcode(ns)
       })
