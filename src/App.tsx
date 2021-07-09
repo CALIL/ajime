@@ -118,7 +118,7 @@ const Step1 = (props: any) => {
       <h2>Step {props.currentStep}</h2>
       <p>テンプレートの選択</p>
       <nav>
-        <button onClick={props.nextStep}>次へ</button>
+        <button onClick={props.nextStep} className="active">次へ</button>
       </nav>
     </div>
   )
@@ -130,7 +130,7 @@ const Step2 = (props: any) => {
       <p>何かを選択</p>
       <nav>
         <button onClick={props.previousStep}>戻る</button>
-        <button onClick={props.nextStep}>次へ</button>
+        <button onClick={props.nextStep} className="active">次へ</button>
       </nav>
     </div>
   )
@@ -139,7 +139,7 @@ const Step3 = (props: any) => {
   return (
     <div className="step">
       <h2>Step {props.currentStep}</h2>
-
+      <p>印刷するバーコードラベルの設定</p>
       <div>
         <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
         から
@@ -147,7 +147,7 @@ const Step3 = (props: any) => {
       </div>
       <nav>
         <button onClick={props.previousStep}>戻る</button>
-        <button onClick={props.this.print.bind(props.this)}>作成</button>
+        <button onClick={props.this.print.bind(props.this)} className="active">作成</button>
       </nav>
     </div>
   )
