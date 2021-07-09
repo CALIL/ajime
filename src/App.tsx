@@ -88,7 +88,7 @@ render() {
     return (
       <div className="App">
         <div className="steps">
-          <StepWizard nav={<Nav />} transitions>
+          <StepWizard nav={<Nav />}>
             <Step1 />
             <Step2 />
             <Step3 this={this} />
