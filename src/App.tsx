@@ -85,10 +85,16 @@ print() {
 }
 
 render() {
+  let custom = {
+    enterRight: '',
+    enterLeft : '',
+    exitRight : '',
+    exitLeft  : ''
+  }
     return (
       <div className="App">
         <div className="steps">
-          <StepWizard nav={<Nav />}>
+          <StepWizard nav={<Nav />} transitions={custom}>
             <Step1 />
             <Step2 />
             <Step3 this={this} />
