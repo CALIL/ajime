@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import JsBarcode from 'jsbarcode'
 import StepWizard from 'react-step-wizard'
 
-
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
   const sourceArrayLength  = sourceArray.length
@@ -87,10 +86,10 @@ print() {
 
 render() {
   let custom = {
-    enterRight: '',
-    enterLeft : '',
-    exitRight : '',
-    exitLeft  : ''
+    enterRight: 'animate__animated animate__fadeInRight',
+    enterLeft : 'animate__animated animate__fadeInLeft',
+    exitRight : 'animate__animated animate__fadeOutRight',
+    exitLeft  : 'animate__animated animate__fadeOutLeft'
   }
     return (
       <div className="App">
