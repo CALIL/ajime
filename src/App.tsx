@@ -86,10 +86,10 @@ print() {
 
 render() {
   let custom = {
-    enterRight: '',
-    enterLeft : '',
-    exitRight : '',
-    exitLeft  : ''
+    enterRight: 'animated fadeIn',
+    enterLeft : 'animated fadeIn',
+    exitRight : 'animated fadeOut',
+    exitLeft  : 'animated fadeOut'
   }
     return (
       <div className="App">
