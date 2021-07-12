@@ -86,8 +86,10 @@ print() {
 
 render() {
   let custom = {
-    enterRight: 'animate__animated animate__fadeInRightBig',
-    enterLeft : 'animate__animated animate__fadeInLeftBig',
+    // enterRight: 'animate__animated animate__fadeInRightBig',
+    // enterLeft : 'animate__animated animate__fadeInLeftBig',
+    enterRight: '',
+    enterLeft : '',
     exitRight : '',
     exitLeft  : ''
   }
