@@ -33,13 +33,29 @@
       border: 1px solid #CCCCCC
       margin-right: 0.5rem
   .canvas
-    display: none
-    margin: 0 auto
+    // display: none
     .sheet
       margin: 0 auto
-      canvas
-        margin: 2.5mm 2.5mm 0 0
-
+      &.padding-AONE
+        padding: 8.8mm 8.2mm
+        div.barcode
+          display: inline-block
+          position: relative
+          width: 48.3mm
+          height: 25.4mm
+          padding-top: 4mm
+          margin: 0
+          border: 1px solid #CCCCCC
+          text-align: center
+          canvas
+            // display: block
+            width: calc(100% - 10mm)
+          div
+            position: absolute
+            top: 16mm
+            left: 0
+            right: 0
+            font-size: 5mm
 
 @media print
   body

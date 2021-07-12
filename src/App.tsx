@@ -56,32 +56,47 @@ class App extends Component<Props, State> {
         numbers.push(currentNumber)
         currentNumber += 1
       })
-      const splitNumbers = splitByNumber(numbers, 28)
+      const splitNumbers = splitByNumber(numbers, 44)
       splitNumbers.forEach((ns) => {
         this.renderBarcode(ns)
       })
     }
   }
   renderBarcode(numbers: number[]) {
-    const div = document.createElement('div')
-    div.className = 'sheet padding-10mm'
+    const section = document.createElement('section')
+    section.className = 'sheet padding-AONE'
     numbers.forEach((number) => {
       const canvas = document.createElement('canvas')
-      JsBarcode(canvas, String(number), {
-        format: 'codabar',
-        width: 2,
-        height: 75
+      // JsBarcode(canvas, String(number), {
+      //   format: 'codabar',
+      //   width: 2.25,
+      //   height: 52,
+      //   textMargin: 2,
+      //   fontSize: 20,
+      //   margin: 10
+      // })
+      const g = canvas.getContext('2d')
+      bardcode.drawBarcode(g, String(number), {
+        // width: 182.55,
+        height: 90,
+        // horizontalAlign: 'center'
       })
+      const text = document.createElement('div')
+      text.innerHTML = String(number)
+      const div = document.createElement('div')
+      div.className = 'barcode'
       div.appendChild(canvas)
+      div.appendChild(text)
+      section.appendChild(div)
     })
     if (this.canvasDiv) {
-      this.canvasDiv.appendChild(div)
+      this.canvasDiv.appendChild(section)
     }
 }
 
 print() {
     this.renderBarCodes()
-    window.print()
+    // window.print()
 }
 
 render() {
