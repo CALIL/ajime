@@ -66,18 +66,28 @@ class App extends Component<Props, State> {
     const section = document.createElement('section')
     section.className = 'sheet padding-AONE'
     numbers.forEach((number) => {
-      const canvas = document.createElement('canvas')
-      JsBarcode(canvas, String(number), {
+      // const canvas = document.createElement('canvas')
+      // JsBarcode(canvas, String(number), {
+      //   format: 'codabar',
+      //   width: 2.25,
+      //   height: 52,
+      //   textMargin: 2,
+      //   fontSize: 20,
+      //   margin: 0
+      // })
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      JsBarcode(svg, String(number), {
         format: 'codabar',
         width: 2.25,
         height: 52,
         textMargin: 2,
         fontSize: 20,
-        margin: 0
+        margin: 0,
       })
       const div = document.createElement('div')
       div.className = 'barcode'
-      div.appendChild(canvas)
+      // div.appendChild(canvas)
+      div.appendChild(svg)
       section.appendChild(div)
     })
     if (this.canvasDiv) {
