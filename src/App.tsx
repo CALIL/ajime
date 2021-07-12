@@ -57,8 +57,8 @@ class App extends Component<Props, State> {
         currentNumber += 1
       })
       const splitNumbers = splitByNumber(numbers, 44)
-      splitNumbers.forEach((ns) => {
-        this.renderBarcode(ns)
+      splitNumbers.forEach((splitNumber) => {
+        this.renderBarcode(splitNumber)
       })
     }
   }
@@ -67,26 +67,26 @@ class App extends Component<Props, State> {
     section.className = 'sheet padding-AONE'
     numbers.forEach((number) => {
       const canvas = document.createElement('canvas')
-      // JsBarcode(canvas, String(number), {
-      //   format: 'codabar',
-      //   width: 2.25,
-      //   height: 52,
-      //   textMargin: 2,
-      //   fontSize: 20,
-      //   margin: 10
-      // })
-      const g = canvas.getContext('2d')
-      bardcode.drawBarcode(g, String(number), {
-        // width: 182.55,
-        height: 90,
-        // horizontalAlign: 'center'
+      JsBarcode(canvas, String(number), {
+        format: 'codabar',
+        width: 2.25,
+        height: 52,
+        textMargin: 2,
+        fontSize: 20,
+        margin: 10
       })
-      const text = document.createElement('div')
-      text.innerHTML = String(number)
+      // const g = canvas.getContext('2d')
+      // bardcode.drawBarcode(g, String(number), {
+      //   // width: 182.55,
+      //   height: 90,
+      //   // horizontalAlign: 'center'
+      // })
+      // const text = document.createElement('div')
+      // text.innerHTML = String(number)
       const div = document.createElement('div')
       div.className = 'barcode'
       div.appendChild(canvas)
-      div.appendChild(text)
+      // div.appendChild(text)
       section.appendChild(div)
     })
     if (this.canvasDiv) {

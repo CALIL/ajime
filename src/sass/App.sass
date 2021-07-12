@@ -2,7 +2,7 @@
   .step
     position: relative
     max-width: 600px
-    min-height: 220px
+    min-height: 250px
     margin: 3rem auto
     padding: 1rem 2.5rem 2rem
     background-color: #ffffff
@@ -35,27 +35,19 @@
   .canvas
     // display: none
     .sheet
-      margin: 0 auto
       &.padding-AONE
         padding: 8.8mm 8.2mm
         div.barcode
+          box-sizing: border-box
           display: inline-block
-          position: relative
           width: 48.3mm
           height: 25.4mm
-          padding-top: 4mm
+          padding: 3mm 0 1mm
           margin: 0
           border: 1px solid #CCCCCC
           text-align: center
           canvas
-            // display: block
             width: calc(100% - 10mm)
-          div
-            position: absolute
-            top: 16mm
-            left: 0
-            right: 0
-            font-size: 5mm
 
 @media print
   body
