@@ -87,7 +87,7 @@ class App extends Component<Props, State> {
 
 print() {
     this.renderBarCodes()
-    // window.print()
+    window.print()
 }
 
 render() {
@@ -156,7 +156,7 @@ const Step3 = (props: any) => {
       <div>
         <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
         から
-        <input type="number" defaultValue="100" ref={element => props.this.countNumber = element} />個
+        <input type="number" defaultValue="44" ref={element => props.this.countNumber = element} />個
       </div>
       <nav>
         <button onClick={props.previousStep}>戻る</button>
