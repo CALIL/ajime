@@ -88,8 +88,8 @@ render() {
   let custom = {
     enterRight: 'animate__animated animate__fadeInRightBig',
     enterLeft : 'animate__animated animate__fadeInLeftBig',
-    exitRight : 'animate__animated animate__fadeOutRightBig',
-    exitLeft  : 'animate__animated animate__fadeOutLeftBig'
+    exitRight : '',
+    exitLeft  : ''
   }
     return (
       <div className="App">
@@ -114,7 +114,6 @@ const Nav = (props: any) => {
     <li className={props.currentStep === 1 ? 'current' : ''}>Step 1</li>
     <li className={props.currentStep === 2 ? 'current' : ''}>Step 2</li>
     <li className={props.currentStep === 3 ? 'current' : ''}>Step 3</li>
-    <li className={props.currentStep === 4 ? 'current' : ''}>Ready to go!</li>
   </ol>)
 }
 
