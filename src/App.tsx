@@ -73,7 +73,7 @@ class App extends Component<Props, State> {
         height: 52,
         textMargin: 2,
         fontSize: 20,
-        margin: 10
+        margin: 0
       })
       const div = document.createElement('div')
       div.className = 'barcode'
