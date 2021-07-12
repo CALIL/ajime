@@ -75,18 +75,9 @@ class App extends Component<Props, State> {
         fontSize: 20,
         margin: 10
       })
-      // const g = canvas.getContext('2d')
-      // bardcode.drawBarcode(g, String(number), {
-      //   // width: 182.55,
-      //   height: 90,
-      //   // horizontalAlign: 'center'
-      // })
-      // const text = document.createElement('div')
-      // text.innerHTML = String(number)
       const div = document.createElement('div')
       div.className = 'barcode'
       div.appendChild(canvas)
-      // div.appendChild(text)
       section.appendChild(div)
     })
     if (this.canvasDiv) {
