@@ -27,6 +27,7 @@ interface Props {
 }
 
 interface State {
+  perPage: number
   splitNumbers: number[][]
 }
 
@@ -35,6 +36,7 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
+      perPage: 44,
       splitNumbers: []
     }
     this.canvasDiv = null
@@ -54,20 +56,15 @@ class App extends Component<Props, State> {
           return
         }
       }
-      const numbers: any[] = []
+      const numbers: number[] = []
       let currentNumber = startNumber
       Array.from({ length: countNumber }).forEach(() => {
         numbers.push(currentNumber)
         currentNumber += 1
       })
-      const splitNumbers = splitByNumber(numbers, 44)
+      const splitNumbers = splitByNumber(numbers, this.state.perPage)
       this.setState({splitNumbers})
     }
-  }
-
-  print() {
-    this.renderBarCodes()
-    window.print()
   }
 
   render() {
@@ -84,13 +81,13 @@ class App extends Component<Props, State> {
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1 />
-            <Step2 />
+            <Step2 this={this} />
             <Step3 this={this} />
           </StepWizard>
         </div>
         <div className="canvas" ref={element => this.canvasDiv = element}>
           {this.state.splitNumbers.map((numbers) => (
-            <section className="sheet padding-AONE">
+            <section className="sheet AONE">
             {numbers.map((number) => (
                 <Barcode number={String(number)} />
             ))}

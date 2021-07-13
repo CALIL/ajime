@@ -23,18 +23,6 @@ export const Step2 = (props: any) => {
     return (
         <div className="step">
             <h2>Step {props.currentStep}</h2>
-            <p>何かを選択</p>
-            <nav>
-                <button onClick={props.previousStep}>戻る</button>
-                <button onClick={props.nextStep} className="active">次へ</button>
-            </nav>
-        </div>
-    )
-}
-export const Step3 = (props: any) => {
-    return (
-        <div className="step step3">
-            <h2>Step {props.currentStep}</h2>
             <p>印刷するバーコードラベルの設定</p>
             <div>
                 <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
@@ -43,7 +31,22 @@ export const Step3 = (props: any) => {
             </div>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
-                <button onClick={props.this.print.bind(props.this)} className="active">作成</button>
+                <button onClick={() => {
+                    props.nextStep()
+                    props.this.renderBarCodes()
+                }} className="active">次へ</button>
+            </nav>
+        </div>
+    )
+}
+export const Step3 = (props: any) => {
+    return (
+        <div className="step step3">
+            <h2>Step {props.currentStep}</h2>
+            <p>さあ、印刷しましょう！</p>
+            <nav>
+                <button onClick={props.previousStep}>戻る</button>
+                <button onClick={print} className="active">印刷</button>
             </nav>
         </div>
     )
