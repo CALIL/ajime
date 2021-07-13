@@ -17,7 +17,6 @@ const splitByNumber = (sourceArray: any[], splitNumber: number) => {
 
 
 interface App {
-  canvasDiv: HTMLDivElement | null
   startNumber: HTMLInputElement | null
   countNumber: HTMLInputElement | null
 }
@@ -82,7 +81,7 @@ class App extends Component<Props, State> {
             <Step3 />
           </StepWizard>
         </div>
-        <div className="canvas">
+        <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => (
             <section className={'sheet ' + this.state.templateName} key={index}>
             {numbers.map((number) => (
