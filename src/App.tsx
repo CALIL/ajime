@@ -43,8 +43,7 @@ class App extends Component<Props, State> {
     this.startNumber = null
     this.countNumber = null
   }
-  componentDidMount() {
-  }
+
   renderBarCodes() {
     if (this.canvasDiv) this.canvasDiv.innerHTML = ''
     if (this.startNumber && this.countNumber) {
@@ -82,14 +81,14 @@ class App extends Component<Props, State> {
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1 />
             <Step2 this={this} />
-            <Step3 this={this} />
+            <Step3 />
           </StepWizard>
         </div>
         <div className="canvas" ref={element => this.canvasDiv = element}>
-          {this.state.splitNumbers.map((numbers) => (
-            <section className="sheet AONE">
+          {this.state.splitNumbers.map((numbers, index) => (
+            <section className="sheet AONE" key={index}>
             {numbers.map((number) => (
-                <Barcode number={String(number)} />
+                <Barcode number={String(number)} key={number} />
             ))}
             </section>
           ))}
