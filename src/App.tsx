@@ -63,6 +63,10 @@ class App extends Component<Props, State> {
     this.setState({countNumber: parseInt(number)})
   }
 
+  setLibName(libName: string) {
+    this.setState({libName: libName})
+  }
+
   renderBarCodes() {
     const startNumber = parseInt(this.state.startNumber)
     const countNumber = this.state.countNumber * this.state.perPage
@@ -98,6 +102,7 @@ class App extends Component<Props, State> {
             <Step2
               changeStartNumber={this.setStartNumber.bind(this)}
               changeCountNumber={this.setCountNumber.bind(this)}
+              setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
             <Step3 />
@@ -110,7 +115,7 @@ class App extends Component<Props, State> {
               {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index+1) } / {index+1}枚目
             </p>
             {numbers.map((number) => (
-                <Barcode number={String(number)} key={number} />
+                <Barcode number={String(number)} libName={this.state.libName} key={number} />
             ))}
             </section>
           ))}
