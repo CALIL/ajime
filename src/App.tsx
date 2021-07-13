@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useRef } from 'react'
 import JsBarcode from 'jsbarcode'
 import StepWizard from 'react-step-wizard'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
-  const sourceArrayLength  = sourceArray.length
+  const sourceArrayLength = sourceArray.length
   var splitArray = []
-  for(var i = 0; i < Math.ceil(sourceArrayLength / splitNumber); i++) {
-      const array = sourceArray.slice(i * splitNumber, i * splitNumber + splitNumber)
-      splitArray.push(array)
+  for (var i = 0; i < Math.ceil(sourceArrayLength / splitNumber); i++) {
+    const array = sourceArray.slice(i * splitNumber, i * splitNumber + splitNumber)
+    splitArray.push(array)
   }
   return splitArray
 }
@@ -25,17 +25,19 @@ interface Props {
 }
 
 interface State {
+  splitNumbers: number[][]
 }
 
 
 class App extends Component<Props, State> {
-  constructor(props:Props) {
-      super(props)
-      this.state = {
-      }
-      this.canvasDiv = null
-      this.startNumber = null
-      this.countNumber = null
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      splitNumbers: []
+    }
+    this.canvasDiv = null
+    this.startNumber = null
+    this.countNumber = null
   }
   componentDidMount() {
   }
@@ -46,59 +48,35 @@ class App extends Component<Props, State> {
       const countNumber = parseInt(this.countNumber.value)
       // console.log(startNumber, countNumber)
       if (countNumber >= 1000) {
-        if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')){
+        if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) {
           return
         }
       }
-      const numbers:any[] = []
+      const numbers: any[] = []
       let currentNumber = startNumber
-      Array.from({length: countNumber}).forEach(() => {
+      Array.from({ length: countNumber }).forEach(() => {
         numbers.push(currentNumber)
         currentNumber += 1
       })
       const splitNumbers = splitByNumber(numbers, 44)
-      splitNumbers.forEach((splitNumber) => {
-        this.renderBarcode(splitNumber)
-      })
+      this.setState({splitNumbers})
     }
   }
-  renderBarcode(numbers: number[]) {
-    const section = document.createElement('section')
-    section.className = 'sheet padding-AONE'
-    numbers.forEach((number) => {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-      JsBarcode(svg, String(number), {
-        format: 'codabar',
-        width: 2.25,
-        height: 52,
-        textMargin: 2,
-        fontSize: 20,
-        margin: 0,
-      })
-      const div = document.createElement('div')
-      div.className = 'barcode'
-      div.appendChild(svg)
-      section.appendChild(div)
-    })
-    if (this.canvasDiv) {
-      this.canvasDiv.appendChild(section)
-    }
-}
 
-print() {
+  print() {
     this.renderBarCodes()
     window.print()
-}
-
-render() {
-  let custom = {
-    // enterRight: 'animate__animated animate__fadeInRightBig',
-    // enterLeft : 'animate__animated animate__fadeInLeftBig',
-    enterRight: '',
-    enterLeft : '',
-    exitRight : '',
-    exitLeft  : ''
   }
+
+  render() {
+    let custom = {
+      // enterRight: 'animate__animated animate__fadeInRightBig',
+      // enterLeft : 'animate__animated animate__fadeInLeftBig',
+      enterRight: '',
+      enterLeft: '',
+      exitRight: '',
+      exitLeft: ''
+    }
     return (
       <div className="App">
         <div className="steps">
@@ -108,9 +86,17 @@ render() {
             <Step3 this={this} />
           </StepWizard>
         </div>
-        <div className="canvas" ref={element => this.canvasDiv = element}></div>
+        <div className="canvas" ref={element => this.canvasDiv = element}>
+          {this.state.splitNumbers.map((numbers) => (
+            <section className="sheet padding-AONE">
+            {numbers.map((number) => (
+                <Barcode number={String(number)} />
+            ))}
+            </section>
+          ))}
+        </div>
       </div>
-    )  
+    )
   }
 }
 
@@ -162,6 +148,26 @@ const Step3 = (props: any) => {
         <button onClick={props.previousStep}>戻る</button>
         <button onClick={props.this.print.bind(props.this)} className="active">作成</button>
       </nav>
+    </div>
+  )
+}
+
+const Barcode = (props: { number: string }) => {
+  const svgElement = useRef(null)
+  useEffect(() => {
+    console.log(svgElement)
+    JsBarcode(svgElement.current, props.number, {
+      format: 'codabar',
+      width: 2.25,
+      height: 52,
+      textMargin: 2,
+      fontSize: 20,
+      margin: 0,
+    })
+  })
+  return (
+    <div className="barcode">
+      <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
     </div>
   )
 }
