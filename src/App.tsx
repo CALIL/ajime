@@ -17,8 +17,8 @@ const splitByNumber = (sourceArray: any[], splitNumber: number) => {
 
 
 interface App {
-  startNumber: HTMLInputElement | null
-  countNumber: HTMLInputElement | null
+  startNumber: HTMLInputElement
+  countNumber: HTMLInputElement
 }
 
 
@@ -44,8 +44,6 @@ class App extends Component<Props, State> {
       countNumber: 1,
       splitNumbers: []
     }
-    this.startNumber = null
-    this.countNumber = null
   }
 
   changeStartNumber(number: string) {
@@ -98,6 +96,7 @@ class App extends Component<Props, State> {
           {this.state.splitNumbers.map((numbers, index) => (
             <section className={'sheet ' + this.state.templateName} key={index}>
             <p>
+              {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index+1) } / {index+1}枚目
             </p>
             {numbers.map((number) => (
                 <Barcode number={String(number)} key={number} />
