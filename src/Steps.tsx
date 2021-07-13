@@ -12,7 +12,7 @@ export const Step1 = (props: any) => {
     return (
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
-            <p>テンプレートの選択</p>
+            <p>印刷に使うタックシールを選んでください</p>
             <ul>
                 <li>
                     <input type="radio" name="template" id="AONE" value="AONE" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
@@ -37,7 +37,7 @@ export const Step2 = (props: any) => {
     return (
         <div className="step step2">
             <h2>Step {props.currentStep}</h2>
-            <p>印刷するバーコードラベルの設定</p>
+            <p>印刷するバーコードラベルを設定しましょう</p>
             <div>
                 <input type="number" style={{width: "6rem"}} defaultValue="10000" min="1" onChange={(e) => props.changeStartNumber(e.target.value)} />
                 からスタートで
