@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
 
 import {Nav, Step1, Step2, Step3} from './Steps'
+import Barcode from './Barcode'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {

@@ -4,7 +4,6 @@ import JsBarcode from 'jsbarcode'
 const Barcode = (props: { number: string }) => {
     const svgElement = useRef(null)
     useEffect(() => {
-      console.log(svgElement)
       JsBarcode(svgElement.current, props.number, {
         format: 'codabar',
         width: 2.25,
@@ -19,4 +18,6 @@ const Barcode = (props: { number: string }) => {
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
       </div>
     )
-  }
+}
+
+export default Barcode
