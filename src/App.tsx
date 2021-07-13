@@ -48,11 +48,7 @@ class App extends Component<Props, State> {
       const startNumber = parseInt(this.startNumber.value)
       const countNumber = parseInt(this.countNumber.value)
       // console.log(startNumber, countNumber)
-      if (countNumber >= 1000) {
-        if (!confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) {
-          return
-        }
-      }
+      if (countNumber >= 1000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return
       const numbers: number[] = []
       let currentNumber = startNumber
       Array.from({ length: countNumber }).forEach(() => {
