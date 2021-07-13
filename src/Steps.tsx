@@ -25,14 +25,14 @@ export const Step2 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>印刷するバーコードラベルの設定</p>
             <div>
-                <input type="number" style={{width: "6rem"}} defaultValue="10000" ref={element => props.this.startNumber = element} />
+                <input type="number" style={{width: "6rem"}} defaultValue="10000" min="1" onChange={(e) => props.changeStartNumber(e.target.value)} />
                 からスタートで
-                <input type="number" style={{width: "4rem"}} defaultValue="1" ref={element => props.this.countNumber = element} />ページ
+                <input type="number" style={{width: "4rem"}} defaultValue="1" min="1" onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
             </div>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {
-                    if(props.this.renderBarCodes()) {
+                    if(props.renderBarCodes()) {
                         props.nextStep()
                     }
                 }} className="active">次へ</button>

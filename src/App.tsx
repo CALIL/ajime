@@ -28,6 +28,8 @@ interface Props {
 interface State {
   templateName: string
   perPage: number
+  startNumber: string
+  countNumber: number
   splitNumbers: number[][]
 }
 
@@ -38,29 +40,36 @@ class App extends Component<Props, State> {
     this.state = {
       templateName: 'AONE',
       perPage: 44,
+      startNumber: '10000',
+      countNumber: 1,
       splitNumbers: []
     }
     this.startNumber = null
     this.countNumber = null
   }
 
+  changeStartNumber(number: string) {
+    this.setState({startNumber: number})
+  }
+
+  changeCountNumber(number: string) {
+    this.setState({countNumber: parseInt(number)})
+  }
+
   renderBarCodes() {
-    if (this.startNumber && this.countNumber) {
-      const startNumber = parseInt(this.startNumber.value)
-      const countNumber = parseInt(this.countNumber.value) * this.state.perPage
-      // console.log(startNumber, countNumber)
-      if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
-      const numbers: number[] = []
-      let currentNumber = startNumber
-      Array.from({ length: countNumber }).forEach(() => {
-        numbers.push(currentNumber)
-        currentNumber += 1
-      })
-      const splitNumbers = splitByNumber(numbers, this.state.perPage)
-      this.setState({splitNumbers})
-      return true
-    }
-    return false
+    const startNumber = parseInt(this.state.startNumber)
+    const countNumber = this.state.countNumber * this.state.perPage
+    // console.log(startNumber, countNumber)
+    if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
+    const numbers: number[] = []
+    let currentNumber = startNumber
+    Array.from({ length: countNumber }).forEach(() => {
+      numbers.push(currentNumber)
+      currentNumber += 1
+    })
+    const splitNumbers = splitByNumber(numbers, this.state.perPage)
+    this.setState({splitNumbers})
+    return true
   }
 
   render() {
@@ -77,13 +86,19 @@ class App extends Component<Props, State> {
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1 />
-            <Step2 this={this} />
+            <Step2
+              changeStartNumber={this.changeStartNumber.bind(this)}
+              changeCountNumber={this.changeCountNumber.bind(this)}
+              renderBarCodes={this.renderBarCodes.bind(this)}
+            />
             <Step3 />
           </StepWizard>
         </div>
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => (
             <section className={'sheet ' + this.state.templateName} key={index}>
+            <p>
+            </p>
             {numbers.map((number) => (
                 <Barcode number={String(number)} key={number} />
             ))}
