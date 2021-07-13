@@ -1,3 +1,5 @@
+@use "sass:math"
+
 $number-of-steps:  3
 
 $line-width:       2px
@@ -24,7 +26,7 @@ ol
 li
   position: relative
   float: left
-  width: 100% / $number-of-steps
+  width: math.div(100%, $number-of-steps)
   text-align: center
   color: $active-background-color
   list-style: none
@@ -48,7 +50,7 @@ li:before
   border-radius: $bullet-size
   position: relative
   left: 50%
-  margin-bottom: $bullet-size / 2
+  margin-bottom: $bullet-size * 0.5
   margin-left: $bullet-size * -0.5
   z-index: 1
   
@@ -68,7 +70,7 @@ li + li
     height: $line-width
     position: absolute
     left: -50%
-    top: $bullet-size / 2
+    top: $bullet-size * 0.5
     z-index: 0
   
 

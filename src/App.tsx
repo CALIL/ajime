@@ -1,6 +1,7 @@
-import React, { Component, useEffect, useRef } from 'react'
-import JsBarcode from 'jsbarcode'
+import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
+
+import {Nav, Step1, Step2, Step3} from './Steps'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
@@ -103,71 +104,4 @@ class App extends Component<Props, State> {
 export default App
 
 
-const Nav = (props: any) => {
-  return (<ol>
-    <li className={props.currentStep === 1 ? 'current' : ''}>Step 1</li>
-    <li className={props.currentStep === 2 ? 'current' : ''}>Step 2</li>
-    <li className={props.currentStep === 3 ? 'current' : ''}>Step 3</li>
-  </ol>)
-}
 
-const Step1 = (props: any) => {
-  return (
-    <div className="step">
-      <h2>Step {props.currentStep}</h2>
-      <p>テンプレートの選択</p>
-      <nav>
-        <button onClick={props.nextStep} className="active">次へ</button>
-      </nav>
-    </div>
-  )
-}
-const Step2 = (props: any) => {
-  return (
-    <div className="step">
-      <h2>Step {props.currentStep}</h2>
-      <p>何かを選択</p>
-      <nav>
-        <button onClick={props.previousStep}>戻る</button>
-        <button onClick={props.nextStep} className="active">次へ</button>
-      </nav>
-    </div>
-  )
-}
-const Step3 = (props: any) => {
-  return (
-    <div className="step step3">
-      <h2>Step {props.currentStep}</h2>
-      <p>印刷するバーコードラベルの設定</p>
-      <div>
-        <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
-        から
-        <input type="number" defaultValue="44" ref={element => props.this.countNumber = element} />個
-      </div>
-      <nav>
-        <button onClick={props.previousStep}>戻る</button>
-        <button onClick={props.this.print.bind(props.this)} className="active">作成</button>
-      </nav>
-    </div>
-  )
-}
-
-const Barcode = (props: { number: string }) => {
-  const svgElement = useRef(null)
-  useEffect(() => {
-    console.log(svgElement)
-    JsBarcode(svgElement.current, props.number, {
-      format: 'codabar',
-      width: 2.25,
-      height: 52,
-      textMargin: 2,
-      fontSize: 20,
-      margin: 0,
-    })
-  })
-  return (
-    <div className="barcode">
-      <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
-    </div>
-  )
-}
