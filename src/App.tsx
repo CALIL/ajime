@@ -27,6 +27,7 @@ interface Props {
 }
 
 interface State {
+  templateName: string
   perPage: number
   splitNumbers: number[][]
 }
@@ -36,6 +37,7 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
+      templateName: 'AONE',
       perPage: 44,
       splitNumbers: []
     }
@@ -80,7 +82,7 @@ class App extends Component<Props, State> {
         </div>
         <div className="canvas">
           {this.state.splitNumbers.map((numbers, index) => (
-            <section className="sheet AONE" key={index}>
+            <section className={'sheet ' + this.state.templateName} key={index}>
             {numbers.map((number) => (
                 <Barcode number={String(number)} key={number} />
             ))}
