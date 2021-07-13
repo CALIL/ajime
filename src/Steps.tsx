@@ -44,7 +44,7 @@ export const Step2 = (props: any) => {
                 <input type="number" style={{width: "4rem"}} defaultValue="1" min="1" max="100" onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
             </div>
             {/* <label htmlFor="libName">図書館名:</label> */}
-            <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} />
+            {/* <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} /> */}
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {
