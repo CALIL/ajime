@@ -12,7 +12,7 @@ export const Step1 = (props: any) => {
     return (
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
-            <p>印刷に使うタックシールを選んでください</p>
+            <p>印刷に使うラベルシールを選んでください</p>
             <ul>
                 <li>
                     <input type="radio" name="template" id="AONE" value="AONE" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
