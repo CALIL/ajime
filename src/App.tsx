@@ -27,6 +27,7 @@ interface Props {
 
 interface State {
   templateName: string
+  libName: string
   perPage: number
   startNumber: string
   countNumber: number
@@ -39,6 +40,7 @@ class App extends Component<Props, State> {
     super(props)
     this.state = {
       templateName: 'AONE',
+      libName: '',
       perPage: 44,
       startNumber: '10000',
       countNumber: 1,
@@ -46,18 +48,18 @@ class App extends Component<Props, State> {
     }
   }
 
-  selectTemplate(templateName: string) {
+  setTemplate(templateName: string) {
     let perPage = 44
     if (templateName === 'AONE') perPage = 44
     if (templateName === 'KIHARA') perPage = 36
     this.setState({perPage, templateName})
   }
 
-  changeStartNumber(number: string) {
+  setStartNumber(number: string) {
     this.setState({startNumber: number})
   }
 
-  changeCountNumber(number: string) {
+  setCountNumber(number: string) {
     this.setState({countNumber: parseInt(number)})
   }
 
@@ -91,11 +93,11 @@ class App extends Component<Props, State> {
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1
-              onSelectTemplate={this.selectTemplate.bind(this)}
+              onSelectTemplate={this.setTemplate.bind(this)}
             />
             <Step2
-              changeStartNumber={this.changeStartNumber.bind(this)}
-              changeCountNumber={this.changeCountNumber.bind(this)}
+              changeStartNumber={this.setStartNumber.bind(this)}
+              changeCountNumber={this.setCountNumber.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
             <Step3 />
