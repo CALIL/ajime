@@ -32,8 +32,7 @@ export const Step2 = (props: any) => {
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {
-                    props.nextStep()
-                    props.this.renderBarCodes()
+                    props.this.renderBarCodes(props.nextStep.bind(this))
                 }} className="active">次へ</button>
             </nav>
         </div>
