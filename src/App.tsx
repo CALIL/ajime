@@ -39,13 +39,11 @@ class App extends Component<Props, State> {
       perPage: 44,
       splitNumbers: []
     }
-    this.canvasDiv = null
     this.startNumber = null
     this.countNumber = null
   }
 
   renderBarCodes() {
-    if (this.canvasDiv) this.canvasDiv.innerHTML = ''
     if (this.startNumber && this.countNumber) {
       const startNumber = parseInt(this.startNumber.value)
       const countNumber = parseInt(this.countNumber.value)
@@ -84,7 +82,7 @@ class App extends Component<Props, State> {
             <Step3 />
           </StepWizard>
         </div>
-        <div className="canvas" ref={element => this.canvasDiv = element}>
+        <div className="canvas">
           {this.state.splitNumbers.map((numbers, index) => (
             <section className="sheet AONE" key={index}>
             {numbers.map((number) => (
