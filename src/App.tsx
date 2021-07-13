@@ -60,11 +60,11 @@ class App extends Component<Props, State> {
   }
 
   setStartNumber(number: string) {
-    this.setState({startNumber: number})
+    this.setState({startNumber: number}, this.renderBarCodes.bind(this))
   }
 
   setCountNumber(number: string) {
-    this.setState({countNumber: parseInt(number)})
+    this.setState({countNumber: parseInt(number)}, this.renderBarCodes.bind(this))
   }
 
   setLibName(libName: string) {
