@@ -14,9 +14,9 @@ const Barcode = (props: { number: string, libName: string }) => {
       })
     })
     return (
-      <div className="barcode">
+      <div className={'barcode' + (props.libName!=='' ? ' libName' : '')}>
         {props.libName!=='' ? (
-          <div>{props.libName}</div>
+          <div className="name">{props.libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
       </div>

@@ -47,6 +47,10 @@ class App extends Component<Props, State> {
       splitNumbers: []
     }
   }
+  
+  componentDidMount() {
+    this.renderBarCodes()
+  }
 
   setTemplate(templateName: string) {
     let perPage = 44
@@ -71,7 +75,7 @@ class App extends Component<Props, State> {
     const startNumber = parseInt(this.state.startNumber)
     const countNumber = this.state.countNumber * this.state.perPage
     // console.log(startNumber, countNumber)
-    if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
+    // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
     const numbers: number[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {

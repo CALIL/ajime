@@ -41,7 +41,7 @@ export const Step2 = (props: any) => {
             <div>
                 <input type="number" style={{width: "6rem"}} defaultValue="10000" min="1" onChange={(e) => props.changeStartNumber(e.target.value)} />
                 からスタートで
-                <input type="number" style={{width: "4rem"}} defaultValue="1" min="1" onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
+                <input type="number" style={{width: "4rem"}} defaultValue="1" min="1" max="100" onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
             </div>
             {/* <label htmlFor="libName">図書館名:</label> */}
             <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} />
