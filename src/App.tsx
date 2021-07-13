@@ -46,6 +46,13 @@ class App extends Component<Props, State> {
     }
   }
 
+  selectTemplate(templateName: string) {
+    let perPage = 44
+    if (templateName === 'AONE') perPage = 44
+    if (templateName === 'KIHARA') perPage = 36
+    this.setState({perPage, templateName})
+  }
+
   changeStartNumber(number: string) {
     this.setState({startNumber: number})
   }
@@ -83,7 +90,9 @@ class App extends Component<Props, State> {
       <div className="App">
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
-            <Step1 />
+            <Step1
+              onSelectTemplate={this.selectTemplate.bind(this)}
+            />
             <Step2
               changeStartNumber={this.changeStartNumber.bind(this)}
               changeCountNumber={this.changeCountNumber.bind(this)}

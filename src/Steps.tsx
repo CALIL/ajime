@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Nav = (props: any) => {
-    return (<ol>
+    return (<ol className="steps">
         <li className={props.currentStep === 1 ? 'current' : ''}>Step 1</li>
         <li className={props.currentStep === 2 ? 'current' : ''}>Step 2</li>
         <li className={props.currentStep === 3 ? 'current' : ''}>Step 3</li>
@@ -13,6 +13,20 @@ export const Step1 = (props: any) => {
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
             <p>テンプレートの選択</p>
+            <ul>
+                <li>
+                    <input type="radio" name="template" id="AONE" value="AONE" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                    <label htmlFor="AONE">A-One・ラベルシール (
+                        <a href="https://www.askul.co.jp/p/334079/" target="_blank">ASKULで購入</a>
+                    )</label>
+                </li>
+                <li>
+                    <input type="radio" name="template" id="KIHARA" value="KIHARA" onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                    <label htmlFor="KIHARA">キハラ・ラベルシール (
+                        <a href="https://www.monotaro.com/g/04604493/" target="_blank">モノタロウで購入</a>
+                    )</label>
+                </li>
+            </ul>
             <nav>
                 <button onClick={props.nextStep} className="active">次へ</button>
             </nav>
