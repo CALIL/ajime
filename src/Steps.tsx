@@ -10,7 +10,7 @@ export const Nav = (props: any) => {
 
 export const Step1 = (props: any) => {
     return (
-        <div className="step">
+        <div className="step step1">
             <h2>Step {props.currentStep}</h2>
             <p>テンプレートの選択</p>
             <nav>
@@ -21,13 +21,13 @@ export const Step1 = (props: any) => {
 }
 export const Step2 = (props: any) => {
     return (
-        <div className="step">
+        <div className="step step2">
             <h2>Step {props.currentStep}</h2>
             <p>印刷するバーコードラベルの設定</p>
             <div>
                 <input type="number" defaultValue="10000" ref={element => props.this.startNumber = element} />
                 から
-                <input type="number" defaultValue="44" ref={element => props.this.countNumber = element} />個
+                <input type="number" defaultValue="1" ref={element => props.this.countNumber = element} />ページ
             </div>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>

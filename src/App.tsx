@@ -48,7 +48,7 @@ class App extends Component<Props, State> {
   renderBarCodes() {
     if (this.startNumber && this.countNumber) {
       const startNumber = parseInt(this.startNumber.value)
-      const countNumber = parseInt(this.countNumber.value)
+      const countNumber = parseInt(this.countNumber.value) * this.state.perPage
       // console.log(startNumber, countNumber)
       if (countNumber >= 1000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return
       const numbers: number[] = []
