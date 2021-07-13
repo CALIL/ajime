@@ -45,12 +45,12 @@ class App extends Component<Props, State> {
     this.countNumber = null
   }
 
-  renderBarCodes(callback: () => void) {
+  renderBarCodes() {
     if (this.startNumber && this.countNumber) {
       const startNumber = parseInt(this.startNumber.value)
       const countNumber = parseInt(this.countNumber.value) * this.state.perPage
       // console.log(startNumber, countNumber)
-      if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return
+      if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
       const numbers: number[] = []
       let currentNumber = startNumber
       Array.from({ length: countNumber }).forEach(() => {
@@ -59,8 +59,9 @@ class App extends Component<Props, State> {
       })
       const splitNumbers = splitByNumber(numbers, this.state.perPage)
       this.setState({splitNumbers})
-      callback()
+      return true
     }
+    return false
   }
 
   render() {
