@@ -4,6 +4,8 @@ import StepWizard from 'react-step-wizard'
 import {Nav, Step1, Step2, Step3} from './Steps'
 import Barcode from './Barcode'
 
+import preset from  './preset/index'
+
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
   const sourceArrayLength = sourceArray.length
@@ -53,9 +55,7 @@ class App extends Component<Props, State> {
   }
 
   setTemplate(templateName: string) {
-    let perPage = 44
-    if (templateName === 'AONE') perPage = 44
-    if (templateName === 'KIHARA') perPage = 36
+    let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
     this.setState({perPage, templateName})
   }
 

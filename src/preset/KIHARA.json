@@ -1,10 +1,10 @@
 {
     "marginTop": "8.8mm",
     "marginLeft": "8.2mm",
-    "labelWidth": "48.3mm",
-    "labelHeight": "25.4mm",
+    "labelWidth": "44.3mm",
+    "labelHeight": "27.4mm",
     "labelCountX": 4,
-    "labelCountY": 11,
+    "labelCountY": 9,
     "libName": "",
     "printNow": false
 }
