@@ -58,8 +58,10 @@ class App extends Component<Props, State> {
     if (location.hash === '') {
       this.setTemplate('AONE')
     } else {
-      preset['fromHash'] = JSURL.parse(location.hash.substr(1))
+      const hashPreset = JSURL.parse(location.hash.substr(1))
+      preset['fromHash'] = hashPreset
       this.setTemplate('fromHash')
+      if (hashPreset.printNow) print()
     }
   }
 
