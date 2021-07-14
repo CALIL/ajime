@@ -13,14 +13,23 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         fontSize: 20,
         margin: 0,
       })
+      // if (svgElement && svgElement.current) svgElement.current.style.width = `calc(100% - ${preset.labelPadding})`
     })
     return (
       <div className={'barcode' + (libName!=='' ? ' libName' : '')} style={{
         display: 'inline-flex',
+        boxSizing: 'border-box',
         justifyContent: 'center',
         alignItems: 'center',
         width: preset.labelWidth,
         height: preset.labelHeight,
+        borderRadius: preset.borderRadius,
+        marginTop: preset.gapY,
+        marginRight: preset.gapX,
+        marginBottom: preset.gapX,
+        marginLeft: preset.gapX,
+        padding: preset.labelPadding,
+        boxShadow: '2px 0 0 0 #CCCCCC, 0 2px 0 0 #CCCCCC, 2px 2px 0 0 #CCCCCC, 2px 0 0 0 #CCCCCC inset, 0 2px 0 0 #CCCCCC inset',
       }}>
         {libName!=='' ? (
           <div className="name">{libName}</div>

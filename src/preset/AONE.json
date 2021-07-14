@@ -3,8 +3,12 @@
     "marginLeft": "8.2mm",
     "labelWidth": "48.3mm",
     "labelHeight": "25.4mm",
+    "labelPadding": "4mm",
+    "gapX": "0",
+    "gapY": "0",
     "labelCountX": 4,
     "labelCountY": 11,
+    "borderRadius": "0px",
     "libName": "",
     "printNow": false
 }

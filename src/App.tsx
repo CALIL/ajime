@@ -114,8 +114,19 @@ class App extends Component<Props, State> {
         </div>
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => (
-            <section className={'sheet ' + this.state.templateName} key={index}>
-            <p>
+            <section className={'sheet ' + this.state.templateName} key={index}
+              style={{
+                paddingTop: preset[this.state.templateName].marginTop,
+                paddingLeft: preset[this.state.templateName].marginLeft
+              }}
+            >
+            <p
+              style={{
+                position: 'absolute',
+                top: '-' + (parseFloat(preset[this.state.templateName].marginTop) / 3) + 'mm',
+                right: preset[this.state.templateName].marginLeft
+              }}
+            >
               {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index+1) } / {index+1}枚目
             </p>
             {numbers.map((number) => (
