@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
+import JSURL from 'jsurl'
+
 
 import {Nav, Step1, Step2, Step3} from './Steps'
 import Barcode from './Barcode'
@@ -41,9 +43,9 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      templateName: 'AONE',
+      templateName: '',
       libName: '',
-      perPage: 44,
+      perPage: 0,
       startNumber: '10000',
       countNumber: 1,
       splitNumbers: []
@@ -51,12 +53,12 @@ class App extends Component<Props, State> {
   }
   
   componentDidMount() {
-    this.renderBarCodes()
+    this.setTemplate('AONE')
   }
 
   setTemplate(templateName: string) {
     let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
-    this.setState({perPage, templateName})
+    this.setState({perPage, templateName}, this.renderBarCodes.bind(this))
   }
 
   setStartNumber(number: string) {
