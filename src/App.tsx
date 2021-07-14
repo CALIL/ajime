@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
+
+// @ts-ignore
 import JSURL from 'jsurl'
 
 
