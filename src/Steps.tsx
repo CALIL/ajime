@@ -26,6 +26,12 @@ export const Step1 = (props: any) => {
                         <a href="https://www.monotaro.com/g/04604493/" target="_blank">モノタロウで購入</a>
                     )</label>
                 </li>
+                {props.fromHash ? (
+                <li>
+                    <input type="radio" name="template" id="fromHash" value="fromHash" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                    <label htmlFor="fromHash">URLで共有されたラベルシール</label>
+                </li>
+                ) : null}
             </ul>
             <nav>
                 <button onClick={props.nextStep} className="active">次へ</button>

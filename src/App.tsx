@@ -53,12 +53,18 @@ class App extends Component<Props, State> {
   }
   
   componentDidMount() {
-    this.setTemplate('AONE')
+    if (location.hash === '') {
+      this.setTemplate('AONE')
+    } else {
+      preset['fromHash'] = JSURL.parse(location.hash.substr(1))
+      this.setTemplate('fromHash')
+    }
   }
 
   setTemplate(templateName: string) {
     let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
     this.setState({perPage, templateName}, this.renderBarCodes.bind(this))
+    location.hash = JSURL.stringify(preset[templateName])
   }
 
   setStartNumber(number: string) {
@@ -104,6 +110,7 @@ class App extends Component<Props, State> {
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1
               onSelectTemplate={this.setTemplate.bind(this)}
+              fromHash={typeof preset['fromHash'] !== 'undefined'}
             />
             <Step2
               changeStartNumber={this.setStartNumber.bind(this)}
