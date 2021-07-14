@@ -119,7 +119,7 @@ class App extends Component<Props, State> {
               {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index+1) } / {index+1}枚目
             </p>
             {numbers.map((number) => (
-                <Barcode number={String(number)} libName={this.state.libName} key={number} />
+                <Barcode number={String(number)} libName={this.state.libName} preset={preset[this.state.templateName]} key={number} />
             ))}
             </section>
           ))}
