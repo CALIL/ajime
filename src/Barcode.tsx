@@ -6,7 +6,7 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
     const svgElement = useRef(null)
     useEffect(() => {
       JsBarcode(svgElement.current, number, {
-        format: 'codabar',
+        format: props.preset.barcode,
         width: 2.25,
         height: 52,
         textMargin: 2,
