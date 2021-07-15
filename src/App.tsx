@@ -151,11 +151,13 @@ class App extends Component<Props, State> {
               <p
                 style={{
                   position: 'absolute',
-                  top: '-' + (parseFloat(presets[this.state.templateName].marginTop) / 3) + 'mm',
-                  right: presets[this.state.templateName].marginLeft
+                  // top: '-' + (parseFloat(presets[this.state.templateName].marginTop) / 100) + 'mm',
+                  top: 0,
+                  right: parseInt(presets[this.state.templateName].marginLeft) + parseInt(presets[this.state.templateName].gapX) + 'mm',
+                  fontSize: '3mm'
                 }}
               >
-                {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1)} / {index + 1}枚目
+                {this.addZero(parseInt(this.state.startNumber) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
               </p>
               {numbers.map((number) => (
                 <Barcode number={String(number)} libName={this.state.libName} preset={presets[this.state.templateName]} key={number} />
