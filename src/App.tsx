@@ -8,7 +8,7 @@ import JSURL from 'jsurl'
 import { Nav, Step1, Step2, Step3 } from './Steps'
 import Barcode from './Barcode'
 
-import preset from './preset/index'
+import presets from './preset/index'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
@@ -57,16 +57,16 @@ class App extends Component<Props, State> {
       this.setTemplate('aone-28368')
     } else {
       const hashPreset = JSURL.parse(location.hash.substr(1))
-      preset['fromHash'] = hashPreset
+      presets['fromHash'] = hashPreset
       this.setTemplate('fromHash')
       if (hashPreset.printNow) print()
     }
   }
 
   setTemplate(templateName: string) {
-    let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
+    let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
     this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
-    // location.hash = JSURL.stringify(preset[templateName])
+    // location.hash = JSURL.stringify(presets[templateName])
   }
 
   setStartNumber(number: string) {
@@ -113,7 +113,7 @@ class App extends Component<Props, State> {
             <Step1
               templateIndex={0}
               onSelectTemplate={this.setTemplate.bind(this)}
-              fromHash={typeof preset['fromHash'] !== 'undefined'}
+              fromHash={typeof presets['fromHash'] !== 'undefined'}
             />
             <Step2
               changeStartNumber={this.setStartNumber.bind(this)}
@@ -128,21 +128,21 @@ class App extends Component<Props, State> {
           {this.state.splitNumbers.map((numbers, index) => (
             <section className={'sheet ' + this.state.templateName} key={index}
               style={{
-                paddingTop: preset[this.state.templateName].marginTop,
-                paddingLeft: preset[this.state.templateName].marginLeft
+                paddingTop: presets[this.state.templateName].marginTop,
+                paddingLeft: presets[this.state.templateName].marginLeft
               }}
             >
               <p
                 style={{
                   position: 'absolute',
-                  top: '-' + (parseFloat(preset[this.state.templateName].marginTop) / 3) + 'mm',
-                  right: preset[this.state.templateName].marginLeft
+                  top: '-' + (parseFloat(presets[this.state.templateName].marginTop) / 3) + 'mm',
+                  right: presets[this.state.templateName].marginLeft
                 }}
               >
                 {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1)} / {index + 1}枚目
               </p>
               {numbers.map((number) => (
-                <Barcode number={String(number)} libName={this.state.libName} preset={preset[this.state.templateName]} key={number} />
+                <Barcode number={String(number)} libName={this.state.libName} preset={presets[this.state.templateName]} key={number} />
               ))}
             </section>
           ))}
