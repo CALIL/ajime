@@ -34,6 +34,7 @@ interface State {
   libName: string
   perPage: number
   startNumber: string
+  isStartZero: boolean
   countNumber: string
   splitNumbers: number[][]
 }
@@ -46,7 +47,8 @@ class App extends Component<Props, State> {
       templateName: '',
       libName: '',
       perPage: 0,
-      startNumber: '10000',
+      startNumber: '00001',
+      isStartZero: true,
       countNumber: '1',
       splitNumbers: []
     }
@@ -70,7 +72,8 @@ class App extends Component<Props, State> {
   }
 
   setStartNumber(number: string) {
-    this.setState({ startNumber: number }, this.renderBarCodes.bind(this))
+    const isStartZero = number.match(/0+[0-9]+/) ? true : false
+    this.setState({ startNumber: number, isStartZero: isStartZero }, this.renderBarCodes.bind(this))
   }
 
   setCountNumber(number: string) {
@@ -80,9 +83,20 @@ class App extends Component<Props, State> {
   setLibName(libName: string) {
     this.setState({ libName: libName })
   }
+
+  addZero(number: number): string {
+    if (this.state.isStartZero) {
+      const zeroLength = this.state.startNumber.length - String(number).length
+      let zeroNumber = String(number)
+      Array.from({length: zeroLength}).forEach(() => zeroNumber = '0' + zeroNumber)
+      return zeroNumber
+    } else {
+      return String(number)
+    }
+  }
   
   renderBarCodes() {
-    const isStartZero = this.state.startNumber.match(/0+[0-9]+/)
+    const isStartZero = this.state.startNumber.match(/0+[0-9]+/) ? true : false
     const startNumber = parseInt(this.state.startNumber)
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
     // console.log(startNumber, countNumber)
@@ -90,14 +104,7 @@ class App extends Component<Props, State> {
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
-      if (isStartZero) {
-        const zeroLength = this.state.startNumber.length - String(currentNumber).length
-        let zeroNumber = String(currentNumber)
-        Array.from({length: zeroLength}).forEach(() => zeroNumber = '0' + zeroNumber)
-        numbers.push(zeroNumber)
-      } else {
-        numbers.push(String(currentNumber))
-      }
+      numbers.push(this.addZero(currentNumber))
       currentNumber += 1
     })
     const splitNumbers = splitByNumber(numbers, this.state.perPage)
