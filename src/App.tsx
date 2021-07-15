@@ -46,7 +46,7 @@ class App extends Component<Props, State> {
       templateName: '',
       libName: '',
       perPage: 0,
-      startNumber: '00001',
+      startNumber: '10000',
       countNumber: '1',
       splitNumbers: []
     }
@@ -80,19 +80,24 @@ class App extends Component<Props, State> {
   setLibName(libName: string) {
     this.setState({ libName: libName })
   }
-
+  
   renderBarCodes() {
-    if (this.state.startNumber.match(/0+[0-9]+/)) {
-      console.log(this.state.startNumber)
-    }
+    const isStartZero = this.state.startNumber.match(/0+[0-9]+/)
     const startNumber = parseInt(this.state.startNumber)
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
     // console.log(startNumber, countNumber)
     // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
-    const numbers: number[] = []
+    const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
-      numbers.push(currentNumber)
+      if (isStartZero) {
+        const zeroLength = this.state.startNumber.length - String(currentNumber).length
+        let zeroNumber = String(currentNumber)
+        Array.from({length: zeroLength}).forEach(() => zeroNumber = '0' + zeroNumber)
+        numbers.push(zeroNumber)
+      } else {
+        numbers.push(String(currentNumber))
+      }
       currentNumber += 1
     })
     const splitNumbers = splitByNumber(numbers, this.state.perPage)
