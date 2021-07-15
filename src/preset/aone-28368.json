@@ -1,4 +1,6 @@
 {
+    "id": "aone-28368",
+    "name": "エーワン [28368]  44面  NW-7",
     "marginTop": "8.8mm",
     "marginLeft": "8.2mm",
     "labelWidth": "48.3mm",
@@ -10,5 +12,6 @@
     "labelCountY": 11,
     "borderRadius": "0px",
     "libName": "",
-    "printNow": false
+    "url": "https://www.askul.co.jp/p/334079/",
+    "linkText": "ASKULで購入"
 }

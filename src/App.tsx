@@ -54,7 +54,7 @@ class App extends Component<Props, State> {
 
   componentDidMount() {
     if (location.hash === '') {
-      this.setTemplate('AONE')
+      this.setTemplate('aone-28368')
     } else {
       const hashPreset = JSURL.parse(location.hash.substr(1))
       preset['fromHash'] = hashPreset
@@ -66,7 +66,7 @@ class App extends Component<Props, State> {
   setTemplate(templateName: string) {
     let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
     this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
-    location.hash = JSURL.stringify(preset[templateName])
+    // location.hash = JSURL.stringify(preset[templateName])
   }
 
   setStartNumber(number: string) {
@@ -111,6 +111,7 @@ class App extends Component<Props, State> {
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1
+              templateIndex={0}
               onSelectTemplate={this.setTemplate.bind(this)}
               fromHash={typeof preset['fromHash'] !== 'undefined'}
             />

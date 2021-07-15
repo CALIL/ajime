@@ -14,7 +14,6 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
-      // if (svgElement && svgElement.current) svgElement.current.style.width = `calc(100% - ${preset.labelPadding})`
     })
     return (
       <div className={'barcode' + (libName!=='' ? ' libName' : '')} style={{

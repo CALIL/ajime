@@ -1,5 +1,8 @@
 import React from 'react'
 
+import presets from './preset/index'
+
+
 export const Nav = (props: any) => {
     return (<ol className="steps">
         <li className={props.currentStep === 1 ? 'current' : ''}>Step 1</li>
@@ -14,18 +17,14 @@ export const Step1 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>印刷に使うラベルシールを選んでください</p>
             <ul>
-                <li>
-                    <input type="radio" name="template" id="AONE" value="AONE" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
-                    <label htmlFor="AONE">A-One・ラベルシール (
-                        <a href="https://www.askul.co.jp/p/334079/" target="_blank">ASKULで購入</a>
-                    )</label>
-                </li>
-                <li>
-                    <input type="radio" name="template" id="KIHARA" value="KIHARA" onChange={(e) => props.onSelectTemplate(e.target.value)} />
-                    <label htmlFor="KIHARA">キハラ・ラベルシール (
-                        <a href="https://www.monotaro.com/g/04604493/" target="_blank">モノタロウで購入</a>
-                    )</label>
-                </li>
+                {Object.values(presets).map((preset: any, index) => (
+                    <li key={preset.id}>
+                        <input type="radio" name="template" id={preset.id} value={preset.id} defaultChecked={index===props.templateIndex} onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                        <label htmlFor={preset.id}>{preset.name} (
+                            <a href={preset.url} target="_blank">{preset.linkText}</a>
+                        )</label>
+                    </li>
+                ))}
                 {props.fromHash ? (
                 <li>
                     <input type="radio" name="template" id="fromHash" value="fromHash" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
