@@ -5,16 +5,16 @@ import StepWizard from 'react-step-wizard'
 import JSURL from 'jsurl'
 
 
-import {Nav, Step1, Step2, Step3} from './Steps'
+import { Nav, Step1, Step2, Step3 } from './Steps'
 import Barcode from './Barcode'
 
-import preset from  './preset/index'
+import preset from './preset/index'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
   const result = []
   for (let i = 0; i < sourceArray.length; i += splitNumber) {
-   const subArray = sourceArray.slice(i, i + splitNumber)
+    const subArray = sourceArray.slice(i, i + splitNumber)
     result.push(subArray)
   }
   return result
@@ -51,7 +51,7 @@ class App extends Component<Props, State> {
       splitNumbers: []
     }
   }
-  
+
   componentDidMount() {
     if (location.hash === '') {
       this.setTemplate('AONE')
@@ -65,20 +65,20 @@ class App extends Component<Props, State> {
 
   setTemplate(templateName: string) {
     let perPage: number = preset[templateName].labelCountX * preset[templateName].labelCountY
-    this.setState({perPage, templateName}, this.renderBarCodes.bind(this))
+    this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
     location.hash = JSURL.stringify(preset[templateName])
   }
 
   setStartNumber(number: string) {
-    this.setState({startNumber: number}, this.renderBarCodes.bind(this))
+    this.setState({ startNumber: number }, this.renderBarCodes.bind(this))
   }
 
   setCountNumber(number: string) {
-    this.setState({countNumber: parseInt(number)}, this.renderBarCodes.bind(this))
+    this.setState({ countNumber: parseInt(number) }, this.renderBarCodes.bind(this))
   }
 
   setLibName(libName: string) {
-    this.setState({libName: libName})
+    this.setState({ libName: libName })
   }
 
   renderBarCodes() {
@@ -93,7 +93,7 @@ class App extends Component<Props, State> {
       currentNumber += 1
     })
     const splitNumbers = splitByNumber(numbers, this.state.perPage)
-    this.setState({splitNumbers})
+    this.setState({ splitNumbers })
     return true
   }
 
@@ -131,18 +131,18 @@ class App extends Component<Props, State> {
                 paddingLeft: preset[this.state.templateName].marginLeft
               }}
             >
-            <p
-              style={{
-                position: 'absolute',
-                top: '-' + (parseFloat(preset[this.state.templateName].marginTop) / 3) + 'mm',
-                right: preset[this.state.templateName].marginLeft
-              }}
-            >
-              {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index+1) } / {index+1}枚目
-            </p>
-            {numbers.map((number) => (
+              <p
+                style={{
+                  position: 'absolute',
+                  top: '-' + (parseFloat(preset[this.state.templateName].marginTop) / 3) + 'mm',
+                  right: preset[this.state.templateName].marginLeft
+                }}
+              >
+                {parseInt(this.state.startNumber) + this.state.perPage * index}-{parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1)} / {index + 1}枚目
+              </p>
+              {numbers.map((number) => (
                 <Barcode number={String(number)} libName={this.state.libName} preset={preset[this.state.templateName]} key={number} />
-            ))}
+              ))}
             </section>
           ))}
         </div>
