@@ -11,6 +11,7 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         height: 52,
         textMargin: 2,
         fontSize: 20,
+        font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
       // if (svgElement && svgElement.current) svgElement.current.style.width = `calc(100% - ${preset.labelPadding})`
