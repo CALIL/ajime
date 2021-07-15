@@ -12,15 +12,13 @@ import preset from  './preset/index'
 
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
-  const sourceArrayLength = sourceArray.length
-  var splitArray = []
-  for (var i = 0; i < Math.ceil(sourceArrayLength / splitNumber); i++) {
-    const array = sourceArray.slice(i * splitNumber, i * splitNumber + splitNumber)
-    splitArray.push(array)
+  const result = []
+  for (let i = 0; i < sourceArray.length; i += splitNumber) {
+   const subArray = sourceArray.slice(i, i + splitNumber)
+    result.push(subArray)
   }
-  return splitArray
+  return result
 }
-
 
 interface App {
   startNumber: HTMLInputElement
