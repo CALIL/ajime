@@ -34,7 +34,7 @@ interface State {
   libName: string
   perPage: number
   startNumber: string
-  countNumber: number
+  countNumber: string
   splitNumbers: number[][]
 }
 
@@ -46,8 +46,8 @@ class App extends Component<Props, State> {
       templateName: '',
       libName: '',
       perPage: 0,
-      startNumber: '10000',
-      countNumber: 1,
+      startNumber: '00001',
+      countNumber: '1',
       splitNumbers: []
     }
   }
@@ -74,7 +74,7 @@ class App extends Component<Props, State> {
   }
 
   setCountNumber(number: string) {
-    this.setState({ countNumber: parseInt(number) }, this.renderBarCodes.bind(this))
+    this.setState({ countNumber: number }, this.renderBarCodes.bind(this))
   }
 
   setLibName(libName: string) {
@@ -82,8 +82,11 @@ class App extends Component<Props, State> {
   }
 
   renderBarCodes() {
+    if (this.state.startNumber.match(/0+[0-9]+/)) {
+      console.log(this.state.startNumber)
+    }
     const startNumber = parseInt(this.state.startNumber)
-    const countNumber = this.state.countNumber * this.state.perPage
+    const countNumber = parseInt(this.state.countNumber) * this.state.perPage
     // console.log(startNumber, countNumber)
     // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
     const numbers: number[] = []
@@ -116,6 +119,8 @@ class App extends Component<Props, State> {
               fromHash={typeof presets['fromHash'] !== 'undefined'}
             />
             <Step2
+              startNumber={this.state.startNumber}
+              countNumber={this.state.countNumber}
               changeStartNumber={this.setStartNumber.bind(this)}
               changeCountNumber={this.setCountNumber.bind(this)}
               setLibName={this.setLibName.bind(this)}

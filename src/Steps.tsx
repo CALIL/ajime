@@ -44,9 +44,9 @@ export const Step2 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>印刷するバーコードラベルを設定しましょう</p>
             <div>
-                <input type="number" style={{width: "6rem"}} defaultValue="10000" min="1" max="99999" required onChange={(e) => props.changeStartNumber(e.target.value)} />
+                <input type="number" style={{width: "6rem"}} defaultValue={props.startNumber} min="1" max="99999" required onChange={(e) => props.changeStartNumber(e.target.value)} />
                 からスタートで
-                <input type="number" style={{width: "4rem"}} defaultValue="1" min="1" max="100" required onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
+                <input type="number" style={{width: "4rem"}} defaultValue={props.countNumber} min="1" max="100" required onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
             </div>
             {/* <label htmlFor="libName">図書館名:</label> */}
             {/* <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} /> */}
