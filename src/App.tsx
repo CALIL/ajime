@@ -72,6 +72,7 @@ class App extends Component<Props, State> {
   }
 
   setStartNumber(number: string) {
+    if (number === '') return
     const isStartZero = number.match(/0+[0-9]+/) ? true : false
     this.setState({ startNumber: number, isStartZero: isStartZero }, this.renderBarCodes.bind(this))
   }
@@ -85,14 +86,12 @@ class App extends Component<Props, State> {
   }
 
   addZero(number: number): string {
+    let zeros = ''
     if (this.state.isStartZero) {
       const zeroLength = this.state.startNumber.length - String(number).length
-      let zeroNumber = String(number)
-      Array.from({length: zeroLength}).forEach(() => zeroNumber = '0' + zeroNumber)
-      return zeroNumber
-    } else {
-      return String(number)
+      Array.from({length: zeroLength}).forEach(() => zeros += '0')
     }
+    return zeros + String(number)
   }
   
   renderBarCodes() {
