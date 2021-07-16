@@ -47,7 +47,7 @@ class App extends Component<Props, State> {
       templateName: '',
       libName: '',
       perPage: 0,
-      startNumber: '00001',
+      startNumber: '10000',
       isStartZero: true,
       countNumber: '1',
       splitNumbers: []
@@ -158,7 +158,7 @@ class App extends Component<Props, State> {
                 style={{
                   position: 'absolute',
                   // top: '-' + (parseFloat(preset.marginTop) / 100) + 'mm',
-                  top: 0,
+                  top: (parseFloat(preset.marginTop) - 7) > 0 ? (parseFloat(preset.marginTop) - 7) / 2 + 'mm' : '0',
                   right: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
                   fontSize: '3mm'
                 }}
