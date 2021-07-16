@@ -157,7 +157,6 @@ class App extends Component<Props, State> {
               <p
                 style={{
                   position: 'absolute',
-                  // top: '-' + (parseFloat(preset.marginTop) / 100) + 'mm',
                   top: (parseFloat(preset.marginTop) - 7) > 0 ? (parseFloat(preset.marginTop) - 7) / 2 + 'mm' : '0',
                   right: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
                   fontSize: '3mm'
