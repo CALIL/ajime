@@ -24,10 +24,6 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         width: preset.labelWidth,
         height: preset.labelHeight,
         borderRadius: preset.borderRadius,
-        // marginTop: parseInt(preset.gapY) / 2 + 'mm',
-        // marginRight: parseInt(preset.gapX) / 2 + 'mm',
-        // marginBottom: parseInt(preset.gapY) / 2 + 'mm',
-        // marginLeft: parseInt(preset.gapX) / 2 + 'mm',
         padding: preset.labelPadding,
         boxShadow: '2px 0 0 0 #CCCCCC, 0 2px 0 0 #CCCCCC, 2px 2px 0 0 #CCCCCC, 2px 0 0 0 #CCCCCC inset, 0 2px 0 0 #CCCCCC inset',
       }}>
