@@ -50,10 +50,6 @@ export const Step2 = (props: any) => {
             </div>
             {/* <label htmlFor="libName">図書館名:</label> */}
             <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} />
-            <select>
-                <option value="">チェックデジットなし</option>
-                <option value="">モジュラス10 ウェイト2・1一括（M10W21）</option>
-            </select>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {

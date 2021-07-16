@@ -10,7 +10,7 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         width: 2.25,
         height: preset.barcodeHeight,
         textMargin: 2,
-        fontSize: 20,
+        fontSize: preset.barcodeHeight > 40 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
