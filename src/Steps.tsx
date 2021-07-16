@@ -55,7 +55,7 @@ export const Step2 = (props: any) => {
                 <option value="">モジュラス10 ウェイト2・1一括（M10W21）</option>
             </select>
             <nav>
-                <button onClick={props.previousStep}>戻る</button>
+                <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {
                     if(props.renderBarCodes()) {
                         props.nextStep()
@@ -71,7 +71,7 @@ export const Step3 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>さあ、印刷しましょう！</p>
             <nav>
-                <button onClick={props.previousStep}>戻る</button>
+                <button onClick={props.previousStep}>戻る</button>
                 <button onClick={print} className="active">印刷</button>
             </nav>
         </div>
