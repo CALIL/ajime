@@ -1,7 +1,7 @@
 {
     "id": "aone-72295",
     "name": "エーワン [72295]  95面  CODE39",
-    "barcode": "CODE39",
+    "barcode": "codabar",
     "marginTop": "16.5mm",
     "marginLeft": "13.5mm",
     "labelWidth": "35mm",
@@ -11,6 +11,7 @@
     "gapY": "2mm",
     "labelCountX": 5,
     "labelCountY": 19,
+    "barcodeHeight": 26,
     "enableLibName": false,
     "borderRadius": "2mm",
     "url": "https://www.askul.co.jp/p/3575890/",

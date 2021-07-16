@@ -6,9 +6,9 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
     const svgElement = useRef(null)
     useEffect(() => {
       JsBarcode(svgElement.current, number, {
-        format: props.preset.barcode,
+        format: preset.barcode,
         width: 2.25,
-        height: 52,
+        height: preset.barcodeHeight,
         textMargin: 2,
         fontSize: 20,
         font: '"Conv_OCRB",Sans-Serif',
@@ -30,7 +30,11 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         boxShadow: '2px 0 0 0 #CCCCCC, 0 2px 0 0 #CCCCCC, 2px 2px 0 0 #CCCCCC, 2px 0 0 0 #CCCCCC inset, 0 2px 0 0 #CCCCCC inset',
       }}>
         {showLibName ? (
-          <div className="libName" style={{fontSize: libName.length<10 ? '3mm' : '1.5mm', marginBottom: '1mm'}}>{libName}</div>
+          <div className="libName" style={{
+            fontFamily: '"Noto Sans JP"',
+            fontSize: libName.length<10 ? '3mm' : '1.5mm',
+            marginBottom: '1mm'
+          }}>{libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
       </div>
