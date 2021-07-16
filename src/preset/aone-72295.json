@@ -11,6 +11,7 @@
     "gapY": "2mm",
     "labelCountX": 5,
     "labelCountY": 19,
+    "enableLibName": false,
     "borderRadius": "2mm",
     "url": "https://www.askul.co.jp/p/3575890/",
     "linkText": "ASKULで購入"

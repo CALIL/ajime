@@ -15,20 +15,22 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         margin: 0,
       })
     })
+    const showLibName = libName!=='' && preset.enableLibName
     return (
-      <div className={'barcode' + (libName!=='' ? ' libName' : '')} style={{
+      <div className="barcode" style={{
         display: 'inline-flex',
+        flexDirection: showLibName ? 'column' : 'row',
         boxSizing: 'border-box',
         justifyContent: 'center',
         alignItems: 'center',
         width: preset.labelWidth,
         height: preset.labelHeight,
         borderRadius: preset.borderRadius,
-        padding: preset.labelPadding,
+        padding: showLibName ? parseInt(preset.labelPadding) / 2 + 'mm' : preset.labelPadding,
         boxShadow: '2px 0 0 0 #CCCCCC, 0 2px 0 0 #CCCCCC, 2px 2px 0 0 #CCCCCC, 2px 0 0 0 #CCCCCC inset, 0 2px 0 0 #CCCCCC inset',
       }}>
-        {libName!=='' ? (
-          <div className="name">{libName}</div>
+        {showLibName ? (
+          <div className="libName" style={{fontSize: libName.length<10 ? '3mm' : '1.5mm', marginBottom: '1mm'}}>{libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
       </div>

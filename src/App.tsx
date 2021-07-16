@@ -39,6 +39,15 @@ interface State {
   splitNumbers: number[][]
 }
 
+function eanCheckDigit(s: string){
+  let result = 0;
+  let i = 1;
+  for (let counter = s.length-1; counter >=0; counter--){
+      result = result + parseInt(s.charAt(counter)) * (1+(2*(i % 2)));
+      i++;
+  }
+  return (10 - (result % 10)) % 10;
+}    
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
