@@ -89,11 +89,11 @@ class App extends Component<Props, State> {
     let zeros = ''
     if (this.state.isStartZero) {
       const zeroLength = this.state.startNumber.length - String(number).length
-      Array.from({length: zeroLength}).forEach(() => zeros += '0')
+      Array.from({ length: zeroLength }).forEach(() => zeros += '0')
     }
     return zeros + String(number)
   }
-  
+
   renderBarCodes() {
     const isStartZero = this.state.startNumber.match(/0+[0-9]+/) ? true : false
     const startNumber = parseInt(this.state.startNumber)
@@ -141,29 +141,35 @@ class App extends Component<Props, State> {
           </StepWizard>
         </div>
         <div className="sheets">
-          {this.state.splitNumbers.map((numbers, index) => (
-            <section className={'sheet ' + this.state.templateName} key={index}
+          {this.state.splitNumbers.map((numbers, index) => {
+            const preset = presets[this.state.templateName]
+            return (<section className={'sheet ' + this.state.templateName} key={index}
               style={{
-                paddingTop: presets[this.state.templateName].marginTop,
-                paddingLeft: presets[this.state.templateName].marginLeft
+                paddingTop: preset.marginTop,
+                paddingLeft: preset.marginLeft,
+                display: 'grid',
+                gridTemplateColumns: `repeat(${preset.labelCountX}, ${preset.labelWidth})`,
+                gridTemplateRows: `repeat(${preset.labelCountY}, ${preset.labelHeight})`,
+                columnGap: preset.gapX,
+                rowGap: preset.gapY,
               }}
             >
               <p
                 style={{
                   position: 'absolute',
-                  // top: '-' + (parseFloat(presets[this.state.templateName].marginTop) / 100) + 'mm',
+                  // top: '-' + (parseFloat(preset.marginTop) / 100) + 'mm',
                   top: 0,
-                  right: parseInt(presets[this.state.templateName].marginLeft) + parseInt(presets[this.state.templateName].gapX) + 'mm',
+                  right: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
                   fontSize: '3mm'
                 }}
               >
                 {this.addZero(parseInt(this.state.startNumber) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
               </p>
               {numbers.map((number) => (
-                <Barcode number={String(number)} libName={this.state.libName} preset={presets[this.state.templateName]} key={number} />
+                <Barcode number={String(number)} libName={this.state.libName} preset={preset} key={number} />
               ))}
-            </section>
-          ))}
+            </section>)
+          })}
         </div>
       </div>
     )
