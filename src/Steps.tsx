@@ -12,14 +12,16 @@ export const Nav = (props: any) => {
 }
 
 export const Step1 = (props: any) => {
+    console.log(props.templateName)
+    console.log(presets)
     return (
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
             <p>印刷に使うラベルシールを選んでください</p>
             <ul>
-                {Object.values(presets).map((preset: any, index) => (
+                {Object.values(presets).map((preset: any) => (
                     <li key={preset.id}>
-                        <input type="radio" name="template" id={preset.id} value={preset.id} defaultChecked={index===props.templateIndex} onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                        <input type="radio" name="template" id={preset.id} value={preset.id} checked={preset.id===props.templateName} onChange={(e) => props.onSelectTemplate(e.target.value)} />
                         <label htmlFor={preset.id}>{preset.name} (
                             <a href={preset.url} target="_blank">{preset.linkText}</a>
                         )</label>

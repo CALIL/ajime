@@ -156,7 +156,7 @@ class App extends Component<Props, State> {
         <div className="steps">
           <StepWizard nav={<Nav />} transitions={custom}>
             <Step1
-              templateIndex={0}
+              templateName={this.state.templateName}
               onSelectTemplate={this.setTemplate.bind(this)}
             />
             <Step2
