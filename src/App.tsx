@@ -8,6 +8,31 @@ import Barcode from './Barcode'
 
 import presets from './preset/index'
 
+// モジュラス10 ウェイト2・1分割(Luhn formula)（M10W21）
+// 1.数値の各桁に、下の桁から２・１・２・１・…の順番に係数（ウェイト）を掛けます。
+// 2.各桁の結果が2桁の場合には、十の位と一の位を分けて足し合わせます（分割）。
+// 3.それぞれの合計を求めます。
+// 4.合計を10で割り、余りを求めます（モジュラス）。
+// 5.この余りを 10 から引いたもの(10 - 余り)がチェックデジットです。ただし余りが0の場合はチェックデジットも「0」になります。
+const calcCheckDigit = (code: number) => {
+  const dividedNumber = code.toString().split('').reverse().map((n, index) => {
+    const number = parseInt(n)
+    if (index % 2 === 0) {
+      const calcNumber = number * 2
+      return calcNumber.toString().split('').reduce((prev, current) => prev + parseInt(current), 0)
+    } else {
+      return number
+    }
+  })
+  const sum = dividedNumber.reduce((prev, current) => prev + current, 0)
+  if (sum % 10 === 0) return 0
+  return 10 - sum % 10
+}
+// console.log(calcCheckDigit(20151119))
+// console.log(calcCheckDigit(20151149))
+// console.log(calcCheckDigit(12345678))
+
+
 // 配列をn個毎の配列に分割して返す関数
 const splitByNumber = (sourceArray: any[], splitNumber: number) => {
   const result = []
