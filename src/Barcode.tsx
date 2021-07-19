@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import JsBarcode from 'jsbarcode'
 
-const Barcode = (props: { number: string, libName: string, preset: any }) => {
-    const {number, libName, preset} = props
+const Barcode = (props: { number: string, libName: string, preset: any, checkDigit: number | null }) => {
+    const {number, libName, preset, checkDigit} = props
     const svgElement = useRef(null)
     useEffect(() => {
       JsBarcode(svgElement.current, number, {
         format: preset.barcode,
         width: 2.25,
         height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
+        text: checkDigit===null ? number : number + '_' + checkDigit.toString(),
         textMargin: 2,
         fontSize: parseInt(preset.labelHeight) > 20 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',

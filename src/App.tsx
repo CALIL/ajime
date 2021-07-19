@@ -60,17 +60,8 @@ interface State {
   isStartZero: boolean
   countNumber: string
   splitNumbers: number[][]
-}
-
-function eanCheckDigit(s: string){
-  let result = 0;
-  let i = 1;
-  for (let counter = s.length-1; counter >=0; counter--){
-      result = result + parseInt(s.charAt(counter)) * (1+(2*(i % 2)));
-      i++;
-  }
-  return (10 - (result % 10)) % 10;
-}    
+  checkDigit: boolean
+}  
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
@@ -82,7 +73,8 @@ class App extends Component<Props, State> {
       startNumber: '10000',
       isStartZero: true,
       countNumber: '1',
-      splitNumbers: []
+      splitNumbers: [],
+      checkDigit: false
     }
   }
 
@@ -94,6 +86,10 @@ class App extends Component<Props, State> {
       let templateName = params.template as string
       if (templateName && presets[templateName]) {
         this.setTemplate(templateName)
+      }
+      let checkDigit = params.checkDigit as string
+      if (checkDigit === 'true') {
+        this.setState({ checkDigit: true })
       }
     }
   }
@@ -128,7 +124,6 @@ class App extends Component<Props, State> {
   }
 
   renderBarCodes() {
-    const isStartZero = this.state.startNumber.match(/0+[0-9]+/) ? true : false
     const startNumber = parseInt(this.state.startNumber)
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
     // console.log(startNumber, countNumber)
@@ -196,9 +191,11 @@ class App extends Component<Props, State> {
               >
                 {this.addZero(parseInt(this.state.startNumber) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
               </p>
-              {numbers.map((number) => (
-                <Barcode number={String(number)} libName={this.state.libName} preset={preset} key={number} />
-              ))}
+              {numbers.map((number) => {
+                let checkDigit: number | null = null
+                if (this.state.checkDigit) checkDigit = calcCheckDigit(number)
+                return <Barcode number={String(number)} checkDigit={checkDigit} libName={this.state.libName} preset={preset} key={number} />
+              })}
             </section>)
           })}
         </div>
