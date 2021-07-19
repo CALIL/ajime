@@ -202,6 +202,9 @@ class App extends Component<Props, State> {
             </section>)
           })}
         </div>
+        <footer>
+          <span className="poweredby"></span>
+        </footer>
       </div>
     )
   }
