@@ -80,7 +80,7 @@ class App extends Component<Props, State> {
 
   componentDidMount() {
     if (location.hash === '') {
-      this.setTemplate('aone-28368')
+      this.setTemplate('aone-28368', false)
     } else {
       const params = queryString.parse(location.hash)
       let templateName = params.template as string
@@ -94,13 +94,15 @@ class App extends Component<Props, State> {
     }
   }
 
-  setTemplate(templateName: string) {
+  setTemplate(templateName: string, setHash: boolean = true) {
     let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
     this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
-    const params = queryString.parse(location.hash)
-    const newParams = { template : templateName, checkDigit: false }
-    if (params.checkDigit) newParams.checkDigit = true
-    location.hash = queryString.stringify(newParams)
+    if (setHash) {
+      const params = queryString.parse(location.hash)
+      const newParams = { template : templateName, checkDigit: false }
+      if (params.checkDigit) newParams.checkDigit = true
+      location.hash = queryString.stringify(newParams)
+    }
   }
 
   setStartNumber(number: string) {
