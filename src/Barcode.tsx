@@ -16,7 +16,7 @@ const Barcode = (props: { number: string, libName: string, preset: any, checkDig
         margin: 0,
       })
     })
-    const showLibName = libName!=='' && preset.enableLibName
+    const showLibName = libName!=='' && parseInt(preset.labelHeight) > 20
     return (
       <div className="barcode" style={{
         display: 'inline-flex',
