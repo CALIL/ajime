@@ -71,7 +71,7 @@ class App extends Component<Props, State> {
       libName: '',
       perPage: 0,
       startNumber: '10000',
-      isStartZero: true,
+      isStartZero: false,
       countNumber: '1',
       splitNumbers: [],
       checkDigit: false
