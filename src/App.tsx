@@ -66,15 +66,17 @@ interface State {
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
+    const state = localStorage.getItem('state') as string
+    const { templateName, libName, startNumber, isStartZero, checkDigit } = JSON.parse(state)
     this.state = {
-      templateName: '',
-      libName: '',
+      templateName: state ? templateName : '',
+      libName: state ? libName : '',
       perPage: 0,
-      startNumber: '10000',
-      isStartZero: false,
+      startNumber: state ? startNumber : '10000',
+      isStartZero: state ? isStartZero : false,
       countNumber: '1',
       splitNumbers: [],
-      checkDigit: false
+      checkDigit: state ? checkDigit : false
     }
   }
 
@@ -96,7 +98,10 @@ class App extends Component<Props, State> {
 
   setTemplate(templateName: string, setHash: boolean = true) {
     let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
-    this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
+    this.setState({ perPage, templateName }, () => {
+      this.renderBarCodes()
+      this.saveState()
+    })
     if (setHash) {
       const params = queryString.parse(location.hash)
       const newParams = { template : templateName, checkDigit: false }
@@ -108,7 +113,10 @@ class App extends Component<Props, State> {
   setStartNumber(number: string) {
     if (number === '') return
     const isStartZero = number.match(/0+[0-9]+/) ? true : false
-    this.setState({ startNumber: number, isStartZero: isStartZero }, this.renderBarCodes.bind(this))
+    this.setState({ startNumber: number, isStartZero: isStartZero }, () => {
+      this.renderBarCodes()
+      this.saveState()
+    })
   }
 
   setCountNumber(number: string) {
@@ -116,7 +124,18 @@ class App extends Component<Props, State> {
   }
 
   setLibName(libName: string) {
-    this.setState({ libName: libName })
+    this.setState({ libName: libName }, this.saveState.bind(this))
+  }
+
+  saveState() {
+    const state = {
+      templateName: this.state.templateName,
+      libName: this.state.libName,
+      startNumber: this.state.startNumber,
+      isStartZero: this.state.isStartZero,
+      checkDigit: this.state.checkDigit
+    }
+    localStorage.setItem('state', JSON.stringify(state))
   }
 
   addZero(number: number): string {
@@ -166,6 +185,7 @@ class App extends Component<Props, State> {
               countNumber={this.state.countNumber}
               changeStartNumber={this.setStartNumber.bind(this)}
               changeCountNumber={this.setCountNumber.bind(this)}
+              libName={this.state.libName}
               setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
             />

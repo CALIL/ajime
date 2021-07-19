@@ -12,8 +12,6 @@ export const Nav = (props: any) => {
 }
 
 export const Step1 = (props: any) => {
-    console.log(props.templateName)
-    console.log(presets)
     return (
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
@@ -45,7 +43,7 @@ export const Step2 = (props: any) => {
                 <input type="number" style={{width: "4rem"}} defaultValue={props.countNumber} min="1" max="100" required onChange={(e) => props.changeCountNumber(e.target.value)} />ページ
             </div>
             {/* <label htmlFor="libName">図書館名:</label> */}
-            <input type="text" name="libName" id="libName" placeholder="図書館名" onChange={(e) => props.setLibName(e.target.value)} />
+            <input type="text" name="libName" id="libName" placeholder="図書館名" defaultValue={props.libName} onChange={(e) => props.setLibName(e.target.value)} />
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
                 <button onClick={() => {
