@@ -9,7 +9,7 @@ const Barcode = (props: { number: string, libName: string, preset: any, checkDig
         format: preset.barcode,
         width: 2.25,
         height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
-        text: checkDigit===null ? number : number + '_' + checkDigit.toString(),
+        text: checkDigit===null ? number : number + '-' + checkDigit.toString(),
         textMargin: 2,
         fontSize: parseInt(preset.labelHeight) > 20 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',
