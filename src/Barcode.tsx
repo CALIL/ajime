@@ -8,9 +8,9 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
       JsBarcode(svgElement.current, number, {
         format: preset.barcode,
         width: 2.25,
-        height: preset.barcodeHeight,
+        height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
         textMargin: 2,
-        fontSize: preset.barcodeHeight > 40 ? 20 : 15,
+        fontSize: parseInt(preset.labelHeight) > 20 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
@@ -27,7 +27,6 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         height: preset.labelHeight,
         borderRadius: preset.borderRadius,
         padding: showLibName ? parseInt(preset.labelPadding) / 2 + 'mm' : preset.labelPadding,
-        // boxShadow: '2px 0 0 0 #CCCCCC, 0 2px 0 0 #CCCCCC, 2px 2px 0 0 #CCCCCC, 2px 0 0 0 #CCCCCC inset, 0 2px 0 0 #CCCCCC inset',
         border: '1px solid #CCCCCC'
       }}>
         {showLibName ? (
