@@ -97,7 +97,7 @@ class App extends Component<Props, State> {
   setTemplate(templateName: string) {
     let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
     this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
-    location.hash = queryString.stringify({ template: templateName })
+    location.hash = queryString.stringify({ template: templateName, checkDigit: this.state.checkDigit })
   }
 
   setStartNumber(number: string) {
