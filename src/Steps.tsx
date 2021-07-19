@@ -25,12 +25,6 @@ export const Step1 = (props: any) => {
                         )</label>
                     </li>
                 ))}
-                {props.fromHash ? (
-                <li>
-                    <input type="radio" name="template" id="fromHash" value="fromHash" defaultChecked={true} onChange={(e) => props.onSelectTemplate(e.target.value)} />
-                    <label htmlFor="fromHash">URLで共有されたラベルシール</label>
-                </li>
-                ) : null}
             </ul>
             <nav>
                 <button onClick={props.nextStep} className="active">次へ</button>

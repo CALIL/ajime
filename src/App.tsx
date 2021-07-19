@@ -66,11 +66,6 @@ class App extends Component<Props, State> {
   componentDidMount() {
     if (location.hash === '') {
       this.setTemplate('aone-28368')
-    } else {
-      const hashPreset = JSURL.parse(location.hash.substr(1))
-      presets['fromHash'] = hashPreset
-      this.setTemplate('fromHash')
-      if (hashPreset.printNow) print()
     }
   }
 
@@ -136,7 +131,6 @@ class App extends Component<Props, State> {
             <Step1
               templateIndex={0}
               onSelectTemplate={this.setTemplate.bind(this)}
-              fromHash={typeof presets['fromHash'] !== 'undefined'}
             />
             <Step2
               startNumber={this.state.startNumber}
