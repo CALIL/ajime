@@ -66,17 +66,17 @@ interface State {
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    const state = localStorage.getItem('state') as string
-    const { templateName, libName, startNumber, isStartZero, checkDigit } = JSON.parse(state)
+    const isState = localStorage.getItem('state') as string
+    const state = JSON.parse(isState)
     this.state = {
-      templateName: state ? templateName : '',
-      libName: state ? libName : '',
+      templateName: isState ? state.templateName : '',
+      libName: isState ? state.libName : '',
       perPage: 0,
-      startNumber: state ? startNumber : '10000',
-      isStartZero: state ? isStartZero : false,
+      startNumber: isState ? state.startNumber : '10000',
+      isStartZero: isState ? state.isStartZero : false,
       countNumber: '1',
       splitNumbers: [],
-      checkDigit: state ? checkDigit : false
+      checkDigit: isState ? state.checkDigit : false
     }
   }
 
