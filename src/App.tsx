@@ -103,10 +103,10 @@ class App extends Component<Props, State> {
       this.saveState()
     })
     if (setHash) {
-      const params = queryString.parse(location.hash)
-      const newParams = { template : templateName, checkDigit: false }
-      if (params.checkDigit==='true') newParams.checkDigit = true
-      location.hash = queryString.stringify(newParams)
+      const qs = queryString.parse(location.hash)
+      const params = { template : templateName, checkDigit: false }
+      if (qs.checkDigit==='true') params.checkDigit = true
+      location.hash = queryString.stringify(params)
     }
   }
 
