@@ -76,7 +76,7 @@ class App extends Component<Props, State> {
       isStartZero: isState ? state.isStartZero : false,
       countNumber: '1',
       splitNumbers: [],
-      checkDigit: isState ? state.checkDigit : false
+      checkDigit: false
     }
   }
 
@@ -105,7 +105,7 @@ class App extends Component<Props, State> {
     if (setHash) {
       const params = queryString.parse(location.hash)
       const newParams = { template : templateName, checkDigit: false }
-      if (params.checkDigit) newParams.checkDigit = true
+      if (params.checkDigit==='true') newParams.checkDigit = true
       location.hash = queryString.stringify(newParams)
     }
   }
@@ -132,8 +132,7 @@ class App extends Component<Props, State> {
       templateName: this.state.templateName,
       libName: this.state.libName,
       startNumber: this.state.startNumber,
-      isStartZero: this.state.isStartZero,
-      checkDigit: this.state.checkDigit
+      isStartZero: this.state.isStartZero
     }
     localStorage.setItem('state', JSON.stringify(state))
   }
