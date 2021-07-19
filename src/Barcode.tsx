@@ -27,6 +27,7 @@ const Barcode = (props: { number: string, libName: string, preset: any }) => {
         height: preset.labelHeight,
         borderRadius: preset.borderRadius,
         padding: showLibName ? parseInt(preset.labelPadding) / 2 + 'mm' : preset.labelPadding,
+        paddingTop: showLibName ? parseInt(preset.labelPadding) / 3 + 'mm' : preset.labelPadding,
         border: '1px solid #CCCCCC'
       }}>
         {showLibName ? (
