@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
 
-// @ts-ignore
-import JSURL from 'jsurl'
-
+import queryString from 'query-string'
 
 import { Nav, Step1, Step2, Step3 } from './Steps'
 import Barcode from './Barcode'
@@ -66,13 +64,19 @@ class App extends Component<Props, State> {
   componentDidMount() {
     if (location.hash === '') {
       this.setTemplate('aone-28368')
+    } else {
+      const params = queryString.parse(location.hash)
+      let templateName = params.template as string
+      if (templateName && presets[templateName]) {
+        this.setTemplate(templateName)
+      }
     }
   }
 
   setTemplate(templateName: string) {
     let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
     this.setState({ perPage, templateName }, this.renderBarCodes.bind(this))
-    // location.hash = JSURL.stringify(presets[templateName])
+    location.hash = queryString.stringify({ template: templateName })
   }
 
   setStartNumber(number: string) {
