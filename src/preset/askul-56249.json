@@ -1,17 +1,20 @@
 {
-    "id": "askul-56249",
-    "name": "アスクル [56249]  65面 再剥離 NW-37",
-    "barcode": "codabar",
-    "marginTop": "10.92mm",
-    "marginLeft": "4.75mm",
-    "labelWidth": "38.1mm",
-    "labelHeight": "21.2mm",
-    "labelPadding": "4mm",
-    "gapX": "2.5mm",
-    "gapY": "0",
-    "labelCountX": 5,
-    "labelCountY": 13,
-    "borderRadius": "2mm",
-    "url": "https://www.askul.co.jp/p/1979677/",
-    "linkText": "ASKULで購入"
+  "id": "askul-56249",
+  "name": "アスクル 65面",
+  "sku": [
+    "46670 強粘着",
+    "56249 再剥離"
+  ],
+  "marginTop": "10.92mm",
+  "marginLeft": "4.75mm",
+  "labelWidth": "38.1mm",
+  "labelHeight": "21.2mm",
+  "labelPadding": "4mm",
+  "gapX": "2.5mm",
+  "gapY": "0",
+  "labelCountX": 5,
+  "labelCountY": 13,
+  "borderRadius": "2mm",
+  "url": "https://www.askul.co.jp/p/1979588/",
+  "linkText": "商品情報"
 }
