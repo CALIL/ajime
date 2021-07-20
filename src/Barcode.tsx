@@ -13,7 +13,6 @@ const Barcode = (props: Props) => {
     const {number, libName, preset, checkDigit, univStartAlphabet} = props
     const svgElement = useRef(null)
     useEffect(() => {
-      console.log(checkDigit, univStartAlphabet)
       let tempNumber = number
       if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
       if (checkDigit!==null) tempNumber += checkDigit
