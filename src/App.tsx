@@ -221,7 +221,7 @@ class App extends Component<Props, State> {
               {numbers.map((number) => {
                 let checkDigit: number | null = null
                 if (this.state.checkDigit) checkDigit = calcCheckDigit(number)
-                return <Barcode number={String(number)} checkDigit={checkDigit} libName={this.state.libName} preset={preset} key={number} />
+                return <Barcode number={String(number)} checkDigit={checkDigit} isCode39={this.state.isCode39} libName={this.state.libName} preset={preset} key={number} />
               })}
             </section>)
           })}
