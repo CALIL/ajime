@@ -13,11 +13,10 @@ const Barcode = (props: Props) => {
     const {number, libName, preset, checkDigit, univStartAlphabet} = props
     const svgElement = useRef(null)
     useEffect(() => {
+      console.log(checkDigit, univStartAlphabet)
       let tempNumber = number
-      console.log(univStartAlphabet)
       if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
       if (checkDigit!==null) tempNumber += checkDigit
-      console.log(tempNumber)
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,

@@ -109,9 +109,8 @@ class App extends Component<Props, State> {
   setStartNumber(number: string) {
     if (number === '') return
     const isStartZero = number.match(/^[A-Z]?0+[0-9]+/) ? true : false
-    const isCode39 = number.match(/^[A-Z]+[0-9]+$/) ? true : false
     let univStartAlphabet = null
-    if (isCode39) {
+    if (number.match(/^[A-Z]+[0-9]+C?$/)) {
       let match = number.match(/^[A-Z]+/)
       if (match) univStartAlphabet = match[0]
     }
