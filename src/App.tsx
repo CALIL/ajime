@@ -91,10 +91,6 @@ class App extends Component<Props, State> {
       if (templateName && presets[templateName]) {
         this.setTemplate(templateName)
       }
-      let checkDigit = params.checkDigit as string
-      if (checkDigit === 'true') {
-        this.setState({ checkDigit: true })
-      }
     }
     this.setStartNumber(this.state.startNumber)
   }
@@ -106,10 +102,7 @@ class App extends Component<Props, State> {
       this.saveState()
     })
     if (setHash) {
-      const qs = queryString.parse(location.hash)
-      const params = { template : templateName, checkDigit: false }
-      if (qs.checkDigit==='true') params.checkDigit = true
-      location.hash = queryString.stringify(params)
+      location.hash = queryString.stringify({ template : templateName })
     }
   }
 
@@ -117,7 +110,8 @@ class App extends Component<Props, State> {
     if (number === '') return
     const isStartZero = number.match(/^[A-Z]?0+[0-9]+/) ? true : false
     const isCode39 = number.match(/^[A-Z]+[0-9]+$/) ? true : false
-    this.setState({ startNumber: number, isStartZero: isStartZero, isCode39 }, () => {
+    const checkDigit = number.match(/C$/) ? true : false
+    this.setState({ startNumber: number, isStartZero, checkDigit, isCode39 }, () => {
       this.renderBarCodes()
       this.saveState()
     })
