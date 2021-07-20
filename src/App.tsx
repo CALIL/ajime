@@ -61,6 +61,7 @@ interface State {
   countNumber: string
   splitNumbers: number[][]
   checkDigit: boolean
+  isCode39: boolean
 }  
 
 class App extends Component<Props, State> {
@@ -73,10 +74,11 @@ class App extends Component<Props, State> {
       libName: isState ? state.libName : '',
       perPage: 0,
       startNumber: isState ? state.startNumber : '10000',
-      isStartZero: isState ? state.isStartZero : false,
+      isStartZero: false,
       countNumber: '1',
       splitNumbers: [],
-      checkDigit: false
+      checkDigit: false,
+      isCode39: false
     }
   }
 
@@ -94,6 +96,7 @@ class App extends Component<Props, State> {
         this.setState({ checkDigit: true })
       }
     }
+    this.setStartNumber(this.state.startNumber)
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
@@ -113,7 +116,8 @@ class App extends Component<Props, State> {
   setStartNumber(number: string) {
     if (number === '') return
     const isStartZero = number.match(/0+[0-9]+/) ? true : false
-    this.setState({ startNumber: number, isStartZero: isStartZero }, () => {
+    const isCode39 = number.match(/0+[0-9]+/) ? true : false
+    this.setState({ startNumber: number, isStartZero: isStartZero, isCode39 }, () => {
       this.renderBarCodes()
       this.saveState()
     })
@@ -131,8 +135,7 @@ class App extends Component<Props, State> {
     const state = {
       templateName: this.state.templateName,
       libName: this.state.libName,
-      startNumber: this.state.startNumber,
-      isStartZero: this.state.isStartZero
+      startNumber: this.state.startNumber
     }
     localStorage.setItem('state', JSON.stringify(state))
   }

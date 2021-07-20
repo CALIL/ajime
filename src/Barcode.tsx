@@ -6,7 +6,7 @@ const Barcode = (props: { number: string, libName: string, preset: any, checkDig
     const svgElement = useRef(null)
     useEffect(() => {
       JsBarcode(svgElement.current, checkDigit===null ? number : number + checkDigit, {
-        format: preset.barcode,
+        format: 'codabar',
         width: 2.25,
         height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
         text: checkDigit===null ? number : number + '-' + checkDigit.toString(),
