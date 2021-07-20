@@ -115,8 +115,8 @@ class App extends Component<Props, State> {
 
   setStartNumber(number: string) {
     if (number === '') return
-    const isStartZero = number.match(/0+[0-9]+/) ? true : false
-    const isCode39 = number.match(/0+[0-9]+/) ? true : false
+    const isStartZero = number.match(/^[A-Z]?0+[0-9]+/) ? true : false
+    const isCode39 = number.match(/^[A-Z]+[0-9]+$/) ? true : false
     this.setState({ startNumber: number, isStartZero: isStartZero, isCode39 }, () => {
       this.renderBarCodes()
       this.saveState()
