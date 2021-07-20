@@ -14,8 +14,8 @@ import presets from './preset/index'
 // 3.それぞれの合計を求めます。
 // 4.合計を10で割り、余りを求めます（モジュラス）。
 // 5.この余りを 10 から引いたもの(10 - 余り)がチェックデジットです。ただし余りが0の場合はチェックデジットも「0」になります。
-const calcCheckDigit = (code: number) => {
-  const dividedNumber = code.toString().split('').reverse().map((n, index) => {
+const calcCheckDigit = (code: string) => {
+  const dividedNumber = code.split('').reverse().map((n, index) => {
     const number = parseInt(n)
     if (index % 2 === 0) {
       const calcNumber = number * 2
@@ -59,9 +59,9 @@ interface State {
   startNumber: string
   isStartZero: boolean
   countNumber: string
-  splitNumbers: number[][]
+  splitNumbers: string[][]
   checkDigit: boolean
-  isCode39: boolean
+  univStartAlphabet: string | null
 }  
 
 class App extends Component<Props, State> {
@@ -78,7 +78,7 @@ class App extends Component<Props, State> {
       countNumber: '1',
       splitNumbers: [],
       checkDigit: false,
-      isCode39: false
+      univStartAlphabet: null
     }
   }
 
@@ -110,8 +110,13 @@ class App extends Component<Props, State> {
     if (number === '') return
     const isStartZero = number.match(/^[A-Z]?0+[0-9]+/) ? true : false
     const isCode39 = number.match(/^[A-Z]+[0-9]+$/) ? true : false
+    let univStartAlphabet = null
+    if (isCode39) {
+      let match = number.match(/^[A-Z]+/)
+      if (match) univStartAlphabet = match[0]
+    }
     const checkDigit = number.match(/C$/) ? true : false
-    this.setState({ startNumber: number, isStartZero, checkDigit, isCode39 }, () => {
+    this.setState({ startNumber: number, isStartZero, checkDigit, univStartAlphabet }, () => {
       this.renderBarCodes()
       this.saveState()
     })
@@ -152,10 +157,6 @@ class App extends Component<Props, State> {
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
       let tempNumber = this.addZero(currentNumber)
-      if (this.state.isCode39) {
-        let match = this.state.startNumber.match(/^[A-Z]+/)
-        if (match) tempNumber = match[0] + tempNumber
-      }
       numbers.push(tempNumber)
       currentNumber += 1
     })
@@ -219,8 +220,8 @@ class App extends Component<Props, State> {
               </p>
               {numbers.map((number) => {
                 let checkDigit: number | null = null
-                if (this.state.checkDigit) checkDigit = calcCheckDigit(number)
-                return <Barcode number={String(number)} checkDigit={checkDigit} isCode39={this.state.isCode39} libName={this.state.libName} preset={preset} key={number} />
+                if (this.state.checkDigit) checkDigit = calcCheckDigit(number.replace(/[A-Z]/g, ''))
+                return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} preset={preset} key={number} />
               })}
             </section>)
           })}
