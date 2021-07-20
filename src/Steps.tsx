@@ -40,8 +40,11 @@ export const Step2 = (props: any) => {
             <div>
                 <input type="text" style={{width: "8rem"}} defaultValue={props.startNumber} min="1" max="99999" required 
                     onChange={(e) => {
-                        if (e.target.value.match(/^[A-Z]*?[0-9]+C?$/)) {
-                            props.changeStartNumber(e.target.value)
+                        if (e.target.value.toUpperCase().match(/^[A-Z]*?[0-9]+C?$/)) {
+                            props.changeStartNumber(e.target.value.toUpperCase())
+                            if (e.target.value !== e.target.value.toUpperCase()) {
+                                e.target.value = e.target.value.toUpperCase()
+                            }
                         } else {
                             e.target.value = props.startNumber
                         }
