@@ -150,14 +150,19 @@ class App extends Component<Props, State> {
   }
 
   renderBarCodes() {
-    const startNumber = parseInt(this.state.startNumber)
+    const startNumber = parseInt(this.state.startNumber.replace(/[A-Z]/g, ''))
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
     // console.log(startNumber, countNumber)
     // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
-      numbers.push(this.addZero(currentNumber))
+      let tempNumber = this.addZero(currentNumber)
+      if (this.state.isCode39) {
+        let match = this.state.startNumber.match(/^[A-Z]+/)
+        if (match) tempNumber = match[0] + tempNumber
+      }
+      numbers.push(tempNumber)
       currentNumber += 1
     })
     const splitNumbers = splitByNumber(numbers, this.state.perPage)
