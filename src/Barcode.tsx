@@ -12,15 +12,16 @@ interface Props  {
 const Barcode = (props: Props) => {
     const {number, libName, preset, checkDigit, univStartAlphabet} = props
     const svgElement = useRef(null)
+    let tempNumber = number
+    if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
     useEffect(() => {
-      let tempNumber = number
-      if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
         height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
+        displayValue: false,
         text: checkDigit===null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
-        textMargin: 2,
+        textMargin: 0,
         fontSize: parseInt(preset.labelHeight) > 20 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
@@ -49,6 +50,20 @@ const Barcode = (props: Props) => {
           }}>{libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
+        <div style={{
+            fontFamily: '"Conv_OCRB",Sans-Serif',
+            fontSize: '3.5mm',
+            marginTop: '1mm'
+        }}>
+          {tempNumber}
+          {checkDigit===null ? null :  (
+          <span style={{
+            fontFamily: '"Conv_OCRB",Sans-Serif',
+            // fontWeight: 'bold',
+            // fontSize: '3.25mm',
+            textDecoration: 'underline'
+          }}>{checkDigit}</span>
+        )}</div>
       </div>
     )
 }
