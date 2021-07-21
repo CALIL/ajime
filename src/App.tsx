@@ -85,18 +85,23 @@ class App extends Component<Props, State> {
   componentDidMount() {
     if (location.hash === '') {
       this.setTemplate('aone-28368', false)
+      this.setStartNumber(this.state.startNumber)
     } else {
       const params = queryString.parse(location.hash)
 
       let startNumber = params.startNumber as string
-      if (startNumber) this.setState({startNumber})
-
-      let templateName = params.template as string
-      if (templateName && templates[templateName]) {
-        this.setTemplate(templateName)
+      console.log(startNumber)
+      if (startNumber) {
+        this.setState({startNumber})
+        this.setStartNumber(startNumber)
+      } else {
+        let templateName = params.template as string
+        if (templateName && templates[templateName]) {
+          this.setTemplate(templateName)
+        }
+        this.setStartNumber(this.state.startNumber)
       }
     }
-    this.setStartNumber(this.state.startNumber)
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
