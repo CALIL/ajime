@@ -22,7 +22,7 @@ const Barcode = (props: Props) => {
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
-        height: isWideHeight ? 52 : 26,
+        height: isWideHeight ? 52 : 20,
         displayValue: false,
         text: checkDigit===null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
         textMargin: 0,
@@ -35,7 +35,7 @@ const Barcode = (props: Props) => {
     return (
       <div className="barcode" style={{
         display: 'inline-flex',
-        flexDirection: showLibName ? 'column' : 'row',
+        flexDirection: 'column',
         boxSizing: 'border-box',
         justifyContent: 'center',
         alignItems: 'center',
@@ -54,23 +54,21 @@ const Barcode = (props: Props) => {
           }}>{libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
-        {isWideHeight ? (
-          <div style={{
-            fontFamily: '"Conv_OCRB",Sans-Serif',
-            fontSize: '3.5mm',
-            marginTop: '1mm'
-          }}>
-            {tempNumber}
-            {checkDigit ? (
-              <span style={{
-                fontFamily: '"Conv_OCRB",Sans-Serif',
-                // fontWeight: 'bold',
-                // fontSize: '3.25mm',
-                textDecoration: 'underline'
-              }}>{checkDigit}</span>
-            ) : null}
-          </div>
-        ) : null}
+        <div style={{
+          fontFamily: '"Conv_OCRB",Sans-Serif',
+          fontSize: isWideHeight ? '3.5mm' : '1.5mm',
+          marginTop: '1mm'
+        }}>
+          {tempNumber}
+          {checkDigit ? (
+            <span style={{
+              fontFamily: '"Conv_OCRB",Sans-Serif',
+              // fontWeight: 'bold',
+              // fontSize: '3.25mm',
+              textDecoration: 'underline'
+            }}>{checkDigit}</span>
+          ) : null}
+        </div>
       </div>
     )
 }
