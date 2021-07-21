@@ -88,16 +88,14 @@ class App extends Component<Props, State> {
       this.setStartNumber(this.state.startNumber)
     } else {
       const params = queryString.parse(location.hash)
-
+      let templateName = params.template as string
+      if (templateName && templates[templateName]) {
+        this.setTemplate(templateName, false)
+      }
       let startNumber = params.startNumber as string
       if (startNumber) {
-        this.setState({startNumber})
-        this.setStartNumber(startNumber)
+        this.setState({startNumber}, () => this.setStartNumber(this.state.startNumber))
       } else {
-        let templateName = params.template as string
-        if (templateName && templates[templateName]) {
-          this.setTemplate(templateName)
-        }
         this.setStartNumber(this.state.startNumber)
       }
     }
