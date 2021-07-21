@@ -215,7 +215,7 @@ class App extends Component<Props, State> {
                   fontSize: '3mm'
                 }}
               >
-                {this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
+                {this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) - 1 + this.state.perPage * (index + 1))} / {this.state.univStartAlphabet!==null ? 'Code39' : 'NW-7'} / {index + 1}枚目
               </p>
               {numbers.map((number) => {
                 let checkDigit: number | null = null
