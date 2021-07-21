@@ -222,6 +222,15 @@ class App extends Component<Props, State> {
                 if (this.state.checkDigit) checkDigit = calcCheckDigit(number.replace(/[A-Z]/g, ''))
                 return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} preset={preset} key={number} />
               })}
+              <span
+                className="logo"
+                style={{
+                  position: 'absolute',
+                  bottom: (parseFloat(preset.marginTop) - 7) > 0 ? (parseFloat(preset.marginTop) - 7) + 'mm' : '0',
+                  left: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
+                  fontSize: '3mm'
+                }}
+              ></span>
             </section>)
           })}
         </div>
