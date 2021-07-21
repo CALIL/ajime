@@ -22,7 +22,7 @@ const Barcode = (props: Props) => {
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
-        height: isWideHeight ? 52 : 20,
+        height: isWideHeight ? 52 : 26,
         displayValue: false,
         text: checkDigit===null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
         textMargin: 0,
