@@ -90,7 +90,6 @@ class App extends Component<Props, State> {
       const params = queryString.parse(location.hash)
 
       let startNumber = params.startNumber as string
-      console.log(startNumber)
       if (startNumber) {
         this.setState({startNumber})
         this.setStartNumber(startNumber)
