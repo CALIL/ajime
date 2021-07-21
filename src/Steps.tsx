@@ -38,7 +38,7 @@ export const Step2 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>印刷するバーコードラベルを設定しましょう</p>
             <div>
-                <input type="text" style={{width: "8rem"}} value={props.startNumber} min="1" max="99999" required 
+                <input type="text" style={{width: "8rem"}} value={props.startNumber} min="1" max="99999" maxLength={16} required 
                     onChange={(e) => {
                         if (e.target.value.toUpperCase().match(/^[A-Z]*?[0-9]+C?$/)) {
                             props.changeStartNumber(e.target.value.toUpperCase())
