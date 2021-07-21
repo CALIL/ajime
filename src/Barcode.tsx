@@ -61,14 +61,15 @@ const Barcode = (props: Props) => {
             marginTop: '1mm'
           }}>
             {tempNumber}
-            {checkDigit===null ? null :  (
+            {checkDigit ? (
               <span style={{
                 fontFamily: '"Conv_OCRB",Sans-Serif',
                 // fontWeight: 'bold',
                 // fontSize: '3.25mm',
                 textDecoration: 'underline'
               }}>{checkDigit}</span>
-            )}</div>
+            ) : null}
+          </div>
         ) : null}
       </div>
     )
