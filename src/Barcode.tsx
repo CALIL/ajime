@@ -15,7 +15,6 @@ const Barcode = (props: Props) => {
     useEffect(() => {
       let tempNumber = number
       if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
-      if (checkDigit!==null) tempNumber += checkDigit
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
