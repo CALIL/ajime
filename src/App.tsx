@@ -141,7 +141,7 @@ class App extends Component<Props, State> {
   addZero(number: number): string {
     let zeros = ''
     if (this.state.isStartZero) {
-      const zeroLength = this.state.startNumber.length - String(number).length
+      const zeroLength = this.state.startNumber.replace(/[A-Z]/g, '').length - String(number).length
       Array.from({ length: zeroLength }).forEach(() => zeros += '0')
     }
     return zeros + String(number)
@@ -215,7 +215,7 @@ class App extends Component<Props, State> {
                   fontSize: '3mm'
                 }}
               >
-                {this.addZero(parseInt(this.state.startNumber) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
+                {this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) - 1 + this.state.perPage * (index + 1))} / {index + 1}枚目
               </p>
               {numbers.map((number) => {
                 let checkDigit: number | null = null
