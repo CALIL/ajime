@@ -4,13 +4,13 @@ import JsBarcode from 'jsbarcode'
 interface Props  {
   number: string,
   libName: string,
-  preset: any,
+  template: any,
   checkDigit: number | null,
   univStartAlphabet: string | null
 }
 
 const Barcode = (props: Props) => {
-    const {number, libName, preset, checkDigit, univStartAlphabet} = props
+    const {number, libName, template, checkDigit, univStartAlphabet} = props
     const svgElement = useRef(null)
     let tempNumber = number
     if (univStartAlphabet!==null) tempNumber = univStartAlphabet + number
@@ -18,16 +18,16 @@ const Barcode = (props: Props) => {
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
-        height: parseInt(preset.labelHeight) > 20 ? 52 : 26,
+        height: parseInt(template.labelHeight) > 20 ? 52 : 26,
         displayValue: false,
         text: checkDigit===null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
         textMargin: 0,
-        fontSize: parseInt(preset.labelHeight) > 20 ? 20 : 15,
+        fontSize: parseInt(template.labelHeight) > 20 ? 20 : 15,
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
     })
-    const showLibName = libName!=='' && parseInt(preset.labelHeight) > 20
+    const showLibName = libName!=='' && parseInt(template.labelHeight) > 20
     return (
       <div className="barcode" style={{
         display: 'inline-flex',
@@ -35,11 +35,11 @@ const Barcode = (props: Props) => {
         boxSizing: 'border-box',
         justifyContent: 'center',
         alignItems: 'center',
-        width: preset.labelWidth,
-        height: preset.labelHeight,
-        borderRadius: preset.borderRadius,
-        padding: showLibName ? parseInt(preset.labelPadding) / 2 + 'mm' : preset.labelPadding,
-        paddingTop: showLibName ? parseInt(preset.labelPadding) / 3 + 'mm' : preset.labelPadding,
+        width: template.labelWidth,
+        height: template.labelHeight,
+        borderRadius: template.borderRadius,
+        padding: showLibName ? parseInt(template.labelPadding) / 2 + 'mm' : template.labelPadding,
+        paddingTop: showLibName ? parseInt(template.labelPadding) / 3 + 'mm' : template.labelPadding,
         border: '1px solid #CCCCCC'
       }}>
         {showLibName ? (

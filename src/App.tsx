@@ -6,7 +6,7 @@ import queryString from 'query-string'
 import { Nav, Step1, Step2, Step3 } from './Steps'
 import Barcode from './Barcode'
 
-import presets from './preset/index'
+import templates from './templates/index'
 
 // モジュラス10 ウェイト2・1分割(Luhn formula)（M10W21）
 // 1.数値の各桁に、下の桁から２・１・２・１・…の順番に係数（ウェイト）を掛けます。
@@ -92,7 +92,7 @@ class App extends Component<Props, State> {
       if (startNumber) this.setState({startNumber})
 
       let templateName = params.template as string
-      if (templateName && presets[templateName]) {
+      if (templateName && templates[templateName]) {
         this.setTemplate(templateName)
       }
     }
@@ -100,7 +100,7 @@ class App extends Component<Props, State> {
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
-    let perPage: number = presets[templateName].labelCountX * presets[templateName].labelCountY
+    let perPage: number = templates[templateName].labelCountX * templates[templateName].labelCountY
     this.setState({ perPage, templateName }, () => {
       this.renderBarCodes()
       this.saveState()
@@ -199,23 +199,23 @@ class App extends Component<Props, State> {
         </div>
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
-            const preset = presets[this.state.templateName]
+            const template = templates[this.state.templateName]
             return (<section className={'sheet ' + this.state.templateName} key={index}
               style={{
-                paddingTop: preset.marginTop,
-                paddingLeft: preset.marginLeft,
+                paddingTop: template.marginTop,
+                paddingLeft: template.marginLeft,
                 display: 'grid',
-                gridTemplateColumns: `repeat(${preset.labelCountX}, ${preset.labelWidth})`,
-                gridTemplateRows: `repeat(${preset.labelCountY}, ${preset.labelHeight})`,
-                columnGap: preset.gapX,
-                rowGap: preset.gapY,
+                gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
+                gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
+                columnGap: template.gapX,
+                rowGap: template.gapY,
               }}
             >
               <p
                 style={{
                   position: 'absolute',
-                  top: (parseFloat(preset.marginTop) - 7) > 0 ? (parseFloat(preset.marginTop) - 7) / 2 + 'mm' : '0',
-                  right: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
+                  top: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) / 2 + 'mm' : '0',
+                  right: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
                   fontSize: '3mm'
                 }}
               >
@@ -224,14 +224,14 @@ class App extends Component<Props, State> {
               {numbers.map((number) => {
                 let checkDigit: number | null = null
                 if (this.state.checkDigit) checkDigit = calcCheckDigit(number.replace(/[A-Z]/g, ''))
-                return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} preset={preset} key={number} />
+                return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} template={template} key={number} />
               })}
               <span
                 className="logo"
                 style={{
                   position: 'absolute',
-                  bottom: (parseFloat(preset.marginTop) - 7) > 0 ? (parseFloat(preset.marginTop) - 7) + 'mm' : '0',
-                  left: parseInt(preset.marginLeft) + parseInt(preset.gapX) + 'mm',
+                  bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
+                  left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
                   fontSize: '3mm'
                 }}
               ></span>

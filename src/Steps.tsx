@@ -1,6 +1,6 @@
 import React from 'react'
 
-import presets from './preset/index'
+import templates from './templates/index'
 
 
 export const Nav = (props: any) => {
@@ -17,11 +17,11 @@ export const Step1 = (props: any) => {
             <h2>Step {props.currentStep}</h2>
             <p>印刷に使うラベルシールを選んでください</p>
             <ul>
-                {Object.values(presets).map((preset: any) => (
-                    <li key={preset.id}>
-                        <input type="radio" name="template" id={preset.id} value={preset.id} checked={preset.id===props.templateName} onChange={(e) => props.onSelectTemplate(e.target.value)} />
-                        <label htmlFor={preset.id}>{preset.name} (
-                            <a href={preset.url} target="_blank">{preset.linkText}</a>
+                {Object.values(templates).map((template: any) => (
+                    <li key={template.id}>
+                        <input type="radio" name="template" id={template.id} value={template.id} checked={template.id===props.templateName} onChange={(e) => props.onSelectTemplate(e.target.value)} />
+                        <label htmlFor={template.id}>{template.name} (
+                            <a href={template.url} target="_blank">{template.linkText}</a>
                         )</label>
                     </li>
                 ))}
