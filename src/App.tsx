@@ -87,6 +87,10 @@ class App extends Component<Props, State> {
       this.setTemplate('aone-28368', false)
     } else {
       const params = queryString.parse(location.hash)
+
+      let startNumber = params.startNumber as string
+      if (startNumber) this.setState({startNumber})
+
       let templateName = params.template as string
       if (templateName && presets[templateName]) {
         this.setTemplate(templateName)
