@@ -4,12 +4,12 @@
   "sku": [
     "606-906 20シート"
   ],
-  "marginTop": "8.8mm",
-  "marginLeft": "8.2mm",
-  "labelWidth": "45.3mm",
-  "labelHeight": "27.7mm",
+  "marginTop": "15mm",
+  "marginLeft": "14mm",
+  "labelWidth": "44mm",
+  "labelHeight": "26mm",
   "labelPadding": "4mm",
-  "gapX": "4mm",
+  "gapX": "2mm",
   "gapY": "4mm",
   "labelCountX": 4,
   "labelCountY": 9,
