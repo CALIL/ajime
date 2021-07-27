@@ -218,7 +218,8 @@ class App extends Component<Props, State> {
                 style={{
                   position: 'absolute',
                   top: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) / 2 + 'mm' : '0',
-                  right: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
+                  right: template.headerPosition==='right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
+                  left: template.headerPosition==='left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
                   fontSize: '3mm'
                 }}
               >
