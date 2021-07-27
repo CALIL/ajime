@@ -10,7 +10,7 @@
   "marginLeft": "13.5mm",
   "labelWidth": "35mm",
   "labelHeight": "12mm",
-  "labelPadding": "2mm",
+  "labelPadding": "1mm",
   "gapX": "2mm",
   "gapY": "2mm",
   "labelCountX": 5,

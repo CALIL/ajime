@@ -15,7 +15,7 @@ export const Step1 = (props: any) => {
     return (
         <div className="step step1">
             <h2>Step {props.currentStep}</h2>
-            <p>印刷に使うラベルシールを選んでください</p>
+            <p>印刷するラベル用紙を選んでください</p>
             <ul>
                 {Object.values(templates).map((template: any) => (
                     <li key={template.id}>
