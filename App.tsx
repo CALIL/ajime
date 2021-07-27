@@ -230,7 +230,7 @@ class App extends Component<Props, State> {
                 if (this.state.checkDigit) checkDigit = calcCheckDigit(number.replace(/[A-Z]/g, ''))
                 return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} template={template} key={number} />
               })}
-              <img src="/assets/calil.svg" alt="カーリル"
+              <img src="./assets/calil.svg" alt="カーリル"
                 className="logo"
                 style={{
                   position: 'absolute',
