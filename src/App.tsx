@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
+// @ts-ignore
+import useDetectPrint from 'react-detect-print'
 
 import queryString from 'query-string'
 
@@ -44,6 +46,17 @@ const splitByNumber = (sourceArray: any[], splitNumber: number) => {
   return result
 }
 
+
+const addZero = (number: number, state: any): string => {
+  let zeros = ''
+  if (state.isStartZero) {
+    const zeroLength = state.startNumber.replace(/[A-Z]/g, '').length - String(number).length
+    Array.from({ length: zeroLength }).forEach(() => zeros += '0')
+  }
+  return zeros + String(number)
+}
+
+
 interface App {
   startNumber: HTMLInputElement
   countNumber: HTMLInputElement
@@ -63,7 +76,7 @@ interface State {
   splitNumbers: string[][]
   checkDigit: boolean
   univStartAlphabet: string | null
-}  
+}
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
@@ -95,7 +108,7 @@ class App extends Component<Props, State> {
       }
       let startNumber = params.startNumber as string
       if (startNumber) {
-        this.setState({startNumber}, () => this.setStartNumber(this.state.startNumber))
+        this.setState({ startNumber }, () => this.setStartNumber(this.state.startNumber))
       } else {
         this.setStartNumber(this.state.startNumber)
       }
@@ -109,7 +122,7 @@ class App extends Component<Props, State> {
       this.saveState()
     })
     if (setHash) {
-      location.hash = queryString.stringify({ template : templateName })
+      location.hash = queryString.stringify({ template: templateName })
     }
   }
 
@@ -145,15 +158,6 @@ class App extends Component<Props, State> {
     localStorage.setItem('state', JSON.stringify(state))
   }
 
-  addZero(number: number): string {
-    let zeros = ''
-    if (this.state.isStartZero) {
-      const zeroLength = this.state.startNumber.replace(/[A-Z]/g, '').length - String(number).length
-      Array.from({ length: zeroLength }).forEach(() => zeros += '0')
-    }
-    return zeros + String(number)
-  }
-
   renderBarCodes() {
     const startNumber = parseInt(this.state.startNumber.replace(/[A-Z]/g, ''))
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
@@ -162,7 +166,7 @@ class App extends Component<Props, State> {
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
-      let tempNumber = this.addZero(currentNumber)
+      let tempNumber = addZero(currentNumber, this.state)
       numbers.push(tempNumber)
       currentNumber += 1
     })
@@ -203,43 +207,7 @@ class App extends Component<Props, State> {
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
             const template = templates[this.state.templateName]
-            return (<section className={'sheet ' + this.state.templateName + (index >= 5 ? ' hidden' : '')} key={index}
-              style={{
-                paddingTop: template.marginTop,
-                paddingLeft: template.marginLeft,
-                display: 'grid',
-                gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
-                gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
-                columnGap: template.gapX,
-                rowGap: template.gapY,
-              }}
-            >
-              <p
-                style={{
-                  position: 'absolute',
-                  top: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) / 2 + 'mm' : '0',
-                  right: template.headerPosition==='right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
-                  left: template.headerPosition==='left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
-                  fontSize: '3mm'
-                }}
-              >
-                {this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) + this.state.perPage * index)}-{this.addZero(parseInt(this.state.startNumber.replace(/[A-Z]/g, '')) - 1 + this.state.perPage * (index + 1))} / {this.state.univStartAlphabet!==null ? 'Code39' : 'NW-7'}{this.state.checkDigit ? ' (M10W21)' : ''} / {index + 1}枚目
-              </p>
-              {numbers.map((number) => {
-                let checkDigit: number | null = null
-                if (this.state.checkDigit) checkDigit = calcCheckDigit(number.replace(/[A-Z]/g, ''))
-                return <Barcode number={number} checkDigit={checkDigit} univStartAlphabet={this.state.univStartAlphabet} libName={this.state.libName} template={template} key={number} />
-              })}
-              <img src="./assets/calil.svg" alt="カーリル"
-                className="logo"
-                style={{
-                  position: 'absolute',
-                  bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
-                  left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
-                  fontSize: '3mm'
-                }}
-              />
-            </section>)
+            return <Sheet key={index} index={index} numbers={numbers} template={template} startNumber={this.state.startNumber} perPage={this.state.perPage} libName={this.state.libName} univStartAlphabet={this.state.univStartAlphabet} checkDigit={this.state.checkDigit} state={this.state} />
           })}
           {this.state.splitNumbers.length > 5 ? (
             <p className="nopreview">6枚目以降はプレビューされません</p>
@@ -255,5 +223,48 @@ class App extends Component<Props, State> {
 
 export default App
 
+
+const Sheet = (props: any) => {
+  const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, state } = props
+  const printing = useDetectPrint()
+  if (printing && index >= 5) return null 
+  return (<section className={'sheet'}
+    style={{
+      paddingTop: template.marginTop,
+      paddingLeft: template.marginLeft,
+      display: 'grid',
+      gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
+      gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
+      columnGap: template.gapX,
+      rowGap: template.gapY,
+    }}
+  >
+    <p
+      style={{
+        position: 'absolute',
+        top: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) / 2 + 'mm' : '0',
+        right: template.headerPosition === 'right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
+        left: template.headerPosition === 'left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
+        fontSize: '3mm'
+      }}
+    >
+      {addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, state)}-{addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), state)} / {univStartAlphabet !== null ? 'Code39' : 'NW-7'}{checkDigit ? ' (M10W21)' : ''} / {index + 1}枚目
+    </p>
+    {numbers.map((number: string) => {
+      let checkDigitNumber: number | null = null
+      if (checkDigit) checkDigitNumber = calcCheckDigit(number.replace(/[A-Z]/g, ''))
+      return <Barcode number={number} checkDigit={checkDigitNumber} univStartAlphabet={univStartAlphabet} libName={libName} template={template} key={number} />
+    })}
+    <img src="./assets/calil.svg" alt="カーリル"
+      className="logo"
+      style={{
+        position: 'absolute',
+        bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
+        left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
+        fontSize: '3mm'
+      }}
+    />
+  </section>)
+}
 
 
