@@ -19,6 +19,7 @@ const Barcode = (props: Props) => {
     const isWideHeight = parseInt(template.labelHeight) > 20
 
     useEffect(() => {
+      console.log('JsBarcode')
       JsBarcode(svgElement.current, tempNumber, {
         format: univStartAlphabet!==null ? 'code39' : 'codabar',
         width: 2.25,
@@ -30,7 +31,7 @@ const Barcode = (props: Props) => {
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
-    })
+    }, [tempNumber])
     const showLibName = libName!=='' && isWideHeight
     return (
       <div className="barcode" style={{
