@@ -28,9 +28,10 @@ const calcCheckDigit = (code: string) => {
   if (sum % 10 === 0) return 0
   return 10 - sum % 10
 }
-// console.log(calcCheckDigit(20151119))
-// console.log(calcCheckDigit(20151149))
-// console.log(calcCheckDigit(12345678))
+// console.log(calcCheckDigit('000019'))
+// console.log(calcCheckDigit('20151119'))
+// console.log(calcCheckDigit('20151149'))
+// console.log(calcCheckDigit('12345678'))
 
 
 // 配列をn個毎の配列に分割して返す関数
