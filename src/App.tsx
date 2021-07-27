@@ -203,7 +203,7 @@ class App extends Component<Props, State> {
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
             const template = templates[this.state.templateName]
-            return (<section className={'sheet ' + this.state.templateName} key={index}
+            return (<section className={'sheet ' + this.state.templateName + (index >= 5 ? ' hidden' : '')} key={index}
               style={{
                 paddingTop: template.marginTop,
                 paddingLeft: template.marginLeft,
@@ -241,6 +241,9 @@ class App extends Component<Props, State> {
               />
             </section>)
           })}
+          {this.state.splitNumbers.length > 5 ? (
+            <p className="nopreview">6枚目以降はプレビューされません</p>
+          ) : null}
         </div>
         <footer>
           <span className="poweredby"></span>

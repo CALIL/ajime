@@ -2,6 +2,8 @@
   .sheets
     .sheet
       margin: 0 auto
+      &.hidden
+        display: none !important
       div.barcode
         svg
           width: 100%
@@ -9,6 +11,8 @@
         display: inline-block
         height: calc(6.1mm * 0.6)
         width: calc(21.6mm * 0.6)
+    .nopreview
+      text-align: center
   footer
     bottom: 0
     height: 40px
@@ -34,8 +38,12 @@
       .sheets
         display: block
         .sheet
+          &.hidden
+            display: block !important
           div.barcode
             border: none !important
             box-shadow: none !important
+        .nopreview
+          display: none
       footer
         display: none
