@@ -1,0 +1,19 @@
+{
+  "id": "kihara-606906",
+  "name": "キハラ 36面 [606-906]",
+  "sku": [
+    "606-906 20シート"
+  ],
+  "marginTop": "15mm",
+  "marginLeft": "14mm",
+  "labelWidth": "44mm",
+  "labelHeight": "26mm",
+  "labelPadding": "4mm",
+  "gapX": "2mm",
+  "gapY": "4mm",
+  "labelCountX": 4,
+  "labelCountY": 9,
+  "borderRadius": "3mm",
+  "url": "https://www.kihara-lib.co.jp/wp-content/uploads/kihara-catalogue-search/320.pdf",
+  "linkText": "製品情報"
+}
