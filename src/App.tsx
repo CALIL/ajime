@@ -227,7 +227,7 @@ export default App
 const Sheet = (props: any) => {
   const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero } = props
   const printing = useDetectPrint()
-  if (printing && index >= 5) return null 
+  if (!printing && index >= 5) return null 
   const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, isStartZero, startNumber)
   const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), isStartZero, startNumber)
   return (<section className={'sheet'}
