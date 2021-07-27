@@ -67,6 +67,7 @@ export const Step3 = (props: any) => {
     return (
         <div className="step step3">
             <h2>Step {props.currentStep}</h2>
+            <p>合計 {props.countNumber} 枚</p>
             <p>さあ、印刷しましょう！</p>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
