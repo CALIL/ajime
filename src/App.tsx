@@ -47,10 +47,10 @@ const splitByNumber = (sourceArray: any[], splitNumber: number) => {
 }
 
 
-const addZero = (number: number, state: any): string => {
+const addZero = (number: number, isStartZero: boolean, startNumber: string): string => {
   let zeros = ''
-  if (state.isStartZero) {
-    const zeroLength = state.startNumber.replace(/[A-Z]/g, '').length - String(number).length
+  if (isStartZero) {
+    const zeroLength = startNumber.replace(/[A-Z]/g, '').length - String(number).length
     Array.from({ length: zeroLength }).forEach(() => zeros += '0')
   }
   return zeros + String(number)
@@ -166,7 +166,7 @@ class App extends Component<Props, State> {
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
-      let tempNumber = addZero(currentNumber, this.state)
+      let tempNumber = addZero(currentNumber, this.state.isStartZero, this.state.startNumber)
       numbers.push(tempNumber)
       currentNumber += 1
     })
@@ -207,7 +207,7 @@ class App extends Component<Props, State> {
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
             const template = templates[this.state.templateName]
-            return <Sheet key={index} index={index} numbers={numbers} template={template} startNumber={this.state.startNumber} perPage={this.state.perPage} libName={this.state.libName} univStartAlphabet={this.state.univStartAlphabet} checkDigit={this.state.checkDigit} state={this.state} />
+            return <Sheet key={index} index={index} numbers={numbers} template={template} startNumber={this.state.startNumber} perPage={this.state.perPage} libName={this.state.libName} univStartAlphabet={this.state.univStartAlphabet} checkDigit={this.state.checkDigit} isStartZero={this.state.isStartZero} />
           })}
           {this.state.splitNumbers.length > 5 ? (
             <p className="nopreview">6枚目以降はプレビューされません</p>
@@ -225,9 +225,11 @@ export default App
 
 
 const Sheet = (props: any) => {
-  const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, state } = props
+  const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero } = props
   const printing = useDetectPrint()
   if (printing && index >= 5) return null 
+  const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, isStartZero, startNumber)
+  const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), isStartZero, startNumber)
   return (<section className={'sheet'}
     style={{
       paddingTop: template.marginTop,
@@ -248,7 +250,7 @@ const Sheet = (props: any) => {
         fontSize: '3mm'
       }}
     >
-      {addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, state)}-{addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), state)} / {univStartAlphabet !== null ? 'Code39' : 'NW-7'}{checkDigit ? ' (M10W21)' : ''} / {index + 1}枚目
+      {startNumberString}-{endNumberString} / {univStartAlphabet !== null ? 'Code39' : 'NW-7'}{checkDigit ? ' (M10W21)' : ''} / {index + 1}枚目
     </p>
     {numbers.map((number: string) => {
       let checkDigitNumber: number | null = null
