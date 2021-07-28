@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import StepWizard from 'react-step-wizard'
-// @ts-ignore
-import useDetectPrint from 'react-detect-print'
 
 import queryString from 'query-string'
 
@@ -76,6 +74,7 @@ interface State {
   splitNumbers: string[][]
   checkDigit: boolean
   univStartAlphabet: string | null
+  printing: boolean
 }
 
 class App extends Component<Props, State> {
@@ -92,7 +91,8 @@ class App extends Component<Props, State> {
       countNumber: '1',
       splitNumbers: [],
       checkDigit: false,
-      univStartAlphabet: null
+      univStartAlphabet: null,
+      printing: false
     }
   }
 
@@ -113,6 +113,10 @@ class App extends Component<Props, State> {
         this.setStartNumber(this.state.startNumber)
       }
     }
+    // プリントプレビューが閉じられる or 印刷開始
+    window.addEventListener('afterprint', (event) => {
+      this.setState({printing: false})
+    })    
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
@@ -202,15 +206,24 @@ class App extends Component<Props, State> {
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
             <Step3 countNumber={this.state.countNumber} print={() => {
-              print()
-              this.setState({})
+              this.setState({printing: true}, () => print())
             }} />
           </StepWizard>
         </div>
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
             const template = templates[this.state.templateName]
-            return <Sheet key={index} index={index} numbers={numbers} template={template} startNumber={this.state.startNumber} perPage={this.state.perPage} libName={this.state.libName} univStartAlphabet={this.state.univStartAlphabet} checkDigit={this.state.checkDigit} isStartZero={this.state.isStartZero} />
+            return <Sheet key={index} index={index}
+              numbers={numbers}
+              template={template}
+              startNumber={this.state.startNumber}
+              perPage={this.state.perPage}
+              libName={this.state.libName}
+              univStartAlphabet={this.state.univStartAlphabet}
+              checkDigit={this.state.checkDigit}
+              isStartZero={this.state.isStartZero}
+              printing={this.state.printing}
+            />
           })}
           {this.state.splitNumbers.length > 5 ? (
             <p className="nopreview">6枚目以降はプレビューされません</p>
@@ -228,9 +241,8 @@ export default App
 
 
 const Sheet = (props: any) => {
-  const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero } = props
-  const printing = useDetectPrint()
-  if (printing===false && index >= 5) return null 
+  const { index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero, printing } = props
+  if (printing === false && index >= 5) return null
   const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, isStartZero, startNumber)
   const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), isStartZero, startNumber)
   return (<section className={'sheet'}
