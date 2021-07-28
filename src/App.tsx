@@ -206,7 +206,11 @@ class App extends Component<Props, State> {
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
             <Step3 countNumber={this.state.countNumber} print={() => {
-              this.setState({printing: true}, () => print())
+              this.setState({printing: true}, () => {
+                setTimeout(() => {
+                  print()
+                }, 300)
+              })
             }} />
           </StepWizard>
         </div>
@@ -232,6 +236,9 @@ class App extends Component<Props, State> {
         <footer>
           <span className="poweredby"></span>
         </footer>
+        {this.state.printing ? (
+          <div className="printing">印刷準備中...</div>
+        ) : null}
       </div>
     )
   }
