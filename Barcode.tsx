@@ -30,7 +30,7 @@ const Barcode = (props: Props) => {
         font: '"Conv_OCRB",Sans-Serif',
         margin: 0,
       })
-    }, [tempNumber])
+    })
     const showLibName = libName!=='' && isWideHeight
     return (
       <div className="barcode" style={{
