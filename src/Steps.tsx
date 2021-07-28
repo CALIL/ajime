@@ -71,7 +71,7 @@ export const Step3 = (props: any) => {
             <p>さあ、印刷しましょう！</p>
             <nav>
                 <button onClick={props.previousStep}>戻る</button>
-                <button onClick={props.print} className="active">印刷</button>
+                <button onClick={props.print} className="active" disabled={props.printing}>印刷</button>
             </nav>
         </div>
     )
