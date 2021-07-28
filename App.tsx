@@ -205,7 +205,7 @@ class App extends Component<Props, State> {
               setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
-            <Step3 countNumber={this.state.countNumber} print={() => {
+            <Step3 countNumber={this.state.countNumber} printing={this.state.printing} print={() => {
               this.setState({printing: true}, () => {
                 setTimeout(() => {
                   print()
