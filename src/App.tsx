@@ -201,7 +201,10 @@ class App extends Component<Props, State> {
               setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
             />
-            <Step3 countNumber={this.state.countNumber} />
+            <Step3 countNumber={this.state.countNumber} print={() => {
+              print()
+              this.setState({})
+            }} />
           </StepWizard>
         </div>
         <div className="sheets">
