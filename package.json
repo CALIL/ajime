@@ -12,7 +12,6 @@
     "query-string": "^7.0.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-step-wizard": "^5.3.6",
     "semantic-ui-react": "^2.0.3"
   },
   "devDependencies": {

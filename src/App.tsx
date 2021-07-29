@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import StepWizard from 'react-step-wizard'
 
 import queryString from 'query-string'
 
