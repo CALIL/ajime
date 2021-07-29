@@ -165,8 +165,6 @@ class App extends Component<Props, State> {
   renderBarCodes() {
     const startNumber = parseInt(this.state.startNumber.replace(/[A-Z]/g, ''))
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
-    // console.log(startNumber, countNumber)
-    // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
@@ -180,14 +178,6 @@ class App extends Component<Props, State> {
   }
 
   render() {
-    let custom = {
-      // enterRight: 'animate__animated animate__fadeInRightBig',
-      // enterLeft : 'animate__animated animate__fadeInLeftBig',
-      enterRight: '',
-      enterLeft: '',
-      exitRight: '',
-      exitLeft: ''
-    }
     return (
       <div className="App">
         <div className="steps">
