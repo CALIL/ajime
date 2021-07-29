@@ -64,9 +64,6 @@ const Barcode = (props: Props) => {
                 {tempNumber}
                 {checkDigit !== null ? (
                     <span style={{
-                        fontFamily: '"Conv_OCRB",Sans-Serif',
-                        // fontWeight: 'bold',
-                        // fontSize: '3.25mm',
                         textDecoration: 'underline'
                     }}>{checkDigit}</span>
                 ) : null}
