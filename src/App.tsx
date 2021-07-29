@@ -114,8 +114,8 @@ class App extends Component<Props, State> {
     }
     // プリントプレビューが閉じられる or 印刷開始
     window.addEventListener('afterprint', (event) => {
-      this.setState({printing: false})
-    })    
+      this.setState({ printing: false })
+    })
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
@@ -178,54 +178,57 @@ class App extends Component<Props, State> {
 
   render() {
     return (
-      <div className="App">
-        <div className="steps">
-            <Settings
-              templateName={this.state.templateName}
-              onSelectTemplate={this.setTemplate.bind(this)}
-              startNumber={this.state.startNumber}
-              countNumber={this.state.countNumber}
-              changeStartNumber={this.setStartNumber.bind(this)}
-              changeCountNumber={this.setCountNumber.bind(this)}
-              libName={this.state.libName}
-              setLibName={this.setLibName.bind(this)}
-              renderBarCodes={this.renderBarCodes.bind(this)}
-              printing={this.state.printing}
-              print={() => {
-              this.setState({printing: true}, () => {
+      <React.Fragment>
+        <header>
+          <h1>カーリルToolBox: バーコード連番印刷</h1>
+        </header>
+        <div className="App">
+          <Settings
+            templateName={this.state.templateName}
+            onSelectTemplate={this.setTemplate.bind(this)}
+            startNumber={this.state.startNumber}
+            countNumber={this.state.countNumber}
+            changeStartNumber={this.setStartNumber.bind(this)}
+            changeCountNumber={this.setCountNumber.bind(this)}
+            libName={this.state.libName}
+            setLibName={this.setLibName.bind(this)}
+            renderBarCodes={this.renderBarCodes.bind(this)}
+            printing={this.state.printing}
+            print={() => {
+              this.setState({ printing: true }, () => {
                 setTimeout(() => {
                   print()
                 }, 300)
               })
             }}
-            />
-        </div>
-        <div className="sheets">
-          {this.state.splitNumbers.map((numbers, index) => {
-            const template = templates[this.state.templateName]
-            return <Sheet key={index} index={index}
-              numbers={numbers}
-              template={template}
-              startNumber={this.state.startNumber}
-              perPage={this.state.perPage}
-              libName={this.state.libName}
-              univStartAlphabet={this.state.univStartAlphabet}
-              checkDigit={this.state.checkDigit}
-              isStartZero={this.state.isStartZero}
-              printing={this.state.printing}
-            />
-          })}
-          {this.state.splitNumbers.length > 5 ? (
-            <p className="nopreview">6枚目以降はプレビューされません</p>
+          />
+          <div className="sheets">
+            {this.state.splitNumbers.map((numbers, index) => {
+              const template = templates[this.state.templateName]
+              return <Sheet key={index} index={index}
+                numbers={numbers}
+                template={template}
+                startNumber={this.state.startNumber}
+                perPage={this.state.perPage}
+                libName={this.state.libName}
+                univStartAlphabet={this.state.univStartAlphabet}
+                checkDigit={this.state.checkDigit}
+                isStartZero={this.state.isStartZero}
+                printing={this.state.printing}
+              />
+            })}
+            {this.state.splitNumbers.length > 5 ? (
+              <p className="nopreview">6枚目以降はプレビューされません</p>
+            ) : null}
+          </div>
+          <footer>
+            <span className="poweredby"></span>
+          </footer>
+          {this.state.printing ? (
+            <div className="printing">印刷準備中...</div>
           ) : null}
         </div>
-        <footer>
-          <span className="poweredby"></span>
-        </footer>
-        {this.state.printing ? (
-          <div className="printing">印刷準備中...</div>
-        ) : null}
-      </div>
+      </React.Fragment>
     )
   }
 }

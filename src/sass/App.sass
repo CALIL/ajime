@@ -1,5 +1,15 @@
+header
+  color: #ffffff
+  background-color: #20B4EA
+  padding: 0.5rem
+  h1
+    text-align: center
 .App
+  display: flex
+  .settings
   .sheets
+    width: 100%
+    background-color: #CCCCCC
     .sheet
       margin: 0 auto
       &.hidden
@@ -44,11 +54,15 @@
 @media print
   body
     background-color: #ffffff !important
+    header
+      display: none
     .App
-      .steps
+      .settings
         display: none
       .sheets
         display: block
+        width: auto
+        background-color: transparent
         .sheet
           // /* firefox, safari extra page fix */
           // width: 100% !important

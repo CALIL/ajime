@@ -49,7 +49,7 @@ export default class Settings extends Component<Props, State> {
         )
 
         return (
-            <div className="step">
+            <div className="settings">
 
                 <Accordion styled>
                     <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
