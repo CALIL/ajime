@@ -67,7 +67,7 @@ export default class Settings extends Component<Props, State> {
                                             name='template'
                                             value={template.id}
                                             checked={template.id === this.props.templateName}
-                                            onChange={(e, {value}) => this.props.onSelectTemplate(value)}
+                                            onChange={(e, {value}) => this.props.onSelectTemplate(value as string)}
                                         />
                                     </Form.Field>
                                 ))}
@@ -142,7 +142,7 @@ export default class Settings extends Component<Props, State> {
                 </Accordion>
                 <Divider/>
                 <div style={{'marginTop': '10px', 'textAlign': 'center'}}>
-                    <p style={{"marginBottom": '10px'}}>合計 {this.props.countNumber * countPerPage} 個のバーコード</p>
+                    <p style={{"marginBottom": '10px'}}>合計 {parseInt(this.props.countNumber) * countPerPage} 個のバーコード</p>
                     <Button primary icon size="big" labelPosition='right' onClick={this.props.print}>印刷する<Icon name='print'/></Button>
                 </div>
             </div>
