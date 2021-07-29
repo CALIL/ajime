@@ -50,7 +50,8 @@ const Barcode = (props: Props) => {
           <div className="libName" style={{
             fontFamily: '"Noto Sans JP"',
             fontSize: libName.length<10 ? '3mm' : '1.5mm',
-            marginBottom: '1mm'
+            marginBottom: '1mm',
+            lineHeight: libName.length<10 ? '3mm' : '1.5mm'
           }}>{libName}</div>
         ) : null}
         <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1" />
