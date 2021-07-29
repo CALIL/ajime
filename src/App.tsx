@@ -182,7 +182,7 @@ class App extends Component<Props, State> {
         <header>
           <h1>カーリルToolBox: バーコード連番印刷</h1>
         </header>
-        <div className="App">
+        <div className="container">
           <Settings
             templateName={this.state.templateName}
             onSelectTemplate={this.setTemplate.bind(this)}
