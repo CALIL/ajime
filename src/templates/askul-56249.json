@@ -2,8 +2,8 @@
   "id": "askul-56249",
   "name": "アスクル 65面",
   "sku": [
-    "46670 強粘着",
-    "56249 再剥離"
+    ["46670 強粘着","https://www.askul.co.jp/p/1979588/"],
+    ["56249 再剥離","https://www.askul.co.jp/p/1979677/"]
   ],
   "headerPosition": "right",
   "marginTop": "10.92mm",

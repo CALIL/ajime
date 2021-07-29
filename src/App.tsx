@@ -3,7 +3,7 @@ import StepWizard from 'react-step-wizard'
 
 import queryString from 'query-string'
 
-import { Nav, Step1, Step2, Step3 } from './Steps'
+import { Nav, Step1 } from './Steps'
 import Barcode from './Barcode'
 
 import templates from './templates/index'
@@ -86,7 +86,7 @@ class App extends Component<Props, State> {
       templateName: isState ? state.templateName : '',
       libName: isState ? state.libName : '',
       perPage: 0,
-      startNumber: isState ? state.startNumber : '10000',
+      startNumber: isState ? state.startNumber : '100000',
       isStartZero: false,
       countNumber: '1',
       splitNumbers: [],
@@ -191,12 +191,9 @@ class App extends Component<Props, State> {
     return (
       <div className="App">
         <div className="steps">
-          <StepWizard nav={<Nav />} transitions={custom}>
             <Step1
               templateName={this.state.templateName}
               onSelectTemplate={this.setTemplate.bind(this)}
-            />
-            <Step2
               startNumber={this.state.startNumber}
               countNumber={this.state.countNumber}
               changeStartNumber={this.setStartNumber.bind(this)}
@@ -204,15 +201,15 @@ class App extends Component<Props, State> {
               libName={this.state.libName}
               setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
-            />
-            <Step3 countNumber={this.state.countNumber} printing={this.state.printing} print={() => {
+              countNumber={this.state.countNumber} printing={this.state.printing}
+              print={() => {
               this.setState({printing: true}, () => {
                 setTimeout(() => {
                   print()
                 }, 300)
               })
-            }} />
-          </StepWizard>
+            }}
+            />
         </div>
         <div className="sheets">
           {this.state.splitNumbers.map((numbers, index) => {
