@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 import templates from './templates/index'
-import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider} from 'semantic-ui-react'
+import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider, Label} from 'semantic-ui-react'
 
 interface Props {
     templateName: string
@@ -40,10 +40,14 @@ export default class Settings extends Component<Props, State> {
     render() {
         const {activeIndex} = this.state
         let countPerPage = 0
+        let isWideHeight = false
 
         Object.values(templates).forEach((template: any) => {
                 if (template.id === this.props.templateName) {
                     countPerPage = template.labelCountX * template.labelCountY
+                    if (parseInt(template.labelHeight) > 20) {
+                        isWideHeight = true
+                    }
                 }
             }
         )
@@ -51,7 +55,7 @@ export default class Settings extends Component<Props, State> {
         return (
             <div className="settings">
 
-                <Accordion styled>
+                <Accordion fluid>
                     <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                         <Icon name='dropdown'/>
                         ラベル用紙を選ぶ
@@ -92,18 +96,17 @@ export default class Settings extends Component<Props, State> {
 
                     <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
                         <Icon name='dropdown'/>
-                        印刷内容を決める
+                        内容を決める
                     </Accordion.Title>
                     <Accordion.Content active={activeIndex === 1}>
                         <Form>
                             <Message size='small'>
                                 <p>
-                                    印刷する連番バーコードの開始番号を決めてください。
-                                    <ul>
-                                        <li>新しく図書館の本にバーコードを貼る場合、学校図書館の場合には6桁程度が一般的です。</li>
-                                        <li>番号の最後にCを入力するとチェックデジットを付与することかできます。</li>
-                                        <li>先頭に0を付けることで「ゼロ埋め」に対応できます。</li>
-                                        <li>エクセルなどで扱いやすくするたに「100000」などのようにゼロ埋めが不要となる番号とすることをお勧めします。</li>
+                                    <ul style={{paddingLeft: '10px'}}>
+                                        <li>6桁～10桁程度が一般的です</li>
+                                        <li>最後にCを入力するとチェックデジットを付与します</li>
+                                        <li>先頭に0を入力すると「ゼロ埋め」ができます</li>
+                                        <li>エクセルなどで扱いやすくするたに「100000」などのようにゼロ埋めを不要とするのがおすすめです</li>
                                     </ul>
                                 </p>
                             </Message>
@@ -121,6 +124,11 @@ export default class Settings extends Component<Props, State> {
                             <Form.Field>
                                 <label>図書館名</label>
                                 <Input placeholder='カーリル図書館' value={this.props.libName} maxLength={16} onChange={(e, value) => this.props.setLibName(e.target.value)}/>
+                                {(isWideHeight == false && this.props.libName.length > 0) ? (
+                                    <Label pointing>
+                                        ラベルが小さいため印刷されません
+                                    </Label>
+                                ) : null}
                             </Form.Field>
 
 
@@ -135,7 +143,7 @@ export default class Settings extends Component<Props, State> {
                         <Form>
                             <Form.Field>
                                 <label>印刷するシート数</label>
-                                <Input className="countNumber" type="number" value={this.props.countNumber} min="1" max="100" required onChange={(e, value) => this.props.changeCountNumber(e.target.value)}/>
+                                <Input className="countNumber" type="number" value={this.props.countNumber} min="1" max="300" required onChange={(e, value) => this.props.changeCountNumber(e.target.value)}/>
                             </Form.Field>
                         </Form>
                     </Accordion.Content>
@@ -143,7 +151,9 @@ export default class Settings extends Component<Props, State> {
                 <Divider/>
                 <div style={{'marginTop': '10px', 'textAlign': 'center'}}>
                     <p style={{"marginBottom": '10px'}}>合計 {parseInt(this.props.countNumber) * countPerPage} 個のバーコード</p>
-                    <Button primary icon size="big" labelPosition='right' onClick={this.props.print}>印刷する<Icon name='print'/></Button>
+                    <Button primary icon loading={this.props.printing} size="big" labelPosition='right' onClick={this.props.print}>印刷する<Icon name='print'/></Button>
+                    <br/>
+                    <span className="poweredby"></span>
                 </div>
             </div>
         )
