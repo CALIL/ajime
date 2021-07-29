@@ -2,15 +2,35 @@ import React, {Component} from 'react'
 
 import templates from './templates/index'
 import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider} from 'semantic-ui-react'
-import queryString from "query-string";
+
+interface Props {
+    templateName: string
+    onSelectTemplate: () => void
+    startNumber: string
+    countNumber: number
+    changeStartNumber: () => void
+    changeCountNumber: () => void
+    libName: string
+    setLibName: () => void
+    renderBarCodes: () => void
+    printing: boolean
+    print: () => void
+}
+
+interface State {
+    activeIndex: number
+}
+
 
 export class Step1 extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
-        this.state = {}
+        this.state = {
+            activeIndex: 0
+        }
     }
 
-    handleClick = (e, titleProps) => {
+    handleClick = (e: any, titleProps: any) => {
         const {index} = titleProps
         const {activeIndex} = this.state
         const newIndex = activeIndex === index ? -1 : index
@@ -18,10 +38,10 @@ export class Step1 extends Component<Props, State> {
     }
 
     render() {
-        const {activeIndex} = this.state;
+        const {activeIndex} = this.state
         let countPerPage = 0
 
-        Object.values(templates).map((template: any) => {
+        Object.values(templates).forEach((template: any) => {
                 if (template.id === this.props.templateName) {
                     countPerPage = template.labelCountX * template.labelCountY
                 }

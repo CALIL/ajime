@@ -3,7 +3,7 @@ import StepWizard from 'react-step-wizard'
 
 import queryString from 'query-string'
 
-import { Nav, Step1 } from './Steps'
+import { Step1 } from './Steps'
 import Barcode from './Barcode'
 
 import templates from './templates/index'
@@ -201,7 +201,7 @@ class App extends Component<Props, State> {
               libName={this.state.libName}
               setLibName={this.setLibName.bind(this)}
               renderBarCodes={this.renderBarCodes.bind(this)}
-              countNumber={this.state.countNumber} printing={this.state.printing}
+              printing={this.state.printing}
               print={() => {
               this.setState({printing: true}, () => {
                 setTimeout(() => {
