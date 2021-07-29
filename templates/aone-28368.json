@@ -1,14 +1,14 @@
 {
   "id": "aone-28368",
-  "name": "エーワン 44面 [F44A4-1]",
+  "name": "エーワン 44面",
   "sku": [
-    "28388 レーザープリンタ 20シート",
-    "28368 レーザープリンタ 100シート",
-    "28648 レーザープリンタ 500シート",
-    "31165 レーザープリンタ 1000シート",
-    "28943 インクジェット用 20シート",
-    "28944 インクジェット用 100シート",
-    "28946 インクジェット用 500シート"
+    ["28388 レーザープリンタ 20シート","https://www.a-one.co.jp/product/search/detail.php?id=28388"],
+    ["28368 レーザープリンタ 100シート","https://www.a-one.co.jp/product/search/detail.php?id=28368"],
+    ["28648 レーザープリンタ 500シート","https://www.a-one.co.jp/product/search/detail.php?id=28648"],
+    ["31165 レーザープリンタ 1000シート","https://www.a-one.co.jp/product/search/detail.php?id=31165"],
+    ["28943 インクジェット用 20シート","https://www.a-one.co.jp/product/search/detail.php?id=28943"],
+    ["28944 インクジェット用 100シート","https://www.a-one.co.jp/product/search/detail.php?id=28944"],
+    ["28946 インクジェット用 500シート","https://www.a-one.co.jp/product/search/detail.php?id=28946"]
   ],
   "headerPosition": "right",
   "marginTop": "8.8mm",
@@ -20,7 +20,5 @@
   "gapY": "0",
   "labelCountX": 4,
   "labelCountY": 11,
-  "borderRadius": "0",
-  "url": "https://www.a-one.co.jp/product/search/search.php?mentsuke=F44A4-1&type=mentsuke&limit=2",
-  "linkText": "商品情報"
+  "borderRadius": "0"
 }

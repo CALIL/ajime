@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import StepWizard from 'react-step-wizard'
 
 import queryString from 'query-string'
 
-import { Nav, Step1, Step2, Step3 } from './Steps'
+import Settings from './Settings'
 import Barcode from './Barcode'
 
 import templates from './templates/index'
@@ -86,7 +85,7 @@ class App extends Component<Props, State> {
       templateName: isState ? state.templateName : '',
       libName: isState ? state.libName : '',
       perPage: 0,
-      startNumber: isState ? state.startNumber : '10000',
+      startNumber: isState ? state.startNumber : '100000',
       isStartZero: false,
       countNumber: '1',
       splitNumbers: [],
@@ -115,8 +114,8 @@ class App extends Component<Props, State> {
     }
     // プリントプレビューが閉じられる or 印刷開始
     window.addEventListener('afterprint', (event) => {
-      this.setState({printing: false})
-    })    
+      this.setState({ printing: false })
+    })
   }
 
   setTemplate(templateName: string, setHash: boolean = true) {
@@ -165,8 +164,6 @@ class App extends Component<Props, State> {
   renderBarCodes() {
     const startNumber = parseInt(this.state.startNumber.replace(/[A-Z]/g, ''))
     const countNumber = parseInt(this.state.countNumber) * this.state.perPage
-    // console.log(startNumber, countNumber)
-    // if (countNumber >= 5000 && !confirm('バーコードの数が多いとブラウザの動作が遅くなる可能性があります。実行しますか？')) return false
     const numbers: string[] = []
     let currentNumber = startNumber
     Array.from({ length: countNumber }).forEach(() => {
@@ -180,66 +177,58 @@ class App extends Component<Props, State> {
   }
 
   render() {
-    let custom = {
-      // enterRight: 'animate__animated animate__fadeInRightBig',
-      // enterLeft : 'animate__animated animate__fadeInLeftBig',
-      enterRight: '',
-      enterLeft: '',
-      exitRight: '',
-      exitLeft: ''
-    }
     return (
-      <div className="App">
-        <div className="steps">
-          <StepWizard nav={<Nav />} transitions={custom}>
-            <Step1
-              templateName={this.state.templateName}
-              onSelectTemplate={this.setTemplate.bind(this)}
-            />
-            <Step2
-              startNumber={this.state.startNumber}
-              countNumber={this.state.countNumber}
-              changeStartNumber={this.setStartNumber.bind(this)}
-              changeCountNumber={this.setCountNumber.bind(this)}
-              libName={this.state.libName}
-              setLibName={this.setLibName.bind(this)}
-              renderBarCodes={this.renderBarCodes.bind(this)}
-            />
-            <Step3 countNumber={this.state.countNumber} printing={this.state.printing} print={() => {
-              this.setState({printing: true}, () => {
+      <React.Fragment>
+        <header>
+          <h1>カーリルToolBox: バーコード連番印刷</h1>
+        </header>
+        <div className="container">
+          <Settings
+            templateName={this.state.templateName}
+            onSelectTemplate={this.setTemplate.bind(this)}
+            startNumber={this.state.startNumber}
+            countNumber={this.state.countNumber}
+            changeStartNumber={this.setStartNumber.bind(this)}
+            changeCountNumber={this.setCountNumber.bind(this)}
+            libName={this.state.libName}
+            setLibName={this.setLibName.bind(this)}
+            renderBarCodes={this.renderBarCodes.bind(this)}
+            printing={this.state.printing}
+            print={() => {
+              this.setState({ printing: true }, () => {
                 setTimeout(() => {
                   print()
                 }, 300)
               })
-            }} />
-          </StepWizard>
-        </div>
-        <div className="sheets">
-          {this.state.splitNumbers.map((numbers, index) => {
-            const template = templates[this.state.templateName]
-            return <Sheet key={index} index={index}
-              numbers={numbers}
-              template={template}
-              startNumber={this.state.startNumber}
-              perPage={this.state.perPage}
-              libName={this.state.libName}
-              univStartAlphabet={this.state.univStartAlphabet}
-              checkDigit={this.state.checkDigit}
-              isStartZero={this.state.isStartZero}
-              printing={this.state.printing}
-            />
-          })}
-          {this.state.splitNumbers.length > 5 ? (
-            <p className="nopreview">6枚目以降はプレビューされません</p>
+            }}
+          />
+          <div className="sheets">
+            {this.state.splitNumbers.map((numbers, index) => {
+              const template = templates[this.state.templateName]
+              return <Sheet key={index} index={index}
+                numbers={numbers}
+                template={template}
+                startNumber={this.state.startNumber}
+                perPage={this.state.perPage}
+                libName={this.state.libName}
+                univStartAlphabet={this.state.univStartAlphabet}
+                checkDigit={this.state.checkDigit}
+                isStartZero={this.state.isStartZero}
+                printing={this.state.printing}
+              />
+            })}
+            {this.state.splitNumbers.length > 5 ? (
+              <p className="nopreview">6枚目以降はプレビューされません</p>
+            ) : null}
+          </div>
+          <footer>
+            <span className="poweredby"></span>
+          </footer>
+          {this.state.printing ? (
+            <div className="printing">印刷準備中...</div>
           ) : null}
         </div>
-        <footer>
-          <span className="poweredby"></span>
-        </footer>
-        {this.state.printing ? (
-          <div className="printing">印刷準備中...</div>
-        ) : null}
-      </div>
+      </React.Fragment>
     )
   }
 }

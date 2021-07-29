@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'fomantic-ui-css/semantic.css';
 import './index.sass'
 import App from './App'
 

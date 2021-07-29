@@ -1,9 +1,15 @@
 {
   "id": "aone-72295",
-  "name": "エーワン 95面 [F95A4-1]",
+  "name": "エーワン 95面",
   "sku": [
-    "73295 100シート",
-    "72295 10シート"
+    [
+      "73295 100シート",
+      "https://www.a-one.co.jp/product/search/detail.php?id=73295"
+    ],
+    [
+      "72295 10シート",
+      "https://www.a-one.co.jp/product/search/detail.php?id=72295"
+    ]
   ],
   "headerPosition": "right",
   "marginTop": "16.5mm",
@@ -15,7 +21,5 @@
   "gapY": "2mm",
   "labelCountX": 5,
   "labelCountY": 19,
-  "borderRadius": "2mm",
-  "url": "https://www.a-one.co.jp/product/search/detail.php?id=73295",
-  "linkText": "商品情報"
+  "borderRadius": "2mm"
 }
