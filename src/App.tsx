@@ -3,7 +3,7 @@ import StepWizard from 'react-step-wizard'
 
 import queryString from 'query-string'
 
-import { Step1 } from './Steps'
+import Settings from './Settings'
 import Barcode from './Barcode'
 
 import templates from './templates/index'
@@ -191,7 +191,7 @@ class App extends Component<Props, State> {
     return (
       <div className="App">
         <div className="steps">
-            <Step1
+            <Settings
               templateName={this.state.templateName}
               onSelectTemplate={this.setTemplate.bind(this)}
               startNumber={this.state.startNumber}

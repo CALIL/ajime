@@ -5,13 +5,13 @@ import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider} from '
 
 interface Props {
     templateName: string
-    onSelectTemplate: () => void
+    onSelectTemplate: (templateName: string, setHash?: boolean) => void
     startNumber: string
-    countNumber: number
-    changeStartNumber: () => void
-    changeCountNumber: () => void
+    countNumber: string
+    changeStartNumber: (number: string) => void
+    changeCountNumber: (number: string) => void
     libName: string
-    setLibName: () => void
+    setLibName: (libName: string) => void
     renderBarCodes: () => void
     printing: boolean
     print: () => void
@@ -22,7 +22,7 @@ interface State {
 }
 
 
-export class Step1 extends Component<Props, State> {
+export default class Settings extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
