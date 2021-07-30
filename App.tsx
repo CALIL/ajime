@@ -194,6 +194,7 @@ class App extends Component<Props, State> {
             template: this.state.templateName,
             start: this.state.startNumber,
             library: encodeURIComponent(this.state.libName),
+            sheet: this.state.countNumber
         })
 
         const listener = (e: any) =>{
