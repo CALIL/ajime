@@ -22,7 +22,7 @@ const Barcode = (props: Props) => {
         JsBarcode(svgElement.current, tempNumber, {
             format: univStartAlphabet !== null ? 'code39' : 'codabar',
             width: 2.25,
-            height: isWideHeight ? 52 : 26,
+            height: isWideHeight ? 40 : 26,
             displayValue: false,
             text: checkDigit === null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
             textMargin: 0,
@@ -51,14 +51,14 @@ const Barcode = (props: Props) => {
                     fontFamily: '"Noto Sans JP"',
                     fontSize: libName.length < 10 ? '3mm' : '1.5mm',
                     marginBottom: '1mm',
-                    lineHeight: libName.length < 10 ? '3.5mm' : '3.5mm'
+                    lineHeight: '3.8mm'
                 }}>{libName}</div>
             ) : null}
             <svg ref={svgElement} xmlns="http://www.w3.org/2000/svg" version="1.1"/>
             <div style={{
                 fontFamily: '"Conv_OCRB",Sans-Serif',
                 fontSize: isWideHeight ? '3.5mm' : '1.5mm',
-                marginTop: isWideHeight ? '1mm' : '0.5mm',
+                marginTop: isWideHeight ? '1.3mm' : '0.5mm',
                 lineHeight: isWideHeight ? '3.5mm' : '2.5mm'
             }}>
                 {tempNumber}

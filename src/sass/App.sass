@@ -3,46 +3,61 @@ header
   background-color: #20B4EA
   padding: 1rem
   height: 64px
+
   h1
     text-align: center
-    font-family: "Noto Sans JP"
+    font-family: "Noto Sans JP", serif
     font-weight: normal
+
 .container
   display: flex
+
   .settings
     width: 480px
     padding: 1.5rem
+
     > div
       .setting
         min-height: calc(92vh - 64px)
         margin-bottom: auto
+
       .cppyLink
         text-align: right
+
         > div
           display: inline-block
           cursor: pointer
           padding: 0.5rem
           margin-top: 1rem
+
           &:hover
             background-color: #CCC
+
           &:active
             background-color: #999
+
           span
             text-decoration: underline
+
   .sheets
     width: 100%
     background-color: #CCCCCC
+
     .sheet
       margin: 5mm auto
+
       &.hidden
         display: none !important
+
       div.barcode
         svg
           width: 100%
+
       .logo
         display: inline-block
         height: calc(6.1mm * 0.6)
         width: calc(21.6mm * 0.6)
+
     .nopreview
       text-align: center
       margin-top: 1rem
@@ -53,15 +68,19 @@ header
 @media print
   body
     background-color: #ffffff !important
+
     header
       display: none
+
     .container
       .settings
         display: none
+
       .sheets
         display: block
         width: auto
         background-color: transparent
+
         .sheet
           margin: auto
           // /* firefox, safari extra page fix */
@@ -70,11 +89,9 @@ header
           // page-break-after: auto !important
           &.hidden
             display: block !important
+
           div.barcode
             border: none !important
+
         .nopreview
           display: none
-      footer
-        display: none
-      .printing
-        display: none
