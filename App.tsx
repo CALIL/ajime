@@ -111,6 +111,11 @@ class App extends Component<Props, State> {
             } else {
                 this.setStartNumber(this.state.startNumber)
             }
+            let countNumber = params.countNumber as string
+            if (countNumber) this.setCountNumber(countNumber)
+            let libName = params.libName as string
+            if (libName) this.setLibName(libName)
+            if (params.print==='true') this.print()
         }
         // プリントプレビューが閉じられる or 印刷開始
         window.addEventListener('afterprint', (event) => {
@@ -176,6 +181,14 @@ class App extends Component<Props, State> {
         return true
     }
 
+    print() {
+        this.setState({printing: true}, () => {
+            setTimeout(() => {
+                print()
+            }, 300)
+        })
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -194,13 +207,7 @@ class App extends Component<Props, State> {
                         setLibName={this.setLibName.bind(this)}
                         renderBarCodes={this.renderBarCodes.bind(this)}
                         printing={this.state.printing}
-                        print={() => {
-                            this.setState({printing: true}, () => {
-                                setTimeout(() => {
-                                    print()
-                                }, 300)
-                            })
-                        }}
+                        print={this.print.bind(this)}
                     />
                     <div className="sheets">
                         {this.state.splitNumbers.map((numbers, index) => {
