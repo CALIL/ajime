@@ -249,7 +249,7 @@ const Sheet = (props: any) => {
         <p
             style={{
                 position: 'absolute',
-                top: (parseFloat(template.marginTop) - 6) > 0 ? (parseFloat(template.marginTop) - 6) + 'mm' : '0',
+                top: (parseFloat(template.marginTop) - 4.5) > 0 ? (parseFloat(template.marginTop) - 4.5) + 'mm' : '0',
                 right: template.headerPosition === 'right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
                 left: template.headerPosition === 'left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
                 fontSize: '3mm',
