@@ -111,7 +111,7 @@ class App extends Component<Props, State> {
             } else {
                 this.setStartNumber(this.state.startNumber)
             }
-            let countNumber = params.page as string
+            let countNumber = params.sheet as string
             if (countNumber) this.setCountNumber(countNumber)
             let libName = params.library as string
             if (libName) this.setLibName(decodeURIComponent(libName))
@@ -193,7 +193,6 @@ class App extends Component<Props, State> {
         const url = location.href + '#' + queryString.stringify({
             template: this.state.templateName,
             start: this.state.startNumber,
-            page: this.state.countNumber,
             library: encodeURIComponent(this.state.libName),
         })
 
