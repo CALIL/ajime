@@ -113,7 +113,7 @@ export default class Settings extends Component<Props, State> {
 
                             <Form.Field>
                                 <label>開始番号</label>
-                                <Input placeholder='000000...' className="startnum" value={this.props.startNumber} maxLength={16} required onChange={(e, value) => {
+                                <Input placeholder='000000...' className="startnum" value={this.props.startNumber} maxLength={14} required onChange={(e, value) => {
                                     if (e.target.value.toUpperCase().match(/^[A-Z]*?[0-9]+C?$/)) {
                                         this.props.changeStartNumber(e.target.value.toUpperCase())
                                     } else {
