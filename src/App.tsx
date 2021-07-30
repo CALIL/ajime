@@ -105,15 +105,15 @@ class App extends Component<Props, State> {
             if (templateName && templates[templateName]) {
                 this.setTemplate(templateName, false)
             }
-            let startNumber = params.startNumber as string
+            let startNumber = params.start as string
             if (startNumber) {
                 this.setState({startNumber}, () => this.setStartNumber(this.state.startNumber))
             } else {
                 this.setStartNumber(this.state.startNumber)
             }
-            let countNumber = params.countNumber as string
+            let countNumber = params.page as string
             if (countNumber) this.setCountNumber(countNumber)
-            let libName = params.libName as string
+            let libName = params.library as string
             if (libName) this.setLibName(decodeURIComponent(libName))
             if (params.print==='true') this.print()
         }
@@ -192,9 +192,9 @@ class App extends Component<Props, State> {
     copyUrl() {
         const url = location.href + '#' + queryString.stringify({
             template: this.state.templateName,
-            startNumber: this.state.startNumber,
-            countNumber: this.state.countNumber,
-            libName: encodeURIComponent(this.state.libName),
+            start: this.state.startNumber,
+            page: this.state.countNumber,
+            library: encodeURIComponent(this.state.libName),
         })
 
         const listener = (e: any) =>{
