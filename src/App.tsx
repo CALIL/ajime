@@ -190,7 +190,7 @@ class App extends Component<Props, State> {
     }
 
     copyUrl() {
-        const url = location.href + '#' + queryString.stringify({
+        const url = location.protocol + '//' + location.host + location.pathname + '#' + queryString.stringify({
             template: this.state.templateName,
             start: this.state.startNumber,
             library: encodeURIComponent(this.state.libName),
