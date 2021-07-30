@@ -56,7 +56,7 @@ export default class Settings extends Component<Props, State> {
         return (
             <div className="settings">
                 <div>
-                    <div>
+                    <div className="setting">
                         <Accordion fluid>
                             <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
                                 <Icon name='dropdown' />
