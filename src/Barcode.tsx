@@ -50,7 +50,7 @@ const Barcode = (props: Props) => {
                 <div className="libName" style={{
                     fontFamily: '"Noto Sans JP"',
                     fontSize: libName.length < 10 ? '3mm' : '1.5mm',
-                    fontWeight: 'bold',
+                    fontWeight: 400,
                     marginBottom: '1mm',
                     lineHeight: libName.length < 10 ? '3.5mm' : '3.5mm'
                 }}>{libName}</div>
