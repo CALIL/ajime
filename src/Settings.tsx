@@ -15,6 +15,7 @@ interface Props {
     renderBarCodes: () => void
     printing: boolean
     print: () => void
+    copyUrl: () => void
 }
 
 interface State {
@@ -77,7 +78,7 @@ export default class Settings extends Component<Props, State> {
                                 ))}
                             </Form.Group>
                             <Message size='small'>
-                                <p>
+                                <div>
                                     以下の用紙に対応しています。
                                     <ul>
                                         {Object.values(templates).map((template: any) => {
@@ -89,7 +90,7 @@ export default class Settings extends Component<Props, State> {
                                             }
                                         )}
                                     </ul>
-                                </p>
+                                </div>
                             </Message>
                         </Form>
                     </Accordion.Content>
@@ -101,14 +102,14 @@ export default class Settings extends Component<Props, State> {
                     <Accordion.Content active={activeIndex === 1}>
                         <Form>
                             <Message size='small'>
-                                <p>
+                                <div>
                                     <ul style={{paddingLeft: '10px'}}>
                                         <li>6桁～10桁程度が一般的です</li>
                                         <li>最後にCを入力するとチェックデジットを付与します</li>
                                         <li>先頭に0を入力すると「ゼロ埋め」ができます</li>
                                         <li>エクセルなどで扱いやすくするたに「100000」などのようにゼロ埋めを不要とするのがおすすめです</li>
                                     </ul>
-                                </p>
+                                </div>
                             </Message>
 
                             <Form.Field>
@@ -155,6 +156,9 @@ export default class Settings extends Component<Props, State> {
                     <br/>
                     <span className="poweredby"></span>
                 </div>
+                <span className="cppyLink" onClick={this.props.copyUrl}>
+                    <i className="copy outline icon"></i>設定をURLとしてコピー
+                </span>
             </div>
         )
     }

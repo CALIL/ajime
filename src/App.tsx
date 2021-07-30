@@ -114,7 +114,7 @@ class App extends Component<Props, State> {
             let countNumber = params.countNumber as string
             if (countNumber) this.setCountNumber(countNumber)
             let libName = params.libName as string
-            if (libName) this.setLibName(libName)
+            if (libName) this.setLibName(decodeURIComponent(libName))
             if (params.print==='true') this.print()
         }
         // プリントプレビューが閉じられる or 印刷開始
@@ -129,9 +129,9 @@ class App extends Component<Props, State> {
             this.renderBarCodes()
             this.saveState()
         })
-        if (setHash) {
-            location.hash = queryString.stringify({template: templateName})
-        }
+        // if (setHash) {
+        //     location.hash = queryString.stringify({template: templateName})
+        // }
     }
 
     setStartNumber(number: string) {
@@ -189,6 +189,23 @@ class App extends Component<Props, State> {
         })
     }
 
+    copyUrl() {
+        const url = location.href + '#' + queryString.stringify({
+            template: this.state.templateName,
+            startNumber: this.state.startNumber,
+            countNumber: this.state.countNumber,
+            libName: encodeURIComponent(this.state.libName),
+        })
+
+        const listener = (e: any) =>{
+            e.clipboardData.setData('text/plain' , url)
+            e.preventDefault()
+            document.removeEventListener('copy', listener)
+        }
+        document.addEventListener('copy' , listener)
+        document.execCommand('copy')
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -208,6 +225,7 @@ class App extends Component<Props, State> {
                         renderBarCodes={this.renderBarCodes.bind(this)}
                         printing={this.state.printing}
                         print={this.print.bind(this)}
+                        copyUrl={this.copyUrl.bind(this)}
                     />
                     <div className="sheets">
                         {this.state.splitNumbers.map((numbers, index) => {
