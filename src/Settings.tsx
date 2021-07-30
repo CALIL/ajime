@@ -157,7 +157,7 @@ export default class Settings extends Component<Props, State> {
                     <span className="poweredby"></span>
                 </div>
                 <span className="cppyLink" onClick={this.props.copyUrl}>
-                    <i className="copy outline icon"></i>設定をURLとしてコピー
+                    <i className="copy outline icon"></i><span>設定をURLとしてコピー</span>
                 </span>
             </div>
         )
