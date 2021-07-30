@@ -115,7 +115,7 @@ class App extends Component<Props, State> {
             if (countNumber) this.setCountNumber(countNumber)
             let libName = params.library as string
             if (libName) this.setLibName(decodeURIComponent(libName))
-            if (params.print==='true') this.print()
+            if (params.print === 'true') this.print()
         }
         // プリントプレビューが閉じられる or 印刷開始
         window.addEventListener('afterprint', (event) => {
@@ -197,12 +197,12 @@ class App extends Component<Props, State> {
             sheet: this.state.countNumber
         })
 
-        const listener = (e: any) =>{
-            e.clipboardData.setData('text/plain' , url)
+        const listener = (e: any) => {
+            e.clipboardData.setData('text/plain', url)
             e.preventDefault()
             document.removeEventListener('copy', listener)
         }
-        document.addEventListener('copy' , listener)
+        document.addEventListener('copy', listener)
         document.execCommand('copy')
     }
 
@@ -236,6 +236,7 @@ class App extends Component<Props, State> {
                                           startNumber={this.state.startNumber}
                                           perPage={this.state.perPage}
                                           libName={this.state.libName}
+                                          countNumber={this.state.countNumber}
                                           univStartAlphabet={this.state.univStartAlphabet}
                                           checkDigit={this.state.checkDigit}
                                           isStartZero={this.state.isStartZero}
@@ -256,10 +257,10 @@ export default App
 
 
 const Sheet = (props: any) => {
-    const {index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero, printing} = props
+    const {index, numbers, template, startNumber, perPage, libName, univStartAlphabet, checkDigit, isStartZero, printing, countNumber} = props
     if (printing === false && index >= 5) return null
     const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, isStartZero, startNumber)
-    const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) - 1 + perPage * (index + 1), isStartZero, startNumber)
+    const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * countNumber - 1, isStartZero, startNumber)
     return (<section className={'sheet'}
                      style={{
                          paddingTop: template.marginTop,
@@ -281,7 +282,7 @@ const Sheet = (props: any) => {
                 lineHeight: '3mm'
             }}
         >
-            {startNumberString}-{endNumberString} / {univStartAlphabet !== null ? 'CODE39' : 'NW-7'}{checkDigit ? ' (M10W21)' : ''} / {index + 1}枚目
+            {startNumberString}{checkDigit ? 'C' : ''}～{endNumberString}{checkDigit ? 'C' : ''} 【{univStartAlphabet !== null ? 'CODE39' : 'NW-7'}{checkDigit ? ' (M10W21)' : ''}】 {index + 1}/{countNumber}シート
         </p>
         {numbers.map((number: string) => {
             let checkDigitNumber: number | null = null
