@@ -273,7 +273,7 @@ const Sheet = (props: any) => {
                 fontSize: '3mm',
                 lineHeight: '3mm'
             }}>
-            {prefixAlphabet}{startNumberString}{suffixCheckDigit ? 'C' : ''}～{prefixAlphabet}{endNumberString}{suffixCheckDigit ? 'C' : ''} 【{prefixAlphabet !== null ? 'CODE39' : 'NW-7'}{suffixCheckDigit ? ' (M10W21)' : ''}】 {index + 1}/{countNumber}シート
+            {prefixAlphabet}{startNumberString}{suffixCheckDigit ? 'C' : ''}～{prefixAlphabet}{endNumberString}{suffixCheckDigit ? 'C' : ''} 【{prefixAlphabet !== '' ? 'CODE39' : 'NW-7'}{suffixCheckDigit ? ' (M10W21)' : ''}】 {index + 1}/{countNumber}シート
         </p>
         {numbers.map((number: string) => {
             let checkDigitNumber: number | null = null
