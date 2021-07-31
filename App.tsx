@@ -252,7 +252,7 @@ export default App
 const Sheet = (props: any) => {
     const {index, numbers, template, startNumber, perPage, libName, prefixAlphabet, suffixCheckDigit, prefixZero, printing, countNumber} = props
     if (printing === false && index >= 5) return null
-    const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * index, prefixZero, startNumber)
+    const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')), prefixZero, startNumber)
     const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * countNumber - 1, prefixZero, startNumber)
     return (<section className={'sheet'}
                      style={{
