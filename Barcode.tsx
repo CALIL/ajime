@@ -6,28 +6,24 @@ interface Props {
     libName: string,
     template: any,
     checkDigit: number | null,
-    univStartAlphabet: string | null
+    prefixAlphabet: string
 }
 
 const Barcode = (props: Props) => {
-    const {number, libName, template, checkDigit, univStartAlphabet} = props
+    const {number, libName, template, checkDigit, prefixAlphabet} = props
     const svgElement = useRef(null)
 
     let tempNumber = number
-    if (univStartAlphabet !== null) tempNumber = univStartAlphabet + number
+    if (prefixAlphabet !== '') tempNumber = prefixAlphabet + number
 
     const isWideHeight = parseInt(template.labelHeight) > 20
 
     useEffect(() => {
         JsBarcode(svgElement.current, tempNumber, {
-            format: univStartAlphabet !== null ? 'code39' : 'codabar',
+            format: prefixAlphabet !== '' ? 'code39' : 'codabar',
             width: 2.25,
             height: isWideHeight ? 40 : 26,
             displayValue: false,
-            text: checkDigit === null ? tempNumber : tempNumber + '-' + checkDigit.toString(),
-            textMargin: 0,
-            fontSize: isWideHeight ? 20 : 15,
-            font: '"Conv_OCRB",Sans-Serif',
             margin: 0,
         })
     }, [template, tempNumber])
