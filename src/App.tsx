@@ -5,7 +5,7 @@ import {detect} from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
-import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider, Label} from 'semantic-ui-react'
+import {Button, Icon} from 'semantic-ui-react'
 
 import templates from './templates/index'
 
@@ -86,7 +86,7 @@ class App extends Component<Props, State> {
         const ls = JSON.parse(localStorage.getItem('state') as string)
         const browser = detect()
         let supported = false
-        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = true
+        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge' || browser.name === 'edge-chromium')) supported = true
         this.state = {
             templateName: ls && ls.templateName ? ls.templateName : 'aone-28368',
             libName: ls && ls.libName ? ls.libName : '',
@@ -220,7 +220,7 @@ class App extends Component<Props, State> {
                 {this.state.noHeader ? null : (
                     <header>
                         <h1>カーリルToolBox : バーコード連番印刷</h1>
-                        <div style={{'position': 'absolute','top':'15px','right':'15px'}}>
+                        <div style={{'position': 'absolute', 'top': '15px', 'right': '15px'}}>
                             <Button as="a" href="https://github.com/CALIL/ajime" target="_blank" color="black">
                                 <Icon name='github'/> GitHub
                             </Button>
