@@ -57,6 +57,16 @@ export default class Settings extends Component<Props, State> {
         return (
             <div className="settings">
                 <div>
+                    {this.props.supported === false ? (
+                        <Message negative size='small'>
+                            お使いのブラウザでは正しく印刷できない可能性があります。以下のブラウザを推奨します。
+                            <ul>
+                                <li><a href="https://www.microsoft.com/ja-jp/edge" target="_blank">Microsoft Edge</a></li>
+                                <li><a href="https://www.google.co.jp/chrome/index.html" target="_blank">Google Chrome</a></li>
+                                <li><a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox</a></li>
+                            </ul>
+                        </Message>
+                    ) : null}
                     <div className="setting">
                         <Accordion fluid>
                             <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
@@ -154,15 +164,7 @@ export default class Settings extends Component<Props, State> {
                         <Divider/>
                         <div style={{'marginTop': '10px', 'textAlign': 'center'}}>
                             <p style={{"marginBottom": '10px'}}>合計 {parseInt(this.props.countNumber) * countPerPage} 個のバーコード</p>
-                            <Button primary icon loading={this.props.printing} size="big" labelPosition='right' onClick={this.props.print} disabled={!this.props.supported}>印刷する<Icon name='print'/></Button>
-                            {this.props.supported===false ? (
-                                <Message size='small'>
-                                    お使いのブラウザは対応していません。<br />
-                                    <a href="https://www.microsoft.com/ja-jp/edge" target="_blank">Microsoft Edge</a>、
-                                    <a href="https://www.google.co.jp/chrome/index.html" target="_blank">Google Chrome</a>、<br />
-                                    <a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox</a>をお使い下さい。
-                                </Message>
-                            ) : null}
+                            <Button primary icon loading={this.props.printing} size="big" labelPosition='right' onClick={this.props.print}>印刷する<Icon name='print'/></Button>
                         </div>
                     </div>
                     <div className="cppyLink">
