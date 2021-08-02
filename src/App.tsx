@@ -212,98 +212,95 @@ class App extends Component<Props, State> {
     render() {
         return (
             <React.Fragment>
-                    <a href="https://github.com/CALIL/ajime" className="github">
-                        <img loading="lazy" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" className="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1" />
-                    </a>
-                    <header>
-                        <h1>カーリルToolBox : バーコード連番印刷</h1>
-                    </header>
-                    <div className="container">
-                        <Settings
-                            templateName={this.state.templateName}
-                            onSelectTemplate={this.setTemplate.bind(this)}
-                            startNumber={this.state.startNumber}
-                            countNumber={this.state.countNumber}
-                            changeStartNumber={this.setStartNumber.bind(this)}
-                            changeCountNumber={this.setCountNumber.bind(this)}
-                            libName={this.state.libName}
-                            setLibName={this.setLibName.bind(this)}
-                            renderBarCodes={this.renderBarCodes.bind(this)}
-                            printing={this.state.printing}
-                            print={this.print.bind(this)}
-                            copyUrl={this.copyUrl.bind(this)}
-                            supported={this.state.supported}
-                        />
-                        <div className="sheets">
-                            {this.state.splitNumbers.map((numbers, index) => {
-                                const template = templates[this.state.templateName]
-                                return <Sheet key={index} index={index}
-                                    numbers={numbers}
-                                    template={template}
-                                    startNumber={this.state.startNumber}
-                                    perPage={this.state.perPage}
-                                    libName={this.state.libName}
-                                    countNumber={this.state.countNumber}
-                                    prefixAlphabet={this.state.prefixAlphabet}
-                                    suffixCheckDigit={this.state.suffixCheckDigit}
-                                    prefixZero={this.state.prefixZero}
-                                    printing={this.state.printing}
-                                />
-                            })}
-                            {this.state.splitNumbers.length > 5 ? (
-                                <p className="nopreview">6枚目以降はプレビューされません</p>
-                            ) : null}
-                        </div>
+                <header>
+                    <h1>カーリルToolBox : バーコード連番印刷</h1>
+                </header>
+                <div className="container">
+                    <Settings
+                        templateName={this.state.templateName}
+                        onSelectTemplate={this.setTemplate.bind(this)}
+                        startNumber={this.state.startNumber}
+                        countNumber={this.state.countNumber}
+                        changeStartNumber={this.setStartNumber.bind(this)}
+                        changeCountNumber={this.setCountNumber.bind(this)}
+                        libName={this.state.libName}
+                        setLibName={this.setLibName.bind(this)}
+                        renderBarCodes={this.renderBarCodes.bind(this)}
+                        printing={this.state.printing}
+                        print={this.print.bind(this)}
+                        copyUrl={this.copyUrl.bind(this)}
+                        supported={this.state.supported}
+                    />
+                    <div className="sheets">
+                        {this.state.splitNumbers.map((numbers, index) => {
+                            const template = templates[this.state.templateName]
+                            return <Sheet key={index} index={index}
+                                numbers={numbers}
+                                template={template}
+                                startNumber={this.state.startNumber}
+                                perPage={this.state.perPage}
+                                libName={this.state.libName}
+                                countNumber={this.state.countNumber}
+                                prefixAlphabet={this.state.prefixAlphabet}
+                                suffixCheckDigit={this.state.suffixCheckDigit}
+                                prefixZero={this.state.prefixZero}
+                                printing={this.state.printing}
+                            />
+                        })}
+                        {this.state.splitNumbers.length > 5 ? (
+                            <p className="nopreview">6枚目以降はプレビューされません</p>
+                        ) : null}
                     </div>
+                </div>
             </React.Fragment>
-                )
+        )
     }
 }
 
-                export default App
+export default App
 
 
 const Sheet = (props: any) => {
-    const {index, numbers, template, startNumber, perPage, libName, prefixAlphabet, suffixCheckDigit, prefixZero, printing, countNumber} = props
+    const { index, numbers, template, startNumber, perPage, libName, prefixAlphabet, suffixCheckDigit, prefixZero, printing, countNumber } = props
     if (printing === false && index >= 5) return null
-                const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')), prefixZero, startNumber)
-                const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * countNumber - 1, prefixZero, startNumber)
-                return (<section className={'sheet'}
-                    style={{
-                        paddingTop: template.marginTop,
-                        paddingLeft: template.marginLeft,
-                        display: 'grid',
-                        gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
-                        gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
-                        columnGap: template.gapX,
-                        rowGap: template.gapY,
-                    }}>
-                    <p
-                        style={{
-                            position: 'absolute',
-                            top: (parseFloat(template.marginTop) - 4.5) > 0 ? (parseFloat(template.marginTop) - 4.5) + 'mm' : '0',
-                            right: template.headerPosition === 'right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
-                            left: template.headerPosition === 'left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
-                            fontSize: '3mm',
-                            lineHeight: '3mm'
-                        }}>
-                        {prefixAlphabet}{startNumberString}{suffixCheckDigit ? 'C' : ''}～{prefixAlphabet}{endNumberString}{suffixCheckDigit ? 'C' : ''} 【{prefixAlphabet !== '' ? 'CODE39' : 'NW-7'}{suffixCheckDigit ? ' (M10W21)' : ''}】 {index + 1}/{countNumber}シート
-                    </p>
-                    {numbers.map((number: string) => {
-                        let checkDigitNumber: number | null = null
-                        if (suffixCheckDigit) checkDigitNumber = calcCheckDigit(number.replace(/[A-Z]/g, ''))
-                        return <Barcode number={number} checkDigit={checkDigitNumber} prefixAlphabet={prefixAlphabet} libName={libName} template={template} key={number} />
-                    })}
-                    <img src="./assets/calil.svg" alt="カーリル"
-                        className="logo"
-                        style={{
-                            position: 'absolute',
-                            bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
-                            left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
-                            fontSize: '3mm'
-                        }}
-                    />
-                </section>)
+    const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')), prefixZero, startNumber)
+    const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * countNumber - 1, prefixZero, startNumber)
+    return (<section className={'sheet'}
+        style={{
+            paddingTop: template.marginTop,
+            paddingLeft: template.marginLeft,
+            display: 'grid',
+            gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
+            gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
+            columnGap: template.gapX,
+            rowGap: template.gapY,
+        }}>
+        <p
+            style={{
+                position: 'absolute',
+                top: (parseFloat(template.marginTop) - 4.5) > 0 ? (parseFloat(template.marginTop) - 4.5) + 'mm' : '0',
+                right: template.headerPosition === 'right' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
+                left: template.headerPosition === 'left' ? parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm' : 'auto',
+                fontSize: '3mm',
+                lineHeight: '3mm'
+            }}>
+            {prefixAlphabet}{startNumberString}{suffixCheckDigit ? 'C' : ''}～{prefixAlphabet}{endNumberString}{suffixCheckDigit ? 'C' : ''} 【{prefixAlphabet !== '' ? 'CODE39' : 'NW-7'}{suffixCheckDigit ? ' (M10W21)' : ''}】 {index + 1}/{countNumber}シート
+        </p>
+        {numbers.map((number: string) => {
+            let checkDigitNumber: number | null = null
+            if (suffixCheckDigit) checkDigitNumber = calcCheckDigit(number.replace(/[A-Z]/g, ''))
+            return <Barcode number={number} checkDigit={checkDigitNumber} prefixAlphabet={prefixAlphabet} libName={libName} template={template} key={number} />
+        })}
+        <img src="./assets/calil.svg" alt="カーリル"
+            className="logo"
+            style={{
+                position: 'absolute',
+                bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
+                left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
+                fontSize: '3mm'
+            }}
+        />
+    </section>)
 }
 
 
