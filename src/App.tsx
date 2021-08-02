@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import queryString from 'query-string'
+// @ts-ignore
 import { detect } from 'detect-browser'
 
 import Settings from './Settings'
