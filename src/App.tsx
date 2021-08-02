@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 import queryString from 'query-string'
-import { detect } from 'detect-browser'
+import {detect} from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
@@ -49,7 +49,7 @@ const addZero = (number: number, isStartZero: boolean, startNumber: string): str
     let zeros = ''
     if (isStartZero) {
         const zeroLength = startNumber.replace(/[A-Z]/g, '').length - String(number).length
-        Array.from({ length: zeroLength }).forEach(() => zeros += '0')
+        Array.from({length: zeroLength}).forEach(() => zeros += '0')
     }
     return zeros + String(number)
 }
@@ -83,8 +83,8 @@ class App extends Component<Props, State> {
         super(props)
         const ls = JSON.parse(localStorage.getItem('state') as string)
         const browser = detect()
-        let supported = true
-        if (browser && browser.name === 'safari') supported = false
+        let supported = false
+        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = false
         this.state = {
             templateName: ls.templateName ? ls.templateName : 'aone-28368',
             libName: ls.libName ? ls.libName : '',
@@ -110,7 +110,7 @@ class App extends Component<Props, State> {
         }
         let startNumber = params.start as string
         if (startNumber) {
-            this.setState({ startNumber }, () => this.setStartNumber(this.state.startNumber))
+            this.setState({startNumber}, () => this.setStartNumber(this.state.startNumber))
         } else {
             this.setStartNumber(this.state.startNumber)
         }
@@ -121,13 +121,13 @@ class App extends Component<Props, State> {
         if (params.print === 'true') this.print()
         // プリントプレビューが閉じられる or 印刷開始
         window.addEventListener('afterprint', (event) => {
-            this.setState({ printing: false })
+            this.setState({printing: false})
         })
     }
 
     setTemplate(templateName: string) {
         let perPage: number = templates[templateName].labelCountX * templates[templateName].labelCountY
-        this.setState({ perPage, templateName }, () => {
+        this.setState({perPage, templateName}, () => {
             this.renderBarCodes()
             this.saveState()
         })
@@ -142,21 +142,21 @@ class App extends Component<Props, State> {
             if (match) prefixAlphabet = match[0]
         }
         const suffixCheckDigit = number.match(/C$/) ? true : false
-        this.setState({ startNumber: number, prefixZero, suffixCheckDigit, prefixAlphabet }, () => {
+        this.setState({startNumber: number, prefixZero, suffixCheckDigit, prefixAlphabet}, () => {
             this.renderBarCodes()
             this.saveState()
         })
     }
 
     setCountNumber(number: string) {
-        this.setState({ countNumber: number }, () => {
+        this.setState({countNumber: number}, () => {
             this.renderBarCodes()
             this.saveState()
         })
     }
 
     setLibName(libName: string) {
-        this.setState({ libName: libName }, this.saveState.bind(this))
+        this.setState({libName: libName}, this.saveState.bind(this))
     }
 
     saveState() {
@@ -174,18 +174,18 @@ class App extends Component<Props, State> {
         const countNumber = parseInt(this.state.countNumber) * this.state.perPage
         const numbers: string[] = []
         let currentNumber = startNumber
-        Array.from({ length: countNumber }).forEach(() => {
+        Array.from({length: countNumber}).forEach(() => {
             let tempNumber = addZero(currentNumber, this.state.prefixZero, this.state.startNumber)
             numbers.push(tempNumber)
             currentNumber += 1
         })
         const splitNumbers = splitByNumber(numbers, this.state.perPage)
-        this.setState({ splitNumbers })
+        this.setState({splitNumbers})
         return true
     }
 
     print() {
-        this.setState({ printing: true }, () => {
+        this.setState({printing: true}, () => {
             setTimeout(() => {
                 window.print()
             }, 300)
@@ -235,16 +235,16 @@ class App extends Component<Props, State> {
                         {this.state.splitNumbers.map((numbers, index) => {
                             const template = templates[this.state.templateName]
                             return <Sheet key={index} index={index}
-                                numbers={numbers}
-                                template={template}
-                                startNumber={this.state.startNumber}
-                                perPage={this.state.perPage}
-                                libName={this.state.libName}
-                                countNumber={this.state.countNumber}
-                                prefixAlphabet={this.state.prefixAlphabet}
-                                suffixCheckDigit={this.state.suffixCheckDigit}
-                                prefixZero={this.state.prefixZero}
-                                printing={this.state.printing}
+                                          numbers={numbers}
+                                          template={template}
+                                          startNumber={this.state.startNumber}
+                                          perPage={this.state.perPage}
+                                          libName={this.state.libName}
+                                          countNumber={this.state.countNumber}
+                                          prefixAlphabet={this.state.prefixAlphabet}
+                                          suffixCheckDigit={this.state.suffixCheckDigit}
+                                          prefixZero={this.state.prefixZero}
+                                          printing={this.state.printing}
                             />
                         })}
                         {this.state.splitNumbers.length > 5 ? (
@@ -261,20 +261,20 @@ export default App
 
 
 const Sheet = (props: any) => {
-    const { index, numbers, template, startNumber, perPage, libName, prefixAlphabet, suffixCheckDigit, prefixZero, printing, countNumber } = props
+    const {index, numbers, template, startNumber, perPage, libName, prefixAlphabet, suffixCheckDigit, prefixZero, printing, countNumber} = props
     if (printing === false && index >= 5) return null
     const startNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')), prefixZero, startNumber)
     const endNumberString = addZero(parseInt(startNumber.replace(/[A-Z]/g, '')) + perPage * countNumber - 1, prefixZero, startNumber)
     return (<section className={'sheet'}
-        style={{
-            paddingTop: template.marginTop,
-            paddingLeft: template.marginLeft,
-            display: 'grid',
-            gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
-            gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
-            columnGap: template.gapX,
-            rowGap: template.gapY,
-        }}>
+                     style={{
+                         paddingTop: template.marginTop,
+                         paddingLeft: template.marginLeft,
+                         display: 'grid',
+                         gridTemplateColumns: `repeat(${template.labelCountX}, ${template.labelWidth})`,
+                         gridTemplateRows: `repeat(${template.labelCountY}, ${template.labelHeight})`,
+                         columnGap: template.gapX,
+                         rowGap: template.gapY,
+                     }}>
         <p
             style={{
                 position: 'absolute',
@@ -289,16 +289,16 @@ const Sheet = (props: any) => {
         {numbers.map((number: string) => {
             let checkDigitNumber: number | null = null
             if (suffixCheckDigit) checkDigitNumber = calcCheckDigit(number.replace(/[A-Z]/g, ''))
-            return <Barcode number={number} checkDigit={checkDigitNumber} prefixAlphabet={prefixAlphabet} libName={libName} template={template} key={number} />
+            return <Barcode number={number} checkDigit={checkDigitNumber} prefixAlphabet={prefixAlphabet} libName={libName} template={template} key={number}/>
         })}
         <img src="./assets/calil.svg" alt="カーリル"
-            className="logo"
-            style={{
-                position: 'absolute',
-                bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
-                left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
-                fontSize: '3mm'
-            }}
+             className="logo"
+             style={{
+                 position: 'absolute',
+                 bottom: (parseFloat(template.marginTop) - 7) > 0 ? (parseFloat(template.marginTop) - 7) + 'mm' : '0',
+                 left: parseInt(template.marginLeft) + parseInt(template.gapX) + 'mm',
+                 fontSize: '3mm'
+             }}
         />
     </section>)
 }
