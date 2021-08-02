@@ -39,6 +39,9 @@ https://barcode.calil.dev/
 |  library  |  図書館名（ラベル上部に印刷）  |
 |  start  |  開始番号  |
 |  sheet  |  印刷枚数  |
+|  noheader | `true`を指定するとヘッダーを非表示にする [サンプル](https://barcode.calil.dev/#noheader=true) |
+|  print | `true`を指定すると印刷ダイアログを表示する  [サンプル](https://barcode.calil.dev/#print=true)  |
+
 
 ### 開発
 
