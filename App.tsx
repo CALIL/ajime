@@ -144,8 +144,8 @@ class App extends Component<Props, State> {
 
     setCountNumber(number: string) {
         this.setState({countNumber: number}, () => {
-            this.renderBarCodes.bind(this)
-            this.saveState.bind(this)
+            this.renderBarCodes()
+            this.saveState()
         })
     }
 
