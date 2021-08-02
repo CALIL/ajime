@@ -84,7 +84,7 @@ class App extends Component<Props, State> {
         const ls = JSON.parse(localStorage.getItem('state') as string)
         const browser = detect()
         let supported = false
-        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = false
+        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = true
         this.state = {
             templateName: ls.templateName ? ls.templateName : 'aone-28368',
             libName: ls.libName ? ls.libName : '',
