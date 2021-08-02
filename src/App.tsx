@@ -76,7 +76,8 @@ interface State {
     prefixAlphabet: string // 先頭のアルファベット（存在する場合はCODE39になる）
     prefixZero: boolean // 先頭のゼロ埋めをするかどうか
     printing: boolean // 印刷中かどうか
-    supported: boolean
+    supported: boolean // サポートブラウザかどうか
+    noHeader: boolean // ヘッダーを表示しない
 }
 
 class App extends Component<Props, State> {
@@ -87,17 +88,18 @@ class App extends Component<Props, State> {
         let supported = false
         if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = true
         this.state = {
-            templateName: ls.templateName ? ls.templateName : 'aone-28368',
-            libName: ls.libName ? ls.libName : '',
+            templateName: ls && ls.templateName ? ls.templateName : 'aone-28368',
+            libName: ls && ls.libName ? ls.libName : '',
             perPage: 0,
-            startNumber: ls.startNumber ? ls.startNumber : '100000',
+            startNumber: ls && ls.startNumber ? ls.startNumber : '100000',
             prefixZero: false,
-            countNumber: ls.countNumber ? ls.countNumber : '1',
+            countNumber: ls && ls.countNumber ? ls.countNumber : '1',
             splitNumbers: [],
             suffixCheckDigit: false,
             prefixAlphabet: '',
             printing: false,
-            supported: supported
+            supported: supported,
+            noHeader: false
         }
     }
 
@@ -120,6 +122,8 @@ class App extends Component<Props, State> {
         let libName = params.library as string
         if (libName) this.setLibName(decodeURIComponent(libName))
         if (params.print === 'true') this.print()
+        let noHeader = params.noheader as string
+        if (noHeader === 'true') this.setState({noHeader: true})
         // プリントプレビューが閉じられる or 印刷開始
         window.addEventListener('afterprint', (event) => {
             this.setState({printing: false})
@@ -213,14 +217,16 @@ class App extends Component<Props, State> {
     render() {
         return (
             <React.Fragment>
-                <header>
-                    <h1>カーリルToolBox : バーコード連番印刷</h1>
-                    <div style={{'position': 'absolute','top':'15px','right':'15px'}}>
-                        <Button as="a" href="https://github.com/CALIL/ajime" target="_blank" color="black">
-                            <Icon name='github'/> GitHub
-                        </Button>
-                    </div>
-                </header>
+                {this.state.noHeader ? null : (
+                    <header>
+                        <h1>カーリルToolBox : バーコード連番印刷</h1>
+                        <div style={{'position': 'absolute','top':'15px','right':'15px'}}>
+                            <Button as="a" href="https://github.com/CALIL/ajime" target="_blank" color="black">
+                                <Icon name='github'/> GitHub
+                            </Button>
+                        </div>
+                    </header>
+                )}
                 <div className="container">
                     <Settings
                         templateName={this.state.templateName}
