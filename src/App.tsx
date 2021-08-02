@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 
 import queryString from 'query-string'
-import { detect } from 'detect-browser'
+import {detect} from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
+import {Button, Form, Checkbox, Icon, Message, Input, Accordion, Divider, Label} from 'semantic-ui-react'
 
 import templates from './templates/index'
 
@@ -214,6 +215,11 @@ class App extends Component<Props, State> {
             <React.Fragment>
                 <header>
                     <h1>カーリルToolBox : バーコード連番印刷</h1>
+                    <div style={{'position': 'absolute','top':'15px','right':'15px'}}>
+                        <Button as="a" href="https://github.com/CALIL/ajime" target="_blank" color="black">
+                            <Icon name='github'/> GitHub
+                        </Button>
+                    </div>
                 </header>
                 <div className="container">
                     <Settings
