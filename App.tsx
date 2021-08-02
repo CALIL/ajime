@@ -86,7 +86,7 @@ class App extends Component<Props, State> {
             perPage: 0,
             startNumber: ls.startNumber ? ls.startNumber : '100000',
             prefixZero: false,
-            countNumber: '1',
+            countNumber: ls.countNumber ? ls.countNumber : '1',
             splitNumbers: [],
             suffixCheckDigit: false,
             prefixAlphabet: '',
@@ -143,7 +143,10 @@ class App extends Component<Props, State> {
     }
 
     setCountNumber(number: string) {
-        this.setState({countNumber: number}, this.renderBarCodes.bind(this))
+        this.setState({countNumber: number}, () => {
+            this.renderBarCodes.bind(this)
+            this.saveState.bind(this)
+        })
     }
 
     setLibName(libName: string) {
@@ -154,7 +157,8 @@ class App extends Component<Props, State> {
         const state = {
             templateName: this.state.templateName,
             libName: this.state.libName,
-            startNumber: this.state.startNumber
+            startNumber: this.state.startNumber,
+            countNumber: this.state.countNumber
         }
         localStorage.setItem('state', JSON.stringify(state))
     }
