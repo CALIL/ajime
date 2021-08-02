@@ -11,6 +11,8 @@ https://calil.github.io/ajime/
 - NW-7 / CODE39 / チェックデジット / ゼロ埋めをサポート
 - 外部URLからパラメータを受け取ることができる（連携API）
 
+![画面イメージ](preview.png "画面イメージ")
+
 ### テンプレートの追加
 
 `/src/templates/`以下にJSONファイルを追加して`/src/templates/index.ts`にファイルを追記することでラベル用紙のテンプレートを追加することができます。
