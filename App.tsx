@@ -87,12 +87,12 @@ class App extends Component<Props, State> {
         let supported = false
         if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = true
         this.state = {
-            templateName: ls.templateName ? ls.templateName : 'aone-28368',
-            libName: ls.libName ? ls.libName : '',
+            templateName: ls && ls.templateName ? ls.templateName : 'aone-28368',
+            libName: ls && ls.libName ? ls.libName : '',
             perPage: 0,
-            startNumber: ls.startNumber ? ls.startNumber : '100000',
+            startNumber: ls && ls.startNumber ? ls.startNumber : '100000',
             prefixZero: false,
-            countNumber: ls.countNumber ? ls.countNumber : '1',
+            countNumber: ls && ls.countNumber ? ls.countNumber : '1',
             splitNumbers: [],
             suffixCheckDigit: false,
             prefixAlphabet: '',
