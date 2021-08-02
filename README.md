@@ -13,7 +13,7 @@ https://barcode.calil.dev/
 
 ![画面イメージ](preview.png "画面イメージ")
 
-### テンプレートの追加
+### テンプレート（ラベル用紙）の追加
 
 `/src/templates/`以下にJSONファイルを追加して`/src/templates/index.ts`にファイルを追記することでラベル用紙のテンプレートを追加することができます。
 
