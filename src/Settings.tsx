@@ -16,6 +16,7 @@ interface Props {
     printing: boolean
     print: () => void
     copyUrl: () => void
+    supported: boolean
 }
 
 interface State {
@@ -153,7 +154,15 @@ export default class Settings extends Component<Props, State> {
                         <Divider/>
                         <div style={{'marginTop': '10px', 'textAlign': 'center'}}>
                             <p style={{"marginBottom": '10px'}}>合計 {parseInt(this.props.countNumber) * countPerPage} 個のバーコード</p>
-                            <Button primary icon loading={this.props.printing} size="big" labelPosition='right' onClick={this.props.print}>印刷する<Icon name='print'/></Button>
+                            <Button primary icon loading={this.props.printing} size="big" labelPosition='right' onClick={this.props.print} disabled={!this.props.supported}>印刷する<Icon name='print'/></Button>
+                            {this.props.supported===false ? (
+                                <Message size='small'>
+                                    お使いのブラウザは対応していません。<br />
+                                    <a href="https://www.microsoft.com/ja-jp/edge" target="_blank">Microsoft Edge</a>、
+                                    <a href="https://www.google.co.jp/chrome/index.html" target="_blank">Google Chrome</a>、<br />
+                                    <a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox</a>をお使い下さい。
+                                </Message>
+                            ) : null}
                         </div>
                     </div>
                     <div className="cppyLink">

@@ -6,6 +6,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "detect-browser": "^5.2.0",
     "fomantic-ui-css": "^2.8.8",
     "jsbarcode": "^3.11.4",
     "jsurl": "^0.1.5",
