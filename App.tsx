@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import queryString from 'query-string'
+import { detect } from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
@@ -74,12 +75,16 @@ interface State {
     prefixAlphabet: string // 先頭のアルファベット（存在する場合はCODE39になる）
     prefixZero: boolean // 先頭のゼロ埋めをするかどうか
     printing: boolean // 印刷中かどうか
+    supported: boolean
 }
 
 class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         const ls = JSON.parse(localStorage.getItem('state') as string)
+        const browser = detect()
+        let supported = false
+        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge')) supported = true
         this.state = {
             templateName: ls.templateName ? ls.templateName : 'aone-28368',
             libName: ls.libName ? ls.libName : '',
@@ -90,7 +95,8 @@ class App extends Component<Props, State> {
             splitNumbers: [],
             suffixCheckDigit: false,
             prefixAlphabet: '',
-            printing: false
+            printing: false,
+            supported: supported
         }
     }
 
@@ -223,6 +229,7 @@ class App extends Component<Props, State> {
                         printing={this.state.printing}
                         print={this.print.bind(this)}
                         copyUrl={this.copyUrl.bind(this)}
+                        supported={this.state.supported}
                     />
                     <div className="sheets">
                         {this.state.splitNumbers.map((numbers, index) => {
