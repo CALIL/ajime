@@ -177,7 +177,7 @@ class App extends Component<Props, State> {
     print() {
         this.setState({printing: true}, () => {
             setTimeout(() => {
-                print()
+                window.print()
             }, 300)
         })
     }
