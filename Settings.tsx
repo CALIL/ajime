@@ -61,9 +61,9 @@ export default class Settings extends Component<Props, State> {
                         <Message negative size='small'>
                             お使いのブラウザでは正しく印刷できない可能性があります。以下のブラウザを推奨します。
                             <ul>
-                                <li><a href="https://www.microsoft.com/ja-jp/edge" target="_blank">Microsoft Edge</a></li>
-                                <li><a href="https://www.google.co.jp/chrome/index.html" target="_blank">Google Chrome</a></li>
-                                <li><a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox</a></li>
+                                <li><a href="https://www.microsoft.com/ja-jp/edge" target="_blank">Microsoft Edge <Icon name='external'/></a></li>
+                                <li><a href="https://www.google.co.jp/chrome/index.html" target="_blank">Google Chrome <Icon name='external'/></a></li>
+                                <li><a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox <Icon name='external'/></a></li>
                             </ul>
                         </Message>
                     ) : null}
