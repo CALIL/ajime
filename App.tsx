@@ -154,7 +154,8 @@ class App extends Component<Props, State> {
     }
 
     setCountNumber(number: string) {
-        this.setState({countNumber: number}, () => {
+        const number2 = parseInt(number)
+        this.setState({countNumber: String((number2 && number2 > 0) ? number : 1)}, () => {
             this.renderBarCodes()
             this.saveState()
         })
