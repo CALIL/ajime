@@ -136,7 +136,7 @@ export default class Settings extends Component<Props, State> {
                                     </Form.Field>
                                     <Form.Field>
                                         <label>図書館名</label>
-                                        <Input placeholder='カーリル図書館' value={this.props.libName} maxLength={16} onChange={(e) => this.props.setLibName(e.target.value)}/>
+                                        <Input placeholder='カーリル図書館' value={this.props.libName} onChange={(e) => this.props.setLibName(e.target.value)}/>
                                         {(isWideHeight == false && this.props.libName.length > 0) ? (
                                             <Label pointing>
                                                 ラベルが小さいため印刷されません
