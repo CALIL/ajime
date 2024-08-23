@@ -9,6 +9,14 @@ interface Props {
     prefixAlphabet: string
 }
 
+const wordcount = (str: string): number => {
+  let count = 0;
+  for (const char of str) {
+    count += char.charCodeAt(0) <= 0x7f ? 0.5 : 1; // 全角半角判定
+  }
+  return count;
+}
+
 const Barcode = (props: Props) => {
     const {number, libName, template, checkDigit, prefixAlphabet} = props
     const svgElement = useRef(null)
@@ -28,6 +36,7 @@ const Barcode = (props: Props) => {
         })
     }, [template, tempNumber])
     const showLibName = libName !== '' && isWideHeight
+  console.log(((parseFloat(template.labelWidth)-4)/3));
     return (
         <div className="barcode" style={{
             display: 'inline-flex',
@@ -45,7 +54,7 @@ const Barcode = (props: Props) => {
             {showLibName ? (
                 <div className="libName" style={{
                     fontFamily: '"Noto Sans JP"',
-                    fontSize: libName.length < 10 ? '3mm' : '1.5mm',
+                    fontSize: (wordcount(libName) <= ((parseFloat(template.labelWidth)-4)/3)) ? '3mm' : '2.5mm',
                     fontWeight: 400,
                     marginBottom: '1mm',
                     lineHeight: '3.8mm'
