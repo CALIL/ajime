@@ -2,7 +2,7 @@ name: Build and Deploy
 on: [push]
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, Linux]
+    runs-on: [Linux]
     steps:
       - uses: actions/setup-node@v2
         with:
