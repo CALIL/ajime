@@ -38,6 +38,25 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      # React 19 には上げられない。
+      # semantic-ui-react の peer が "^16.8.0 || ^17.0.0 || ^18.0.0" で 19 に
+      # 対応しておらず、本体も 2.1.5 から動きがない。peer の不一致は npm では
+      # 警告どまりでビルドも通ってしまうため、CI では気づけない。壊れるとしたら
+      # 実行時になる。上げるなら UI ライブラリの乗り換えとセットで判断する。
+      - dependency-name: "react"
+        versions: [">=19"]
+      - dependency-name: "react-dom"
+        versions: [">=19"]
+      - dependency-name: "@types/react"
+        versions: [">=19"]
+      - dependency-name: "@types/react-dom"
+        versions: [">=19"]
+      # @types/node は動かすランタイムに合わせる（.nvmrc = 24）。
+      # major が先に上がると、実際には無い API の型が通ってしまう。
+      # Node.js を上げるときは .nvmrc と一緒に手で上げる。
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   # ---------------------------------------------------------------------------
   # GitHub Actions (.github/workflows)
