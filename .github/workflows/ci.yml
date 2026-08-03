@@ -1,0 +1,52 @@
+name: CI
+
+# 依存を更新したときに壊れていないかを見るための最低限のチェック。
+# Dependabot の PR にもこれが走るので、更新して安全かどうかが分かる。
+#
+# 雛形: CALIL/workflows の templates/ci-npm.yml
+# このリポジトリにはテストが無いので、雛形の Test は置かずビルドだけを見ています。
+# build は tsc && vite build なので、型エラーがあればここで落ちます。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+# 同じブランチで新しい push があったら、古い実行は止める
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ビルド
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # package-lock.json どおりに入れる。lock がずれていればここで落ちる。
+      - name: Install
+        run: npm ci --ignore-scripts
+
+      - name: Build
+        run: npm run build
+
+      # 配信に必要なので、gh-pages.yaml と同じ確認をここでもしておく。
+      # 壊れていたら配信時ではなく PR の時点で気づける。
+      - name: CNAME が成果物に含まれているか確認
+        run: test -f dist/CNAME

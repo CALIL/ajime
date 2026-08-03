@@ -27,14 +27,19 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 20
       - name: Checkout 🛎️
         uses: actions/checkout@v7
         with:
           # 配信は artifact 経由で行うため、checkout の資格情報は使わない
           persist-credentials: false
+
+      # Node.js のバージョンは .nvmrc で CI と揃える。
+      # checkout より後に置かないと .nvmrc が読めない。
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Install and Build 🔧
         run: |
