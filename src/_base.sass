@@ -1,0 +1,24 @@
+// index.sass にあった全体向けの定義。
+// @use は他の規則（plain CSS の @import も含む）より前に置く必要があるため、
+// index.sass を @use の一覧にし、中身をここへ移した。
+// 読み込み順は元の @import と同じ（これが最初）。
+//
+// 置き場が src/sass ではなく src/ なのは、下の url('./fonts/...') が
+// index.sass と同じ相対位置のままになるようにするため。
+
+@import 'paper-css/paper.min.css'
+
+@font-face
+  font-family: 'Conv_OCRB'
+  src: url('./fonts/OCRB.eot')
+  src: url('./fonts/OCRB.woff') format("woff"), url('./fonts/OCRB.ttf') format("truetype"), url('./fonts/OCRB.svg') format("svg")
+  font-weight: normal
+  font-style: normal
+
+body
+  margin: 0
+  padding: 0
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  background-color: #ffffff
