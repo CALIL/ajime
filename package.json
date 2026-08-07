@@ -19,6 +19,12 @@
     "react-dom": "^19.2.8",
     "semantic-ui-react": "^2.1.5"
   },
+  "overrides": {
+    "semantic-ui-react": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
+  },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
