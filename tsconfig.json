@@ -6,12 +6,11 @@
     // vitest の型定義が vite のサブパス export を参照し moduleResolution: Node では
     // 解決できないため。自分のコード(src)の型チェックには影響しない
     "skipLibCheck": true,
-    "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
