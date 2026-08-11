@@ -39,19 +39,18 @@ updates:
           - "minor"
           - "patch"
     ignore:
-      # React 19 には上げられない。
-      # semantic-ui-react の peer が "^16.8.0 || ^17.0.0 || ^18.0.0" で 19 に
-      # 対応しておらず、本体も 2.1.5 から動きがない。peer の不一致は npm では
-      # 警告どまりでビルドも通ってしまうため、CI では気づけない。壊れるとしたら
-      # 実行時になる。上げるなら UI ライブラリの乗り換えとセットで判断する。
+      # react のメジャー更新は周辺ライブラリの対応状況をまとめて確認してから
+      # 手動で判断する(2026-08 に semantic-ui-react が React 19 の findDOMNode
+      # 削除で実行時クラッシュし、本番が白画面になった経緯がある。同ライブラリは
+      # 廃止済みだが、major はマウントスモークテストと実ブラウザで検証してから上げる)。
       - dependency-name: "react"
-        versions: [">=19"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "react-dom"
-        versions: [">=19"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "@types/react"
-        versions: [">=19"]
+        update-types: ["version-update:semver-major"]
       - dependency-name: "@types/react-dom"
-        versions: [">=19"]
+        update-types: ["version-update:semver-major"]
       # @types/node は動かすランタイムに合わせる（.nvmrc = 24）。
       # major が先に上がると、実際には無い API の型が通ってしまう。
       # Node.js を上げるときは .nvmrc と一緒に手で上げる。

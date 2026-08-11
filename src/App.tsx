@@ -5,7 +5,6 @@ import {detect} from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
-import {Button, Icon} from 'semantic-ui-react'
 
 import templates from './templates/index'
 
@@ -222,9 +221,9 @@ class App extends Component<Props, State> {
                     <header>
                         <h1>カーリルToolBox : バーコード連番印刷</h1>
                         <div style={{'position': 'absolute', 'top': '15px', 'right': '15px'}}>
-                            <Button as="a" href="https://github.com/CALIL/ajime" target="_blank" color="black">
-                                <Icon name='github'/> GitHub
-                            </Button>
+                            <a className="ui black button" href="https://github.com/CALIL/ajime" target="_blank">
+                                <i className="github icon" aria-hidden="true"/> GitHub
+                            </a>
                         </div>
                     </header>
                 )}
