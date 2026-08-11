@@ -4,8 +4,10 @@ name: CI
 # Dependabot の PR にもこれが走るので、更新して安全かどうかが分かる。
 #
 # 雛形: CALIL/workflows の templates/ci-npm.yml
-# このリポジトリにはテストが無いので、雛形の Test は置かずビルドだけを見ています。
 # build は tsc && vite build なので、型エラーがあればここで落ちます。
+# Test は vitest + jsdom によるマウントスモークテスト。ビルドが通っても
+# マウント時の例外で画面が真っ白になる事故(2026-08 の React 19 化で発生)を
+# PR の時点で検出するためのものです。
 
 on:
   push:
@@ -45,6 +47,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # jsdom 上で App を実際にマウントする(白画面検出)
+      - name: Test
+        run: npm test
 
       # 配信に必要なので、gh-pages.yaml と同じ確認をここでもしておく。
       # 壊れていたら配信時ではなく PR の時点で気づける。
