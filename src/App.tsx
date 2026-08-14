@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 
 import queryString from 'query-string'
-import {detect} from 'detect-browser'
 
 import Settings from './Settings'
 import Barcode from './Barcode'
+import {canPrint} from './printSupport'
 
 import templates from './templates/index'
+
+// 印刷に必要な機能がそろっているか。実行中に変わらないので一度だけ判定する。
+const printSupported = canPrint()
 
 // モジュラス10 ウェイト2・1分割(Luhn formula)（M10W21）
 // 1.数値の各桁に、下の桁から２・１・２・１・…の順番に係数（ウェイト）を掛けます。
@@ -75,7 +78,6 @@ interface State {
     prefixAlphabet: string // 先頭のアルファベット（存在する場合はCODE39になる）
     prefixZero: boolean // 先頭のゼロ埋めをするかどうか
     printing: boolean // 印刷中かどうか
-    supported: boolean // サポートブラウザかどうか
     noHeader: boolean // ヘッダーを表示しない
 }
 
@@ -83,9 +85,6 @@ class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         const ls = JSON.parse(localStorage.getItem('state') as string)
-        const browser = detect()
-        let supported = false
-        if (browser && (browser.name === 'chrome' || browser.name === 'firefox' || browser.name === 'edge' || browser.name === 'edge-chromium')) supported = true
         this.state = {
             templateName: ls && ls.templateName ? ls.templateName : 'aone-28368',
             libName: ls && ls.libName ? ls.libName : '',
@@ -97,7 +96,6 @@ class App extends Component<Props, State> {
             suffixCheckDigit: false,
             prefixAlphabet: '',
             printing: false,
-            supported: supported,
             noHeader: false
         }
     }
@@ -241,7 +239,7 @@ class App extends Component<Props, State> {
                         printing={this.state.printing}
                         print={this.print.bind(this)}
                         copyUrl={this.copyUrl.bind(this)}
-                        supported={this.state.supported}
+                        printSupported={printSupported}
                     />
                     <div className="sheets">
                         {this.state.splitNumbers.map((numbers, index) => {

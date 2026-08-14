@@ -15,7 +15,7 @@ interface Props {
     printing: boolean
     print: () => void
     copyUrl: () => void
-    supported: boolean
+    printSupported: boolean // 印刷に必要な機能がそろっているか
 }
 
 interface State {
@@ -55,7 +55,7 @@ export default class Settings extends Component<Props, State> {
         return (
             <div className="settings">
                 <div>
-                    {this.props.supported === false ? (
+                    {this.props.printSupported === false ? (
                         <div className="ui small negative message">
                             お使いのブラウザでは正しく印刷できない可能性があります。以下のブラウザを推奨します。
                             <ul>
