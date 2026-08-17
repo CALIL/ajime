@@ -14,7 +14,7 @@
     "fomantic-ui-css": "^2.9.4",
     "jsbarcode": "^3.12.3",
     "paper-css": "^0.4.1",
-    "query-string": "^9.4.1",
+    "query-string": "^9.5.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -26,7 +26,7 @@
     "jsdom": "^30.0.1",
     "sass": "^1.102.0",
     "typescript": "~7.0.2",
-    "vite": "^8.2.0",
+    "vite": "^8.2.1",
     "vitest": "^4.1.10"
   }
 }
