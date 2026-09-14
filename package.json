@@ -14,17 +14,17 @@
     "fomantic-ui-css": "^2.9.4",
     "jsbarcode": "^3.12.3",
     "paper-css": "^0.4.1",
-    "query-string": "^9.5.0",
+    "query-string": "^9.5.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5",
+    "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "jsdom": "^30.0.1",
-    "sass": "^1.103.1",
+    "sass": "^1.104.0",
     "typescript": "~7.0.2",
     "vite": "^8.2.2",
     "vitest": "^4.1.11"
