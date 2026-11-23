@@ -14,7 +14,7 @@
     "fomantic-ui-css": "^2.9.4",
     "jsbarcode": "^3.12.3",
     "paper-css": "^0.4.1",
-    "query-string": "^9.5.1",
+    "query-string": "^10.0.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
